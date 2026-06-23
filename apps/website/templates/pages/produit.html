@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Nos Produits – Oils of Africa{% endblock %}
+
+{% block extra_head %}
+<style>
+  .hero-overlay-produit {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 113, 42, 0.60) 0%,
+      rgba(0, 50, 20, 0.88) 100%
+    );
+  }
+
+  .surface-cream { background-color: #fdf8f0; }
+
+  .chip-active {
+    background-color: #fdb813;
+    color: #1b1c1c;
+    font-weight: 700;
+  }
+  .chip-inactive {
+    border: 1px solid rgba(0,113,42,0.25);
+    color: #414941;
+    background: transparent;
+  }
+  .chip-inactive:hover {
+    border-color: #fdb813;
+    color: #1b1c1c;
+    background-color: #fdb81310;
+  }
+  .dark .chip-inactive {
+    border-color: rgba(255,255,255,0.18);
+    color: #9fd3a5;
+  }
+  .dark .chip-inactive:hover {
+    border-color: #fdb813;
+    color: #fdb813;
+    background-color: #fdb81315;
+  }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.19,1,0.22,1),
+                transform 0.8s cubic-bezier(0.19,1,0.22,1);
+  }
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-produit {
+    transition: transform 0.35s cubic-bezier(0.19,1,0.22,1),
+                box-shadow 0.35s cubic-bezier(0.19,1,0.22,1),
+                border-color 0.35s;
+  }
+  .card-produit:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -10px rgba(0,113,42,0.18);
+    border-color: #fdb813 !important;
+  }
+  .dark .card-produit:hover {
+    box-shadow: 0 20px 50px -10px rgba(253,184,19,0.12);
+  }
+
+  .spec-chip {
+    background-color: rgba(253,184,19,0.10);
+    border: 1px solid rgba(253,184,19,0.20);
+  }
+  .dark .spec-chip {
+    background-color: rgba(253,184,19,0.08);
+    border-color: rgba(253,184,19,0.18);
+  }
+
+  /* scrollbar-hide */
+  .scrollbar-hide { -ms-overflow-style:none; scrollbar-width:none; }
+  .scrollbar-hide::-webkit-scrollbar { display:none; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ─── HERO ─────────────────────────────────────────────────────────────── #}
+<header class="relative h-[500px] w-full flex items-center justify-center pt-28">
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <img src="{% static 'image/hero-produits.jpg' %}"
+         onerror="this.style.display='none'"
+         alt=""
+         class="w-full h-full object-cover scale-105">
+    <div class="absolute inset-0 hero-overlay-produit"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/40 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 text-center max-w-4xl px-margin-mobile">
+    {# breadcrumb #}
+    <nav class="flex items-center justify-center gap-2 text-sm text-white/60 mb-6 reveal active" style="transition-delay:50ms">
+      <a href="{% url 'website:accueil' %}" class="hover:text-secondary transition-colors">Accueil</a>
+      <span class="material-symbols-outlined text-base opacity-50">chevron_right</span>
+      <span class="text-white/90">Produits</span>
+    </nav>
+
+    <span class="inline-block text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4 reveal active" style="transition-delay:100ms">
+      Portfolio produits
+    </span>
+    <h1 class="text-white font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight reveal active" style="transition-delay:200ms">
+      Huiles végétales<br>
+      <span class="text-secondary">de référence</span>
+    </h1>
+    <p class="text-white/85 font-body-lg text-body-lg max-w-2xl mx-auto reveal active" style="transition-delay:300ms">
+      Sourcing direct depuis Côte d'Ivoire, Ghana et Nigeria. Chaque produit livré
+      avec certificat d'analyse et traçabilité complète.
+    </p>
+  </div>
+</header>
+
+{# ─── FILTER CHIPS ─────────────────────────────────────────────────────── #}
+<div class="sticky top-0 z-30 bg-white/95 dark:bg-[#111814]/95 backdrop-blur-md border-b border-outline-variant dark:border-white/10 shadow-sm">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-4 flex items-center gap-3 overflow-x-auto scrollbar-hide">
+    <a href="{% url 'website:produit_list' %}"
+       class="chip-{% if not cat_active %}active{% else %}inactive{% endif %} flex-shrink-0 px-5 py-2 rounded-full text-label-sm transition-all duration-200">
+      Toutes
+    </a>
+    {% for slug, label in categories %}
+    <a href="?categorie={{ slug }}"
+       class="chip-{% if cat_active == slug %}active{% else %}inactive{% endif %} flex-shrink-0 px-5 py-2 rounded-full text-label-sm transition-all duration-200">
+      {{ label }}
+    </a>
+    {% endfor %}
+
+    <span class="ml-auto flex-shrink-0 text-on-surface-variant dark:text-[#8da892] text-sm">
+      {{ produits|length }} produit{{ produits|length|pluralize }}
+    </span>
+  </div>
+</div>
+
+{# ─── CARDS GRID ────────────────────────────────────────────────────────── #}
+<section class="py-section-padding px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+
+  {% if produits %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    {% for p in produits %}
+
+    <div class="card-produit group bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-white/10 rounded-xl overflow-hidden flex flex-col reveal-on-scroll">
+
+      {# accent bar couleur par catégorie #}
+      {% if p.categorie == 'palme' %}
+      <div class="h-1 bg-gradient-to-r from-secondary to-orange-400"></div>
+      {% elif p.categorie == 'tropical' %}
+      <div class="h-1 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+      {% else %}
+      <div class="h-1 bg-gradient-to-r from-primary to-emerald-700"></div>
+      {% endif %}
+
+      {# image ou placeholder #}
+      <div class="relative h-44 bg-surface-container dark:bg-[#111814] overflow-hidden">
+        {% if p.image %}
+        <img src="{{ p.image.url }}" alt="{{ p.nom }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        {% else %}
+        <div class="w-full h-full flex items-center justify-center">
+          <span class="material-symbols-outlined text-6xl text-outline dark:text-white/20">water_drop</span>
+        </div>
+        {% endif %}
+        {# badge catégorie sur l'image #}
+        <span class="absolute top-3 left-3 px-2.5 py-1 rounded text-[11px] font-bold tracking-widest uppercase
+          {% if p.categorie == 'palme' %}bg-secondary/90 text-[#1b1c1c]
+          {% elif p.categorie == 'tropical' %}bg-emerald-500/90 text-white
+          {% else %}bg-primary-container text-on-primary-container{% endif %}">
+          {{ p.get_categorie_display }}
+        </span>
+      </div>
+
+      <div class="p-6 flex flex-col flex-1">
+
+        {# nom #}
+        <h2 class="text-headline-md font-headline-md text-on-surface dark:text-[#e2ede4] leading-tight mb-3">
+          {{ p.nom }}
+        </h2>
+
+        {# description #}
+        <p class="text-body-md font-body-md text-on-surface-variant dark:text-[#8da892] leading-relaxed mb-5 line-clamp-2">
+          {{ p.description }}
+        </p>
+
+        {# specs chips #}
+        {% if p.specs %}
+        <div class="grid grid-cols-2 gap-2 mb-5">
+          {% for key, val in p.specs %}
+          <div class="spec-chip rounded-lg px-3 py-2">
+            <div class="text-[10px] text-on-surface-variant dark:text-[#8da892] uppercase tracking-wider mb-0.5">{{ key }}</div>
+            <div class="text-sm font-bold text-on-surface dark:text-[#e2ede4]">{{ val }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {# footer de la card #}
+        <div class="mt-auto pt-4 border-t border-outline-variant dark:border-white/10 flex items-center justify-between">
+          {% if p.lead_time %}
+          <div class="flex items-center gap-1.5 text-on-surface-variant dark:text-[#8da892] text-sm">
+            <span class="material-symbols-outlined text-sm">schedule</span>
+            {{ p.lead_time }}
+          </div>
+          {% endif %}
+          <a href="{% url 'website:produit_detail' p.pk %}"
+             class="ml-auto flex items-center gap-1.5 text-secondary font-label-sm text-label-sm
+                    hover:gap-3 transition-all duration-300">
+            Voir le détail
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <div class="text-center py-32">
+    <span class="material-symbols-outlined text-7xl text-outline dark:text-white/20 block mb-6">inventory_2</span>
+    <p class="text-on-surface-variant dark:text-[#8da892] text-body-lg font-body-lg mb-4">
+      Aucun produit dans cette catégorie.
+    </p>
+    <a href="{% url 'website:produit_list' %}"
+       class="inline-flex items-center gap-2 text-secondary font-label-sm text-label-sm hover:underline">
+      <span class="material-symbols-outlined text-sm">arrow_back</span>
+      Voir tous les produits
+    </a>
+  </div>
+  {% endif %}
+
+</section>
+
+{# ─── COMPARISON TABLE ──────────────────────────────────────────────────── #}
+{% if tous %}
+<section class="surface-cream dark:bg-[#111814] py-section-padding">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+
+    <div class="text-center mb-12 reveal-on-scroll">
+      <span class="text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-3 block">
+        Vue comparative
+      </span>
+      <h2 class="text-headline-md font-headline-md text-primary dark:text-[#a0d3a6]">
+        Tableau de comparaison
+      </h2>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-outline-variant dark:border-white/10 shadow-sm reveal-on-scroll">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-surface-container dark:bg-[#1a2219] border-b border-outline-variant dark:border-white/10">
+            <th class="text-left px-6 py-4 text-on-surface-variant dark:text-[#8da892] font-label-sm uppercase tracking-wider text-xs">Produit</th>
+            <th class="text-left px-4 py-4 text-on-surface-variant dark:text-[#8da892] font-label-sm uppercase tracking-wider text-xs">Catégorie</th>
+            <th class="text-left px-4 py-4 text-on-surface-variant dark:text-[#8da892] font-label-sm uppercase tracking-wider text-xs">FFA</th>
+            <th class="text-left px-4 py-4 text-on-surface-variant dark:text-[#8da892] font-label-sm uppercase tracking-wider text-xs">Conditionnement</th>
+            <th class="text-left px-4 py-4 text-on-surface-variant dark:text-[#8da892] font-label-sm uppercase tracking-wider text-xs">Origines</th>
+            <th class="text-left px-4 py-4 text-on-surface-variant dark:text-[#8da892] font-label-sm uppercase tracking-wider text-xs">Lead time</th>
+            <th class="px-4 py-4"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in tous %}
+          <tr class="border-b border-outline-variant dark:border-white/5 hover:bg-surface-container dark:hover:bg-[#1a2219] transition-colors">
+            <td class="px-6 py-4">
+              <span class="font-bold text-on-surface dark:text-[#e2ede4]">{{ p.nom }}</span>
+            </td>
+            <td class="px-4 py-4">
+              <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider
+                {% if p.categorie == 'palme' %}bg-secondary/15 text-[#7a5800]
+                {% elif p.categorie == 'tropical' %}bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400
+                {% else %}bg-primary-fixed/30 text-primary dark:bg-[#0f5c2a]/40 dark:text-[#a0d3a6]{% endif %}">
+                {{ p.get_categorie_display }}
+              </span>
+            </td>
+            <td class="px-4 py-4 text-on-surface-variant dark:text-[#8da892]">{{ p.ffa|default:"—" }}</td>
+            <td class="px-4 py-4 text-on-surface-variant dark:text-[#8da892]">{{ p.conditionnement|default:"—" }}</td>
+            <td class="px-4 py-4 text-on-surface-variant dark:text-[#8da892]">{{ p.origine|default:"—" }}</td>
+            <td class="px-4 py-4 text-on-surface-variant dark:text-[#8da892]">{{ p.lead_time|default:"—" }}</td>
+            <td class="px-4 py-4">
+              <a href="{% url 'website:produit_detail' p.pk %}"
+                 class="text-secondary hover:text-on-secondary-container transition-colors" title="Voir le détail">
+                <span class="material-symbols-outlined text-lg">open_in_new</span>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+{% endif %}
+
+{# ─── CTA ───────────────────────────────────────────────────────────────── #}
+<section class="py-section-padding px-margin-mobile md:px-gutter">
+  <div class="max-w-container-max mx-auto">
+    <div class="bg-primary-container dark:bg-[#0f5c2a] rounded-2xl p-12 md:p-16
+                border border-primary/20 dark:border-[#a0d3a6]/20 text-center reveal-on-scroll">
+
+      <span class="material-symbols-outlined text-5xl text-secondary block mb-6">help_outline</span>
+      <h2 class="text-headline-md font-headline-md text-on-primary-container dark:text-[#bbefc1] mb-4">
+        Un produit absent de cette liste ?
+      </h2>
+      <p class="text-body-lg font-body-lg text-on-primary-container/80 dark:text-[#9fd3a5] mb-10 max-w-xl mx-auto">
+        Notre réseau de sourcing couvre l'ensemble de l'Afrique de l'Ouest.
+        Contactez-nous pour discuter de vos besoins spécifiques.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{% url 'website:contact' %}"
+           class="inline-flex items-center gap-2 bg-secondary hover:brightness-110 text-on-secondary
+                  font-label-sm text-label-sm px-8 py-3 rounded-full transition-all shadow-md shimmer">
+          <span class="material-symbols-outlined">mail</span>
+          Nous contacter
+        </a>
+        <a href="{% url 'website:apropos' %}"
+           class="inline-flex items-center gap-2 border-2 border-on-primary-container/30 dark:border-[#a0d3a6]/30
+                  text-on-primary-container dark:text-[#a0d3a6]
+                  hover:border-secondary hover:text-secondary
+                  font-label-sm text-label-sm px-8 py-3 rounded-full transition-all">
+          <span class="material-symbols-outlined">info</span>
+          En savoir plus
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  /* reveal-on-scroll */
+  const revealEls = document.querySelectorAll('.reveal-on-scroll');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 80) + 'ms';
+        e.target.classList.add('active');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+{% endblock %}

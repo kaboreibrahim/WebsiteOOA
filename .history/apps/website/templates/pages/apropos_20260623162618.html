@@ -1,0 +1,474 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}À Propos | Oils of Africa{% endblock %}
+
+{% block extra_head %}
+<style>
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 113, 42, 0.65) 0%,
+      rgba(0, 50, 20, 0.85) 100%
+    );
+  }
+
+  .surface-cream { background-color: #fdf8f0; }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.19,1,0.22,1),
+                transform 0.8s cubic-bezier(0.19,1,0.22,1);
+  }
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="relative h-[600px] w-full flex items-center justify-center pt-28">
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div class="w-full h-full bg-cover bg-center"
+         id="hero-bg"
+         style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAToD6jvoHUKyG31hdy2yBbbglK662p8GOMeXOJL-xt_41jfsj7Zb_3Ue6Pht0i57NtHk9B5a-GblzC57oqN8wYX6qBTY2jX7q3nUTBwzUFAJWOh3za5mI1UFick6TuU4ci3oOfXqsQ55B2NYA2WmqCsisBwmjF2-8t7dvPmqTMp21irI6PDF0LkBTMLUAJQtHKHRTT2ftqKsqMgnbuxhCCXpah1pEBNuYdw7Nk7vMLFLcUERj_nHS4RLGW9xh5w3b6ieQOJA9cKI2V'); transform-origin: center; transform: scale(1.05);"></div>
+    <div class="absolute inset-0 hero-overlay"></div>
+  </div>
+
+  <div class="relative z-10 text-center max-w-4xl px-margin-mobile">
+    <span class="inline-block text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4 reveal active" style="transition-delay: 100ms;">
+      Qui sommes-nous
+    </span>
+    <h1 class="text-white font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight reveal active" style="transition-delay: 200ms;">
+      Notre Engagement
+    </h1>
+    <p class="text-white/90 font-body-lg text-body-lg max-w-2xl mx-auto italic reveal active" style="transition-delay: 300ms;">
+      L'excellence au cœur de la chaîne de valeur oléagineuse africaine.
+    </p>
+  </div>
+</header>
+
+<!-- ============================================================
+     VISION & MISSION
+     ============================================================ -->
+<section class="py-section-padding px-margin-mobile md:px-gutter max-w-container-max mx-auto" id="about">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-center">
+
+    <div class="reveal-on-scroll">
+      <span class="text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4 block">Qui sommes-nous ?</span>
+      <h2 class="text-headline-md font-headline-md text-primary mb-8 dark:text-[#a0d3a6]">Vision &amp; Mission</h2>
+
+      <div class="p-8 bg-surface-container-low dark:bg-[#1a2219] border-l-4 border-secondary rounded-r-xl shadow-sm">
+        <p class="text-body-lg font-body-lg text-on-surface dark:text-[#e2ede4] leading-relaxed">
+          Bienvenue chez <span class="font-bold text-primary dark:text-[#a0d3a6]">OILS OF AFRICA</span>,
+          un acteur majeur dans le négoce et la logistique des huiles non-dangereuses, avec un
+          rayonnement à travers l'Afrique de l'Ouest. Basée en Côte d'Ivoire, notre société est
+          également présente au Ghana, au Bénin, au Cameroun et au Nigeria, faisant de nous un
+          partenaire stratégique dans la sous région.
+        </p>
+      </div>
+
+      <!-- Stats rapides -->
+      <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+        <div class="p-4 bg-secondary/10 dark:bg-secondary/20 rounded-xl">
+          <div class="text-2xl font-bold text-primary dark:text-[#a0d3a6] stat-counter" data-target="10">10</div>
+          <div class="text-xs text-on-surface-variant dark:text-[#8da892] mt-1">Pays couverts</div>
+        </div>
+        <div class="p-4 bg-secondary/10 dark:bg-secondary/20 rounded-xl">
+          <div class="text-2xl font-bold text-primary dark:text-[#a0d3a6] stat-counter" data-target="5">5</div>
+          <div class="text-xs text-on-surface-variant dark:text-[#8da892] mt-1">Produits phares</div>
+        </div>
+        <div class="p-4 bg-secondary/10 dark:bg-secondary/20 rounded-xl">
+          <div class="text-2xl font-bold text-primary dark:text-[#a0d3a6]">∞</div>
+          <div class="text-xs text-on-surface-variant dark:text-[#8da892] mt-1">Partenariats</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal-on-scroll relative group">
+      <div class="absolute -inset-4 bg-secondary/10 dark:bg-secondary/20 rounded-2xl -z-10 group-hover:bg-secondary/20 transition-all duration-500"></div>
+      <img class="rounded-xl shadow-xl w-full object-cover aspect-[4/3]"
+           src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9sa3akosqT4qjK_GUYl2XY3cp8JIytAEd72GDx7hxXGOIhg-TaXCWJ_XNrAThHRKxxNs4du6ukEaRLFGzXL9l1FBe6xAfWG6ft4BugDhG5jrb38AVLjaG0RwNpruqlP6JW-FKOoUPU8EsTdlucnCtaOFMQhZfjzue_ksiGA6kblVThWDw4bVepAzN7VaiWNzn0dumFvdAjp_ElqJXXQZHji16WtDOLBG3XMt--4h4qDvUZdGG4OkC5XK5hT74Xmgp9czgBfovS13u"
+           alt="Oils of Africa - Expertise" />
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     NOTRE EXPERTISE UNIQUE
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-low dark:bg-[#111814]">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+
+    <div class="text-center mb-16 reveal-on-scroll">
+      <h2 class="text-headline-md font-headline-md text-primary dark:text-[#a0d3a6]">Notre Expertise Unique</h2>
+      <div class="w-24 h-1 bg-secondary mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+      <!-- Solutions Spécialisées -->
+      <div class="reveal-on-scroll space-y-6">
+        <h3 class="text-xl font-bold text-primary dark:text-[#a0d3a6] flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">verified</span>
+          Solutions Spécialisées
+        </h3>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <span class="w-2 h-2 mt-2 rounded-full bg-secondary shrink-0"></span>
+            <span class="text-body-md text-on-surface-variant dark:text-[#8da892]">
+              La fourniture de <strong class="text-on-surface dark:text-[#e2ede4]">Flexitanks et Iso Tanks</strong> de haute qualité.
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-2 h-2 mt-2 rounded-full bg-secondary shrink-0"></span>
+            <span class="text-body-md text-on-surface-variant dark:text-[#8da892]">
+              Le <strong class="text-on-surface dark:text-[#e2ede4]">transvasement sécurisé</strong> de produits liquides alimentaires.
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-2 h-2 mt-2 rounded-full bg-secondary shrink-0"></span>
+            <span class="text-body-md text-on-surface-variant dark:text-[#8da892]">
+              Le <strong class="text-on-surface dark:text-[#e2ede4]">traitement technique</strong> des Tanks pour une pureté optimale.
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="w-2 h-2 mt-2 rounded-full bg-secondary shrink-0"></span>
+            <span class="text-body-md text-on-surface-variant dark:text-[#8da892]">
+              La <strong class="text-on-surface dark:text-[#e2ede4]">réparation et le nettoyage</strong> certifiés des conteneurs et des Iso tanks.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Maîtrise Logistique -->
+      <div class="reveal-on-scroll space-y-6">
+        <h3 class="text-xl font-bold text-primary dark:text-[#a0d3a6] flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary">local_shipping</span>
+          Maîtrise Logistique
+        </h3>
+        <div class="bg-surface dark:bg-[#1a2219] p-6 rounded-xl border border-outline-variant dark:border-[#2d3d30] shadow-sm">
+          <p class="text-body-md text-on-surface-variant dark:text-[#8da892] leading-relaxed">
+            Grâce à notre expertise logistique, nous prenons en charge l'intégralité du transport de
+            vos marchandises, depuis l'usine de production jusqu'à destination. Nos conditions
+            d'expédition incluent les incoterms&nbsp;:
+          </p>
+          <span class="inline-flex gap-2 mt-4 flex-wrap">
+            <span class="px-3 py-1 bg-primary/10 dark:bg-[#a0d3a6]/10 text-primary dark:text-[#a0d3a6] text-xs font-bold rounded-full">FOB</span>
+            <span class="px-3 py-1 bg-primary/10 dark:bg-[#a0d3a6]/10 text-primary dark:text-[#a0d3a6] text-xs font-bold rounded-full">CFR</span>
+            <span class="px-3 py-1 bg-primary/10 dark:bg-[#a0d3a6]/10 text-primary dark:text-[#a0d3a6] text-xs font-bold rounded-full">CIF</span>
+            <span class="px-3 py-1 bg-primary/10 dark:bg-[#a0d3a6]/10 text-primary dark:text-[#a0d3a6] text-xs font-bold rounded-full">DDP / Rendu</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRÉSENCE GÉOGRAPHIQUE
+     ============================================================ -->
+<section class="py-section-padding px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+  <div class="text-center mb-16 reveal-on-scroll">
+    <span class="text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4 block">Rayonnement</span>
+    <h2 class="text-headline-md font-headline-md text-primary dark:text-[#a0d3a6]">Notre Présence en Afrique</h2>
+  </div>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 reveal-on-scroll">
+    {% for country in countries %}
+    <div class="p-5 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-lg hover:-translate-y-1 transition-all">
+      <span class="fi fi-{{ country.code }} block mx-auto mb-3 w-10 h-7 rounded shadow-sm"></span>
+      <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm block">{{ country.name }}</span>
+      <span class="text-on-surface-variant dark:text-[#8da892] text-xs">{{ country.role }}</span>
+    </div>
+    {% empty %}
+    {% for item in "CIV,GHA,BEN,CMR,NGA"|make_list %}{% endfor %}
+    <div class="p-5 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-lg hover:-translate-y-1 transition-all">
+      <span class="fi fi-ci block mx-auto mb-3 w-10 h-7 rounded shadow-sm"></span>
+      <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm block">Côte d'Ivoire</span>
+      <span class="text-on-surface-variant dark:text-[#8da892] text-xs">Siège social</span>
+    </div>
+    <div class="p-5 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-lg hover:-translate-y-1 transition-all">
+      <span class="fi fi-gh block mx-auto mb-3 w-10 h-7 rounded shadow-sm"></span>
+      <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm block">Ghana</span>
+      <span class="text-on-surface-variant dark:text-[#8da892] text-xs">Bureau régional</span>
+    </div>
+    <div class="p-5 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-lg hover:-translate-y-1 transition-all">
+      <span class="fi fi-bj block mx-auto mb-3 w-10 h-7 rounded shadow-sm"></span>
+      <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm block">Bénin</span>
+      <span class="text-on-surface-variant dark:text-[#8da892] text-xs">Bureau régional</span>
+    </div>
+    <div class="p-5 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-lg hover:-translate-y-1 transition-all">
+      <span class="fi fi-cm block mx-auto mb-3 w-10 h-7 rounded shadow-sm"></span>
+      <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm block">Cameroun</span>
+      <span class="text-on-surface-variant dark:text-[#8da892] text-xs">Bureau régional</span>
+    </div>
+    <div class="p-5 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-lg hover:-translate-y-1 transition-all">
+      <span class="fi fi-ng block mx-auto mb-3 w-10 h-7 rounded shadow-sm"></span>
+      <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm block">Nigeria</span>
+      <span class="text-on-surface-variant dark:text-[#8da892] text-xs">Bureau régional</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ============================================================
+     PRODUITS PHARES
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-low dark:bg-[#111814]" id="products">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+
+    <div class="text-center mb-16 reveal-on-scroll">
+      <span class="text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4 block">Nos Ressources</span>
+      <h2 class="text-headline-md font-headline-md text-primary dark:text-[#a0d3a6]">Produits Phares</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 reveal-on-scroll">
+      {% for product in products %}
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold block">{{ product.nom }}</span>
+        {% if product.sous_titre %}<span class="text-xs text-on-surface-variant dark:text-[#8da892] italic">{{ product.sous_titre }}</span>{% endif %}
+      </div>
+      {% empty %}
+      {% for item in produits_defaut %}
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">{{ item }}</span>
+      </div>
+      {% empty %}
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold block">Huile de palme</span>
+        <span class="text-xs text-on-surface-variant dark:text-[#8da892] italic">&amp; ses dérivés</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Beurre de cacao</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Beurre de karité</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Acide gras</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Huile de cuisson</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Huile d'arachide</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Huile de coton</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Huile de caoutchouc</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Huile de coque d'anacarde</span>
+      </div>
+      <div class="p-4 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl text-center hover:shadow-md hover:-translate-y-1 transition-all flex items-center justify-center">
+        <span class="text-primary dark:text-[#a0d3a6] font-bold text-sm">Et bien d'autres…</span>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     ÉQUIPE DIRIGEANTE
+     ============================================================ -->
+<section class="py-section-padding overflow-hidden">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+
+    <div class="text-center mb-16 reveal-on-scroll">
+      <h2 class="text-headline-md font-headline-md text-primary dark:text-[#a0d3a6]">Équipe Dirigeante</h2>
+      <p class="text-on-surface-variant dark:text-[#8da892] mt-4 max-w-xl mx-auto">
+        Une organisation structurée pour répondre avec réactivité et professionnalisme à vos besoins.
+      </p>
+    </div>
+
+    <!-- Dirigeants principaux -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 reveal-on-scroll">
+
+      <!-- CEO -->
+      <div class="group bg-surface dark:bg-[#1a2219] rounded-xl overflow-hidden shadow-sm border border-outline-variant dark:border-[#2d3d30] hover:shadow-lg hover:-translate-y-1 transition-all duration-500">
+        <div class="h-64 overflow-hidden">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKGmoIda9u-sBvTkj7FMDFkHBahW96k721-b-DPWDzAgNbDrVfRCNxCnUXB2Y7CI7y_hBfNiSEmvQnRh4xS562T6Tuo4zBiwBY4v6Whr_Lenm3QP7_3NgrCi3xaaLX157tJAhuAT9gT82kxWZ3d0kZiWYkl3J7Qcj_TfobvskpBUBhhQNK23nH-b68x5Q8oKreuyfoq1I52VmpobmSSEJIxrSA56p6LfDW8B-CmGtkT8pN7sOsHiYwBM9YRvW33uJi91RF6yQll6ru"
+               alt="Debetou Toh Serge – CEO" />
+        </div>
+        <div class="p-6">
+          <h4 class="text-primary dark:text-[#a0d3a6] font-bold text-lg uppercase">DEBETOU TOH SERGE</h4>
+          <p class="text-secondary font-label-sm text-xs mb-3">CHIEF EXECUTIVE OFFICER</p>
+          <a class="text-on-surface-variant dark:text-[#8da892] text-sm flex items-center gap-2 hover:text-primary dark:hover:text-[#a0d3a6] transition-colors"
+             href="mailto:serge.debetou@oils-of-africa.com">
+            <span class="material-symbols-outlined text-sm">mail</span>
+            serge.debetou@oils-of-africa.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Directeur Exploitation -->
+      <div class="group bg-surface dark:bg-[#1a2219] rounded-xl overflow-hidden shadow-sm border border-outline-variant dark:border-[#2d3d30] hover:shadow-lg hover:-translate-y-1 transition-all duration-500">
+        <div class="h-64 overflow-hidden">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr-rB5gjzdfNl9YfXdUvou8-rxyof5kJIpsxj_qPjJXX_lvFyWOIsQy962n1CPpVnUfmC5SDw81pTf5vgujquz5Llna_1v22NfZfVZgAgttU2y7POXOloYmi_XfhE28L1JYRJoMKwjBZMSXvbrq5ff-SHnLcjIC7zCeBgQXI3pGsAUF5w2HUTNh6RQh2T5W24qJ4pj-soR9oBXj-iCOR6wS45F0icP3EL6dnKmUnIaqYBDDgCZGtZFaUstqVOncJLS4beH8uu36qjy"
+               alt="Nan Jean Jose – Directeur Exploitation" />
+        </div>
+        <div class="p-6">
+          <h4 class="text-primary dark:text-[#a0d3a6] font-bold text-lg uppercase">NAN JEAN JOSE</h4>
+          <p class="text-secondary font-label-sm text-xs mb-3">DIRECTEUR EXPLOITATION</p>
+          <a class="text-on-surface-variant dark:text-[#8da892] text-sm flex items-center gap-2 hover:text-primary dark:hover:text-[#a0d3a6] transition-colors"
+             href="mailto:nan.jose@oils-of-africa.com">
+            <span class="material-symbols-outlined text-sm">mail</span>
+            nan.jose@oils-of-africa.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Assistante Exploitation -->
+      <div class="group bg-surface dark:bg-[#1a2219] rounded-xl overflow-hidden shadow-sm border border-outline-variant dark:border-[#2d3d30] hover:shadow-lg hover:-translate-y-1 transition-all duration-500">
+        <div class="h-64 overflow-hidden">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk9nsSBW5js7ZxWZcfBx_n151IuaO-6CVU2JLKmrTxwHlTCnum7V3HSsWyU5iuY-xD4G9yDS0erCGF6v9QHri_n5GElW5-dJ4IVR70uQWqJL_ZVEtmLuIwWRiC1JLqtCEoNTHhK2C8lQt_1hmrMJ2jyj6WpLRQaB6a7mwO5DlE_hInBNaLjGY6o9RdWIQXPIwa8XdqNxjc8coH4MV-_fjWkQ8O5MDoCcxGqK_cR4qFp_04xyhIxmhtEflsPS_FcwYkAcgquOIvTdoq"
+               alt="Angoran F. Raphaelle – Assistante Exploitation" />
+        </div>
+        <div class="p-6">
+          <h4 class="text-primary dark:text-[#a0d3a6] font-bold text-lg uppercase">ANGORAN F. RAPHAELLE</h4>
+          <p class="text-secondary font-label-sm text-xs mb-3">ASSISTANTE EXPLOITATION</p>
+          <a class="text-on-surface-variant dark:text-[#8da892] text-sm flex items-center gap-2 hover:text-primary dark:hover:text-[#a0d3a6] transition-colors"
+             href="mailto:angoran.fernande@oils-of-africa.com">
+            <span class="material-symbols-outlined text-sm">mail</span>
+            angoran.fernande@oils-of-africa.com
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Autres membres -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
+
+      <div class="p-6 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl flex items-center gap-4 hover:shadow-md hover:-translate-y-1 transition-all">
+        <div class="w-12 h-12 rounded-full bg-secondary-container dark:bg-secondary/20 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-secondary-container dark:text-secondary">account_balance</span>
+        </div>
+        <div>
+          <h5 class="font-bold text-primary dark:text-[#a0d3a6] text-sm uppercase">OLLEPO ASSI SERGE</h5>
+          <p class="text-xs text-secondary font-semibold">COMPTABLE</p>
+          <p class="text-xs text-on-surface-variant dark:text-[#8da892]">comptabilite@oils-of-africa.com</p>
+        </div>
+      </div>
+
+      <div class="p-6 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl flex items-center gap-4 hover:shadow-md hover:-translate-y-1 transition-all">
+        <div class="w-12 h-12 rounded-full bg-secondary-container dark:bg-secondary/20 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-secondary-container dark:text-secondary">inventory_2</span>
+        </div>
+        <div>
+          <h5 class="font-bold text-primary dark:text-[#a0d3a6] text-sm uppercase">TUO NONLOUROU ALICE</h5>
+          <p class="text-xs text-secondary font-semibold">AGENT LOGISTIQUE</p>
+          <p class="text-xs text-on-surface-variant dark:text-[#8da892]">alice.tuo@oils-of-africa.com</p>
+        </div>
+      </div>
+
+      <div class="p-6 bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl flex items-center gap-4 hover:shadow-md hover:-translate-y-1 transition-all">
+        <div class="w-12 h-12 rounded-full bg-secondary-container dark:bg-secondary/20 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-secondary-container dark:text-secondary">warehouse</span>
+        </div>
+        <div>
+          <h5 class="font-bold text-primary dark:text-[#a0d3a6] text-sm uppercase">ADJALEVON BLANDINE</h5>
+          <p class="text-xs text-secondary font-semibold">GESTIONNAIRE DE STOCK</p>
+          <p class="text-xs text-on-surface-variant dark:text-[#8da892]">appro.stock@oils-of-africa.com</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Équipes -->
+    <div class="mt-12 flex flex-col md:flex-row gap-6 reveal-on-scroll">
+
+      <div class="flex-1 p-6 bg-primary text-white rounded-xl flex justify-between items-center hover:brightness-105 transition-all">
+        <div>
+          <h4 class="font-bold text-xl uppercase">ÉQUIPE SOURCING</h4>
+          <p class="text-white/70 text-sm">Experts en approvisionnement</p>
+        </div>
+        <a class="bg-secondary text-on-secondary p-3 rounded-full hover:scale-110 transition-all shimmer"
+           href="mailto:sourcing@oils-of-africa.com"
+           title="Contacter l'équipe sourcing">
+          <span class="material-symbols-outlined">mail</span>
+        </a>
+      </div>
+
+      <div class="flex-1 p-6 bg-secondary text-on-secondary rounded-xl flex justify-between items-center hover:brightness-105 transition-all">
+        <div>
+          <h4 class="font-bold text-xl uppercase">ÉQUIPE TECHNIQUE</h4>
+          <p class="text-on-secondary/70 text-sm">Gestion des tanks &amp; maintenance</p>
+        </div>
+        <div class="bg-white/20 p-3 rounded-full">
+          <span class="material-symbols-outlined">engineering</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     CALL TO ACTION
+     ============================================================ -->
+<section class="py-section-padding px-margin-mobile" id="contact">
+  <div class="max-w-4xl mx-auto bg-primary dark:bg-[#0f5c2a] rounded-3xl p-12 text-center text-white relative overflow-hidden shadow-2xl reveal-on-scroll">
+    <!-- Décoration fond -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+    <div class="relative z-10">
+      <span class="inline-block text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4">Partenariat</span>
+      <h2 class="text-headline-md font-headline-md mb-6">Travaillons ensemble</h2>
+      <p class="text-body-lg mb-10 text-white/80 max-w-xl mx-auto">
+        Découvrez comment nos solutions logistiques et de sourcing peuvent transformer
+        votre chaîne d'approvisionnement.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="mailto:contact@oils-of-africa.com"
+           class="inline-flex items-center justify-center gap-2 bg-secondary text-on-secondary px-10 py-4 rounded-full font-bold hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-lg shimmer">
+          <span class="material-symbols-outlined text-sm">mail</span>
+          Nous contacter
+        </a>
+        <a href="{% url 'website:accueil' %}#products"
+           class="inline-flex items-center justify-center border-2 border-white/30 text-white px-10 py-4 rounded-full font-bold hover:bg-white/10 hover:scale-105 active:scale-95 transition-all">
+          Nos Services
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Scroll reveal pour les éléments de la page À propos
+    const roObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(function (el) {
+      roObserver.observe(el);
+    });
+  });
+</script>
+{% endblock %}

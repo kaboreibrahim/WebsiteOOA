@@ -1,0 +1,523 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="relative h-screen flex items-center overflow-hidden" id="hero">
+
+  <!-- Slides arrière-plan -->
+  {% if heroes %}
+    {% for h in heroes %}
+    <div class="hero-slide absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out{% if not forloop.first %} opacity-0{% endif %}"
+         style="background-image: url('{% if h.image %}{{ h.image.url }}{% endif %}'); transform: scale(1.05);"></div>
+    {% endfor %}
+  {% else %}
+    <div class="absolute inset-0 z-0 bg-cover bg-center"
+         style="background-image: url('{% static 'image/champ.png' %}');"></div>
+  {% endif %}
+
+  <div class="absolute inset-0 z-10 bg-gradient-to-r from-primary/95 via-primary/60 to-transparent dark:from-[#071109]/98 dark:via-primary/70"></div>
+
+  <!-- Contenu texte -->
+  <div class="relative z-20 w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto text-white">
+    <div class="max-w-2xl reveal active" style="transition-delay: 200ms;">
+
+      {% if heroes %}
+        {% for h in heroes %}
+        <div class="hero-content{% if not forloop.first %} hidden{% endif %}">
+          <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">
+            {{ h.titre }}
+          </h1>
+          <p class="text-body-lg mb-10 opacity-90 max-w-xl">
+            {{ h.description }}
+          </p>
+        </div>
+        {% endfor %}
+      {% else %}
+        <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">
+          Le partenaire de confiance pour vos huiles en Afrique de l'Ouest
+        </h1>
+        <p class="text-body-lg mb-10 opacity-90 max-w-xl">
+          Négoce international et solutions logistiques de pointe. Nous connectons les producteurs locaux aux marchés mondiaux avec excellence et intégrité.
+        </p>
+      {% endif %}
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#products"
+           class="inline-flex items-center justify-center bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-xl shimmer">
+          Découvrir nos produits
+        </a>
+        <a href="https://innov-sourcing.com/fr/cotation/creer/"
+           class="inline-flex items-center justify-center border-2 border-white/50 text-white px-8 py-4 rounded-full font-bold text-label-sm hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all backdrop-blur-sm">
+          Demander un devis
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/50 animate-bounce">
+    <span class="material-symbols-outlined text-2xl">keyboard_arrow_down</span>
+  </div>
+</section>
+<!-- ============================================================
+     À PROPOS
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710] reveal" id="about">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Text side -->
+      <div>
+        <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Qui sommes-nous</span>
+        <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-6">Notre Engagement en Afrique</h2>
+        <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-8 leading-relaxed">
+          Oils of Africa s'est forgé une réputation d'excellence dans l'exportation d'huiles végétales. Notre mission est de valoriser les richesses naturelles de l'Afrique de l'Ouest tout en garantissant une chaîne d'approvisionnement robuste et transparente.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="p-6 bg-surface-container-low dark:bg-[#1a2219] rounded-xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border-l-4 border-secondary group">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-3xl mb-4 group-hover:scale-110 transition-transform">public</span>
+            <h3 class="font-bold text-lg mb-2 dark:text-[#e2ede4]">Notre Mission</h3>
+            <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Connecter l'Afrique au reste du monde via des standards de qualité irréprochables.</p>
+          </div>
+          <div class="p-6 bg-surface-container-low dark:bg-[#1a2219] rounded-xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border-l-4 border-secondary group">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-3xl mb-4 group-hover:scale-110 transition-transform">local_shipping</span>
+            <h3 class="font-bold text-lg mb-2 dark:text-[#e2ede4]">Flexitanks</h3>
+            <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Solutions de transport flexibles pour vrac liquide optimisant les coûts logistiques.</p>
+          </div>
+          <div class="p-6 bg-surface-container-low dark:bg-[#1a2219] rounded-xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border-l-4 border-secondary group">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-3xl mb-4 group-hover:scale-110 transition-transform">thermostat</span>
+            <h3 class="font-bold text-lg mb-2 dark:text-[#e2ede4]">Iso Tanks</h3>
+            <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Conteneurs spécialisés haute sécurité pour une intégrité produit maximale.</p>
+          </div>
+          <div class="p-6 bg-surface-container-low dark:bg-[#1a2219] rounded-xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border-l-4 border-secondary group">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-3xl mb-4 group-hover:scale-110 transition-transform">groups</span>
+            <h3 class="font-bold text-lg mb-2 dark:text-[#e2ede4]">Rejoindre le groupe</h3>
+            <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Intégrez un écosystème dynamique en pleine expansion internationale.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DG side -->
+      <div class="relative flex flex-col items-center justify-center min-h-[500px]">
+        <!-- Photo -->
+        <div class="relative w-full max-w-sm overflow-hidden rounded-3xl border-4 border-white dark:border-[#1a2219] shadow-2xl hover:scale-105 transition-transform duration-700 mx-auto">
+          <img class="w-full h-auto object-cover"
+               alt="Directeur Général — Oils of Africa"
+               src="{% static 'image/dg.png' %}"/>
+        </div>
+        <!-- Badge nom / titre -->
+        <div class="mt-6 text-center bg-surface dark:bg-[#1a2219] rounded-2xl px-8 py-4 shadow-lg border border-outline-variant dark:border-[#2d3d30]">
+          <p class="font-headline-md font-bold text-primary dark:text-[#9fd3a5] text-lg">Directeur Général</p>
+          <p class="text-secondary font-bold text-sm tracking-widest uppercase mt-1">Oils of Africa</p>
+        </div>
+        <!-- Décoration -->
+        <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-secondary/20 blur-2xl pointer-events-none"></div>
+        <div class="absolute -bottom-6 -left-6 w-32 h-32 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SOURCING
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-lowest dark:bg-[#0b140d] reveal" id="sourcing">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto text-center mb-16">
+    <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Notre Sourcing d'Huiles</h2>
+    <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] max-w-3xl mx-auto">
+      Une sélection directe et rigoureuse auprès des meilleurs producteurs locaux pour garantir une fraîcheur et une pureté inégalées.
+    </p>
+  </div>
+
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+
+      <!-- Photo -->
+      <div class="rounded-3xl overflow-hidden shadow-lg h-[500px] border-8 border-white dark:border-[#1a2219] group">
+        <img alt="Sourcing d'huile de palme"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8nu40HdYAB7uC48GQ3Va9sGVTstPBdKdAhiHmTjJecXypVEQPIbSrg0gcSJqN-KHKBpypqfL_XORKC80QUHaK3LbfvCKx0t0VGP_vLnbzSleToLlWD4XPCJnrbabYubR8L2rp793uQbAty4h7UYyvl-IG-EZzaSR_xRzlDmGgoUCu4etdY-SF2OL2Qbme_5QwvDPnZTWKcKud5Fgy5nC0pLBzruBbm9BOH4qy7yiEs9He8jNpu2DNo3ekpbqdJDPwDA46mko0zvbX"/>
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div class="flex flex-col gap-4 group cursor-default">
+          <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">handshake</span>
+          <h4 class="font-bold text-lg text-primary dark:text-[#9fd3a5]">Approvisionnement direct</h4>
+          <p class="text-on-surface-variant dark:text-[#8da892]">Partenariats exclusifs avec des coopératives locales sélectionnées pour leur savoir-faire.</p>
+        </div>
+        <div class="flex flex-col gap-4 group cursor-default">
+          <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">track_changes</span>
+          <h4 class="font-bold text-lg text-primary dark:text-[#9fd3a5]">Traçabilité</h4>
+          <p class="text-on-surface-variant dark:text-[#8da892]">Suivi rigoureux de chaque lot, de la plantation jusqu'à l'embarquement final.</p>
+        </div>
+        <div class="flex flex-col gap-4 group cursor-default">
+          <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">verified</span>
+          <h4 class="font-bold text-lg text-primary dark:text-[#9fd3a5]">Contrôle qualité</h4>
+          <p class="text-on-surface-variant dark:text-[#8da892]">Laboratoires certifiés vérifiant la conformité aux standards internationaux.</p>
+        </div>
+        <div class="flex flex-col gap-4 group cursor-default">
+          <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">eco</span>
+          <h4 class="font-bold text-lg text-primary dark:text-[#9fd3a5]">Durabilité</h4>
+          <p class="text-on-surface-variant dark:text-[#8da892]">Pratiques agricoles responsables respectant les écosystèmes et les communautés.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="bg-primary dark:bg-[#071109] text-white rounded-3xl p-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center shadow-2xl relative overflow-hidden"
+         id="stats-container">
+      <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="text-5xl font-bold text-secondary mb-2">
+          <span class="stat-counter" data-target="25">0</span>+
+        </div>
+        <div class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Producteurs partenaires</div>
+      </div>
+      <div class="relative z-10">
+        <div class="text-5xl font-bold text-secondary mb-2">
+          <span class="stat-counter" data-target="500">0</span>k+
+        </div>
+        <div class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Tonnes sourcées / an</div>
+      </div>
+      <div class="relative z-10">
+        <div class="text-5xl font-bold text-secondary mb-2">
+          <span class="stat-counter" data-target="10">0</span> Pays
+        </div>
+        <div class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Couverts en Afrique</div>
+      </div>
+    </div>
+  </div>
+  <!-- ═══ MARQUEE ════════════════════════════════════ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span><span class="fi fi-ci"></span> Côte d'Ivoire</span><span class="dot"></span>
+        <span><span class="fi fi-gh"></span> Ghana</span><span class="dot"></span>
+        <span><span class="fi fi-bj"></span> Bénin</span><span class="dot"></span>
+        <span><span class="fi fi-cm"></span> Cameroun</span><span class="dot"></span>
+        <span><span class="fi fi-gn"></span> Guinée</span><span class="dot"></span>
+        <span><span class="fi fi-ng"></span> Nigeria</span><span class="dot"></span>
+        <span><span class="fi fi-lr"></span> Liberia</span><span class="dot"></span>
+        <span><span class="fi fi-mr"></span> Mauritanie</span><span class="dot"></span>
+        <span><span class="fi fi-sn"></span> Sénégal</span><span class="dot"></span>
+        <span><span class="fi fi-bf"></span> Burkina Faso</span><span class="dot"></span>
+        <span>Huile de palme &amp; dérivés</span><span class="dot"></span>
+        <span>Flexitanks 24 000 L</span><span class="dot"></span>
+        <span>Iso tanks 26 m³</span><span class="dot"></span>
+        <span><span class="fi fi-ci"></span> Côte d'Ivoire</span><span class="dot"></span>
+        <span><span class="fi fi-gh"></span> Ghana</span><span class="dot"></span>
+        <span><span class="fi fi-bj"></span> Bénin</span><span class="dot"></span>
+        <span><span class="fi fi-cm"></span> Cameroun</span><span class="dot"></span>
+        <span><span class="fi fi-gn"></span> Guinée</span><span class="dot"></span>
+        <span><span class="fi fi-ng"></span> Nigeria</span><span class="dot"></span>
+        <span><span class="fi fi-lr"></span> Liberia</span><span class="dot"></span>
+        <span><span class="fi fi-mr"></span> Mauritanie</span><span class="dot"></span>
+        <span><span class="fi fi-sn"></span> Sénégal</span><span class="dot"></span>
+        <span><span class="fi fi-bf"></span> Burkina Faso</span><span class="dot"></span>
+        <span>Huile de palme &amp; dérivés</span><span class="dot"></span>
+        <span>Flexitanks 24 000 L</span><span class="dot"></span>
+        <span>Iso tanks 26 m³</span><span class="dot"></span>
+        
+        
+      </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     LOGISTIQUE
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710]" id="logistics">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto space-y-32">
+
+    <!-- Flexitanks -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal">
+      <div class="rounded-3xl overflow-hidden shadow-2xl aspect-square lg:aspect-video border-4 border-white dark:border-[#1a2219] group">
+        <img alt="Flexitank"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="{% static 'image/flexitankooa.png' %}"/>
+      </div>
+      <div>
+        <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Solution Bulk Liquid</span>
+        <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-6">Flexitanks : L'efficacité optimisée</h2>
+        <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-8 leading-relaxed">
+          Le transport de liquides en vrac n'a jamais été aussi simple. Nos Flexitanks transforment n'importe quel conteneur de 20 pieds en un réservoir sécurisé, réduisant les coûts de nettoyage et maximisant la capacité de charge.
+        </p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center gap-3 group/li">
+            <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
+            <span class="dark:text-[#e2ede4]">Capacité de 16 000 à 24 000 litres</span>
+          </li>
+          <li class="flex items-center gap-3 group/li">
+            <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
+            <span class="dark:text-[#e2ede4]">Usage unique pour une hygiène garantie</span>
+          </li>
+          <li class="flex items-center gap-3 group/li">
+            <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
+            <span class="dark:text-[#e2ede4]">Réduction des coûts logistiques de 30%</span>
+          </li>
+        </ul>
+        <button class="bg-primary dark:bg-[#1e4d2b] text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container hover:scale-105 active:scale-95 transition-all shadow-md shimmer">
+          Voir détails
+        </button>
+      </div>
+    </div>
+
+    <!-- Iso Tanks -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center reveal">
+      <div class="rounded-3xl overflow-hidden shadow-2xl aspect-square lg:aspect-video border-4 border-white dark:border-[#1a2219] group">
+        <img alt="Flexitank"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="{% static 'image/iso.png' %}"/>
+      </div>
+      <div class="lg:order-1">
+        <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Sécurité Maximale</span>
+        <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-6">Iso Tanks : La performance industrielle</h2>
+        <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-8 leading-relaxed">
+          Pour vos produits les plus sensibles, nos Iso Tanks offrent une protection absolue. Conçus pour résister aux conditions les plus extrêmes, ils garantissent une stabilité thermique et une sécurité sans compromis.
+        </p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center gap-3 group/li">
+            <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
+            <span class="dark:text-[#e2ede4]">Grade alimentaire et chimique certifié</span>
+          </li>
+          <li class="flex items-center gap-3 group/li">
+            <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
+            <span class="dark:text-[#e2ede4]">Système de chauffage intégré disponible</span>
+          </li>
+          <li class="flex items-center gap-3 group/li">
+            <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
+            <span class="dark:text-[#e2ede4]">Traçabilité GPS en temps réel</span>
+          </li>
+        </ul>
+        <button class="bg-primary dark:bg-[#1e4d2b] text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container hover:scale-105 active:scale-95 transition-all shadow-md shimmer">
+          Voir détails
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     PRODUITS
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-low dark:bg-[#0b140d] reveal" id="products">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto text-center mb-16">
+    <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Notre Gamme de Produits</h2>
+    <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] max-w-2xl mx-auto">
+      Des huiles végétales de qualité premium pour l'industrie agroalimentaire et cosmétique.
+    </p>
+  </div>
+
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- Huile de Palme Raffinée -->
+    <div class="bg-surface dark:bg-[#1a2219] rounded-3xl overflow-hidden shadow-lg hover:-translate-y-4 hover:shadow-2xl transition-all duration-500 border border-outline-variant dark:border-[#2d3d30] group">
+      <div class="h-64 overflow-hidden relative">
+        <div class="absolute inset-0 bg-primary/10 group-hover:bg-primary/0 transition-colors duration-500 z-10"></div>
+        <img alt="Huile de Palme Raffinée"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIpwjl3ZKWA0_xn-ak4TN4s6nA33RxBXOnaPAX3QvMaX4DehHGig-8EfH4PkOvxv-EY4KufUzVYbQWsGdU6RRjyzpEvpz30VBrTA3JYjac6N3hSxCYujzODLqLcqQK3GRcF1LzNdEeJCgZBrR1Z9UTu7iZCPsjxE24HUPwskTQfGUlKgfLSfDPOd4Hziu7ZM13DMPm4eSH2E0ataeCmyX6OKU-0y7LKdn9sG88o9z5SJux-pe7bHCMpPPzcpV5etsQ_fPpfCL_kB_a"/>
+      </div>
+      <div class="p-8">
+        <h3 class="font-bold text-xl mb-3 text-primary dark:text-[#9fd3a5]">Huile de Palme Raffinée</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] mb-6">Idéale pour la friture industrielle et la fabrication de produits transformés.</p>
+        <a class="text-secondary font-bold text-sm inline-flex items-center gap-1 group-hover:gap-3 transition-all" href="#">
+          Fiche technique <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Oléine de Palme -->
+    <div class="bg-surface dark:bg-[#1a2219] rounded-3xl overflow-hidden shadow-lg hover:-translate-y-4 hover:shadow-2xl transition-all duration-500 border border-outline-variant dark:border-[#2d3d30] group">
+      <div class="h-64 overflow-hidden relative">
+        <div class="absolute inset-0 bg-primary/10 group-hover:bg-primary/0 transition-colors duration-500 z-10"></div>
+        <img alt="Oléine de Palme"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSnzxwogqWEJUAo0cFv7woMSWuPjOeG85yOzUD3JQvqTNi-O-p_KdyHcOv1uZDgFbAhe7Q5e4a7VL8u4pOlGG3kSBoq9sx_aq0Y9DOeRPCSOa5MyPHIfUcvIthfJs3nQpv1mPOlrcQCt9-upCCI2_WdXS2uAasZP58ru1BmPlXyjTifKy6u-bUqZ_bC2Pihz1SnxqEf6gk21ViKVNL_0Ns-EkPmaQC-UwUhMUDnEOVaUdoyP7xEh-QQlf_x2C_35TAdCtTZuncF-m1"/>
+      </div>
+      <div class="p-8">
+        <h3 class="font-bold text-xl mb-3 text-primary dark:text-[#9fd3a5]">Oléine de Palme</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] mb-6">Fraction liquide de l'huile de palme, parfaite pour les huiles de table et margarines.</p>
+        <a class="text-secondary font-bold text-sm inline-flex items-center gap-1 group-hover:gap-3 transition-all" href="#">
+          Fiche technique <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stéarine de Palme -->
+    <div class="bg-surface dark:bg-[#1a2219] rounded-3xl overflow-hidden shadow-lg hover:-translate-y-4 hover:shadow-2xl transition-all duration-500 border border-outline-variant dark:border-[#2d3d30] group">
+      <div class="h-64 overflow-hidden relative">
+        <div class="absolute inset-0 bg-primary/10 group-hover:bg-primary/0 transition-colors duration-500 z-10"></div>
+        <img alt="Stéarine de Palme"
+             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAApxZ_5k3nA-YEX0amfyj4gCc67n-uCJuh-fm6DmEfcTrTsVzDA7nvk8SK3jXGO4txs6k4AC_oCgpXubQH5JZ-5fmoJcjijjEUVozkYpEkRP2aqtcyj95ifuTnm_wtqEUg3q3den5iPcNjYxT2AAcnIpMMC6ca1QawSbvH_YUNyaRhTrD4EQ_OA-AWsZbMD_uRWEUtySCdVdhm_QsFOVVxrt2x2GXRkfFl6sklf5gdZ_NoKZVLy979RAmrwDoOflctBFxzrnrxj_Gv"/>
+      </div>
+      <div class="p-8">
+        <h3 class="font-bold text-xl mb-3 text-primary dark:text-[#9fd3a5]">Stéarine de Palme</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] mb-6">Fraction solide utilisée dans la savonnerie et les graisses spécialisées.</p>
+        <a class="text-secondary font-bold text-sm inline-flex items-center gap-1 group-hover:gap-3 transition-all" href="#">
+          Fiche technique <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     GALERIE
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710] reveal">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto text-center mb-12">
+    <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Immersion dans nos opérations</h2>
+  </div>
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[600px]">
+      <div class="col-span-2 row-span-2 rounded-3xl overflow-hidden border-2 border-white dark:border-[#1a2219] shadow-xl group">
+        <img alt="Opérations portuaires"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhSnLaxgshRS6rk5d2IMsv0_tp9VRvM2pu9BUfal-5JUvam0IAICCcAz0v4wjgx5JwL1nRTV3Y8F2D5k8fWsjVp3F0XueDq0hwPzx_KD8ZXIpGdIqdM5EWl4eboZ_Rzln-4a7idO0MZSjbDCxQR6xLBrQUf2FUHCrmBdYXV3oSSgRQNKCI0YqVNzJKLVS8otYr1YWucU5dO-6pbzBbLjnlhYppgp4b5pmOXjVj2dMDnmLW1tIotbCeif5R9TPv0WK01B07cBtO5iTS"/>
+      </div>
+      <div class="rounded-3xl overflow-hidden border-2 border-white dark:border-[#1a2219] shadow-xl group">
+        <img alt="Équipe corporate"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRsvPUSYH_omdBMiywaGoSNq3hfnEYaa5eTfJoIscEOr5tW3SA0ptv27ro0-k_42PIOXgzawEDSLLRt5ozUAPXBIIDXgX_Hv9diAztOtsnSWnKwHDIDDALl2PWvYv9gfZp26aTPxTIM2ri0BpdezwYZXEMJbIN_z_m3KYIEYcNA1QJnpHlkUTYtVjeBPdcBNsezA8dguJm5WYw3XvVi7gvT1DRWZQ0uVuYI0WEyi3n8f8CHsEwSMELP4hIcj4182HQ7pMw3bGdyP87"/>
+      </div>
+      <div class="rounded-3xl overflow-hidden border-2 border-white dark:border-[#1a2219] shadow-xl group">
+        <img alt="Laboratoire contrôle qualité"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA2IhIaMHIkcTEW0QI248ucHcXoLiqyBI5FaBbZU-9EsEdXYyjMtvP_IDDTNsXpwofs0Xx7zeGJkRwiVk1LsxCtsZi1iz2H30cYn4cP_l3JFiL_WAfztn-Zx0xENSR6OetmnaK1FKQUv1HLA7EQYRlSPQN4duqHOsblyI7OSNZHRMgWQXGTTIsKMOBbO5YJZ-0t3-Sq_wyM_4IiKGoOMMQlltePfWTHNfTr5yVTJRGRA2chhlyxyb9iZllFcTJtGaxf_6wgOHIl6RX"/>
+      </div>
+      <div class="col-span-2 rounded-3xl overflow-hidden border-2 border-white dark:border-[#1a2219] shadow-xl group">
+        <img alt="Convoi logistique"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAODKxbOdGtSjwn1pr2gZVVZ2sIIHa9dK1Aw1PGnxSwg8Nxt10KUehY_Suxt8WZ_Vln0hbr5v1gvF5CsvUVz9LURPaHVJ29cwFl4mQ0_BpcPai9etgCY-CSczrl9PKye-ogNkDhiIoHG897ER48zlrb1fEypbUNBuEBozwlm7OGV6m8kJszuOo8n9PACWZrbTcAPBF-exeX9q4We_jTad4_h4Gt80_LmwtIbJwGDETcM_iePvKBEvu1WLnxcC1SPoq07k4Ak1JCQxlE"/>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a class="text-primary dark:text-[#9fd3a5] font-bold inline-flex items-center gap-2 hover:text-secondary hover:translate-x-2 transition-all duration-500" href="#">
+        <span class="material-symbols-outlined">play_circle</span>
+        Voir nos vidéos d'opérations
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section class="py-section-padding bg-primary/5 dark:bg-[#0b140d] reveal" id="contact">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+
+      <!-- Coordonnées -->
+      <div class="space-y-8">
+        <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Contactez-nous</h2>
+        <p class="text-on-surface-variant dark:text-[#8da892]">
+          Nos experts sont à votre disposition pour toute demande de cotation ou information complémentaire.
+        </p>
+        <div class="space-y-6">
+          <div class="flex gap-4 group cursor-pointer">
+            <span class="material-symbols-outlined text-secondary group-hover:scale-125 transition-transform">location_on</span>
+            <div>
+              <h4 class="font-bold text-primary dark:text-[#9fd3a5]">Adresse</h4>
+              <p class="text-on-surface-variant dark:text-[#8da892] text-sm">Grand-Bassam, Cité Italia<br/>République de Côte d'Ivoire</p>
+            </div>
+          </div>
+          <div class="flex gap-4 group cursor-pointer">
+            <span class="material-symbols-outlined text-secondary group-hover:scale-125 transition-transform">mail</span>
+            <div>
+              <h4 class="font-bold text-primary dark:text-[#9fd3a5]">Email</h4>
+              <p class="text-on-surface-variant dark:text-[#8da892] text-sm">contact@oilsofafrica.com</p>
+            </div>
+          </div>
+          <div class="flex gap-4 group cursor-pointer">
+            <span class="material-symbols-outlined text-secondary group-hover:scale-125 transition-transform">call</span>
+            <div>
+              <h4 class="font-bold text-primary dark:text-[#9fd3a5]">Téléphone</h4>
+              <p class="text-on-surface-variant dark:text-[#8da892] text-sm">+225 07 00 00 00 00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="bg-surface dark:bg-[#1a2219] p-8 rounded-3xl shadow-xl border border-outline-variant dark:border-[#2d3d30] hover:shadow-2xl transition-all duration-500">
+        <form class="space-y-4" method="post" action="#">
+          {% csrf_token %}
+          <div>
+            <label class="text-label-sm uppercase block mb-1 text-primary dark:text-[#9fd3a5] font-bold">Nom Complet</label>
+            <input class="w-full border border-outline-variant dark:border-[#2d3d30] dark:bg-[#111814] dark:text-[#e2ede4] rounded-xl p-3 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none"
+                   type="text" name="name" placeholder="Votre nom"/>
+          </div>
+          <div>
+            <label class="text-label-sm uppercase block mb-1 text-primary dark:text-[#9fd3a5] font-bold">Email Entreprise</label>
+            <input class="w-full border border-outline-variant dark:border-[#2d3d30] dark:bg-[#111814] dark:text-[#e2ede4] rounded-xl p-3 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none"
+                   type="email" name="email" placeholder="email@entreprise.com"/>
+          </div>
+          <div>
+            <label class="text-label-sm uppercase block mb-1 text-primary dark:text-[#9fd3a5] font-bold">Sujet</label>
+            <select class="w-full border border-outline-variant dark:border-[#2d3d30] dark:bg-[#111814] dark:text-[#e2ede4] rounded-xl p-3 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none"
+                    name="subject">
+              <option>Demande de devis</option>
+              <option>Logistique / Flexitanks</option>
+              <option>Sourcing / Partenariat</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-label-sm uppercase block mb-1 text-primary dark:text-[#9fd3a5] font-bold">Message</label>
+            <textarea class="w-full border border-outline-variant dark:border-[#2d3d30] dark:bg-[#111814] dark:text-[#e2ede4] rounded-xl p-3 focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none"
+                      rows="4" name="message" placeholder="Votre message..."></textarea>
+          </div>
+          <button type="submit"
+                  class="w-full bg-secondary text-on-secondary font-bold py-4 rounded-xl hover:brightness-110 hover:scale-[1.02] active:scale-95 transition-all shadow-lg shimmer">
+            Envoyer
+          </button>
+        </form>
+      </div>
+
+      <!-- Carte -->
+      <div class="rounded-3xl overflow-hidden h-full min-h-[400px] border-4 border-white dark:border-[#1a2219] shadow-xl relative group">
+        <img alt="Carte Grand-Bassam"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcJv1MeZDAWiEaym2r5Lr3e06pbsx6Bo_3dk456pkALCmaV0uqAmtW2kEF-Is-u0R5TYc-Nh22942WNy1skmFSDcABOdrT3EUpIpwQxk8yV9vGz7P6xMb1T_FwNSo8a2S1g_-wKltBhK7E8Y-GV54Thzea8BQWKmq0-vmfauiGaaf7tpr1HqVZNOMoXihl3LMDKroCnOZ7d6K-4M3_LyMWXavBAN5CNIRB23JpsxjjRDv0HOgY0wDY4eD9TkYNSnPgRM6bYIqP-4Hl"/>
+        <div class="absolute inset-0 bg-primary/10 dark:bg-primary/30 pointer-events-none group-hover:bg-primary/0 transition-colors"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides   = document.querySelectorAll('.hero-slide');
+    const contents = document.querySelectorAll('.hero-content');
+    if (slides.length <= 1) return;
+
+    let current = 0;
+
+    function goTo(index) {
+      slides[current].classList.add('opacity-0');
+      contents[current].classList.add('hidden');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.remove('opacity-0');
+      contents[current].classList.remove('hidden');
+    }
+
+    setInterval(function () { goTo(current + 1); }, 3000);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nous avons bien reçu votre message — Oils of Africa</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f0eded;font-family:'Lato',Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0eded;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" border="0"
+               style="max-width:600px;width:100%;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+
+          <!-- ── EN-TÊTE ── -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#00712a 0%,#005a22 100%);padding:36px 40px;text-align:center;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding-bottom:16px;">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtQt4JJVElB6HGPkJck7jnAZTZkXyN5yeiMaOzTgh75L5ItrdTlpZIc5KdFQ8GWpr7zgogX1YCVNf7rhSbvxFDeiNTRpksEdTXYbfnxZP4k8JneUhq8lVDOHNQMLRntFsk-xWlH0_DesPiuvIV2Nv84mzWxZ4ChFbeVw_tXL0fr3nX3NfC5C_GsL5Bv1uvEpCIEu2x-8cmZVZZBma_lhNujVi4FOyzZvyOyZXk6pguuLuek3AO7cmOxx5--b4ewYA7yXLfRSTGV21x"
+                         alt="Oils of Africa"
+                         width="60" height="60"
+                         style="border-radius:50%;background:#ffffff;padding:6px;display:block;"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <span style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">
+                      Oils of <span style="color:#fdb813;">Africa</span>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── ICÔNE CHECK ── -->
+          <tr>
+            <td style="padding:40px 40px 0;text-align:center;">
+              <div style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;background:#e8f5e9;border-radius:50%;margin-bottom:20px;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="12" fill="#00712a" fill-opacity="0.12"/>
+                  <path d="M7 12.5L10.5 16L17 9" stroke="#00712a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h1 style="margin:0 0 10px;font-family:Georgia,serif;font-size:26px;font-weight:700;color:#00712a;line-height:1.3;">
+                Message bien reçu !
+              </h1>
+              <p style="margin:0;font-size:15px;color:#414941;line-height:1.6;">
+                Bonjour <strong>{{ nom }}</strong>, merci de nous avoir contactés.<br/>
+                Notre équipe vous répondra dans les plus brefs délais.
+              </p>
+            </td>
+          </tr>
+
+          <!-- ── RÉCAPITULATIF ── -->
+          <tr>
+            <td style="padding:32px 40px 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background:#f6f3f2;border-radius:14px;overflow:hidden;">
+                <tr>
+                  <td style="padding:24px 28px;">
+                    <p style="margin:0 0 16px;font-size:11px;color:#717970;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;border-bottom:1px solid #e4e2e1;padding-bottom:14px;">
+                      Récapitulatif de votre demande
+                    </p>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                      <tr>
+                        <td style="padding-bottom:10px;">
+                          <span style="font-size:13px;color:#717970;width:80px;display:inline-block;">Sujet</span>
+                          <span style="display:inline-block;background:#fdb81320;color:#a07000;border:1px solid #fdb813;border-radius:9999px;padding:3px 12px;font-size:12px;font-weight:700;">
+                            {{ sujet_label }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:10px;">
+                          <span style="font-size:13px;color:#717970;width:80px;display:inline-block;">Email</span>
+                          <span style="font-size:14px;color:#1b1c1c;">{{ email }}</span>
+                        </td>
+                      </tr>
+                    </table>
+                    <div style="margin-top:14px;background:#ffffff;border-left:4px solid #fdb813;border-radius:0 10px 10px 0;padding:16px 20px;">
+                      <p style="margin:0;font-size:14px;color:#414941;line-height:1.7;white-space:pre-wrap;">{{ message }}</p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── COORDONNÉES ── -->
+          <tr>
+            <td style="padding:28px 40px 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background:linear-gradient(135deg,#00712a,#005a22);border-radius:14px;padding:24px 28px;">
+                <tr>
+                  <td style="padding:24px 28px;">
+                    <p style="margin:0 0 16px;font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">
+                      Nos coordonnées
+                    </p>
+                    <table cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-bottom:10px;">
+                          <span style="font-size:14px;color:#ffffff;">📍 Grand-Bassam, Cité Italia 2 — Immeuble 6A</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:10px;">
+                          <a href="mailto:info@oils-of-africa.com"
+                             style="font-size:14px;color:#fdb813;text-decoration:none;">✉️ info@oils-of-africa.com</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="tel:+2250749353415"
+                             style="font-size:14px;color:#fdb813;text-decoration:none;">📞 +225 07 49 35 34 15</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── CTA SITE ── -->
+          <tr>
+            <td style="padding:32px 40px;text-align:center;">
+              <a href="https://oils-of-africa.com"
+                 style="display:inline-block;border:2px solid #00712a;color:#00712a;font-weight:700;font-size:14px;text-decoration:none;padding:13px 36px;border-radius:9999px;letter-spacing:0.5px;">
+                Visiter notre site
+              </a>
+            </td>
+          </tr>
+
+          <!-- ── PIED DE PAGE ── -->
+          <tr>
+            <td style="background:#f6f3f2;padding:24px 40px;border-top:1px solid #e4e2e1;">
+              <p style="margin:0 0 4px;font-size:12px;color:#717970;text-align:center;">
+                Vous recevez cet email car vous avez utilisé le formulaire de contact d'Oils of Africa.
+              </p>
+              <p style="margin:0;font-size:12px;color:#717970;text-align:center;">
+                © 2026 <strong style="color:#00712a;">Oils of Africa</strong>. Tous droits réservés.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

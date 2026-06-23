@@ -1,0 +1,327 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Médias | Oils of Africa{% endblock %}
+
+{% block extra_head %}
+<style>
+  .media-card { transition: transform 0.4s cubic-bezier(0.19,1,0.22,1); }
+  .media-card:hover { transform: translateY(-6px); }
+
+  .media-overlay {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .group:hover .media-overlay { opacity: 1; transform: translateY(0); }
+
+  /* Lightbox */
+  #lightbox { display: none; }
+  #lightbox.open { display: flex; }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="relative h-[560px] flex items-center justify-center overflow-hidden pt-28">
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/40 to-primary/80 z-10"></div>
+    {% if en_vedette and en_vedette.thumbnail %}
+    <img class="w-full h-full object-cover" src="{{ en_vedette.thumbnail.url }}" alt="{{ en_vedette.titre }}" />
+    {% else %}
+    <div class="w-full h-full bg-primary"></div>
+    {% endif %}
+  </div>
+
+  <div class="relative z-20 text-center px-margin-mobile max-w-4xl reveal active">
+    <span class="inline-block text-secondary font-label-sm text-label-sm uppercase tracking-widest mb-4">Médiathèque</span>
+    <h1 class="text-white font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-tight">
+      Immersion au Cœur de nos Opérations
+    </h1>
+    <p class="text-white/80 text-body-lg max-w-2xl mx-auto">
+      Explorez l'excellence de notre chaîne de valeur, du terroir africain aux marchés internationaux.
+    </p>
+  </div>
+</header>
+
+<!-- ============================================================
+     BARRE DE FILTRES
+     ============================================================ -->
+<nav class="sticky top-0 z-40 bg-surface dark:bg-[#0e1710] border-b border-outline-variant dark:border-[#2d3d30] py-4 shadow-sm">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-nowrap overflow-x-auto scrollbar-hide justify-start md:justify-center items-center gap-6">
+    <a href="{% url 'medias:medias_list' %}"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if not filtre %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Tout
+    </a>
+    <a href="?filtre=photos"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if filtre == 'photos' %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Photos
+    </a>
+    <a href="?filtre=videos"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if filtre == 'videos' %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Vidéos
+    </a>
+    <a href="?filtre=operations"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if filtre == 'operations' %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Opérations
+    </a>
+    <a href="?filtre=produits"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if filtre == 'produits' %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Produits
+    </a>
+    <a href="?filtre=sourcing"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if filtre == 'sourcing' %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Sourcing
+    </a>
+    <a href="?filtre=logistique"
+       class="whitespace-nowrap text-label-sm font-label-sm pb-1 transition-all
+              {% if filtre == 'logistique' %}text-primary dark:text-[#a0d3a6] border-b-2 border-secondary font-bold{% else %}text-on-surface-variant dark:text-[#8da892] hover:text-primary dark:hover:text-[#a0d3a6]{% endif %}">
+      Logistique
+    </a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     GRILLE MÉDIAS
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710]">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+
+    {% if medias %}
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+      {% for media in medias %}
+
+      {% if forloop.first %}
+      <!-- Grande carte (première) -->
+      <div class="md:col-span-8 group relative overflow-hidden rounded-xl shadow-md media-card reveal aspect-video cursor-pointer"
+           data-type="{{ media.type }}"
+           {% if media.type == 'photo' %}onclick="openLightbox('{{ media.image.url }}','{{ media.titre }}')"{% endif %}>
+        {% if media.thumbnail %}
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+             src="{{ media.thumbnail.url }}" alt="{{ media.titre }}" />
+        {% else %}
+        <div class="w-full h-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+          <span class="material-symbols-outlined text-6xl text-primary/20">image</span>
+        </div>
+        {% endif %}
+
+        {% if media.type == 'video' %}
+        <div class="absolute inset-0 flex items-center justify-center">
+          <a href="{{ media.video_url }}" target="_blank" rel="noopener"
+             class="w-20 h-20 rounded-full bg-secondary/90 flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-4xl text-on-secondary" style="font-variation-settings:'FILL' 1;">play_arrow</span>
+          </a>
+        </div>
+        {% endif %}
+
+        <div class="media-overlay absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-primary/90 to-transparent">
+          {% if media.categorie %}<p class="text-secondary font-label-sm text-xs uppercase mb-1">{{ media.get_categorie_display }}</p>{% endif %}
+          <h3 class="text-white font-headline-md text-lg leading-snug">{{ media.titre }}</h3>
+          {% if media.description %}<p class="text-white/70 text-sm mt-1">{{ media.description }}</p>{% endif %}
+        </div>
+      </div>
+
+      {% elif forloop.counter == 2 %}
+      <!-- Colonne droite (2ᵉ) -->
+      <div class="md:col-span-4 group relative overflow-hidden rounded-xl shadow-md media-card reveal cursor-pointer"
+           style="min-height: 300px;"
+           data-type="{{ media.type }}"
+           {% if media.type == 'photo' %}onclick="openLightbox('{{ media.image.url }}','{{ media.titre }}')"{% endif %}>
+        {% if media.thumbnail %}
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0"
+             src="{{ media.thumbnail.url }}" alt="{{ media.titre }}" />
+        {% else %}
+        <div class="absolute inset-0 bg-primary/10 flex items-center justify-center">
+          <span class="material-symbols-outlined text-5xl text-primary/20">image</span>
+        </div>
+        {% endif %}
+        {% if media.type == 'video' %}
+        <div class="absolute inset-0 flex items-center justify-center z-10">
+          <a href="{{ media.video_url }}" target="_blank" rel="noopener"
+             class="w-14 h-14 rounded-full bg-secondary/90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-2xl text-on-secondary" style="font-variation-settings:'FILL' 1;">play_arrow</span>
+          </a>
+        </div>
+        {% endif %}
+        <div class="media-overlay absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-primary/90 to-transparent">
+          {% if media.categorie %}<p class="text-secondary font-label-sm text-xs uppercase mb-1">{{ media.get_categorie_display }}</p>{% endif %}
+          <h3 class="text-white font-headline-md text-base leading-snug">{{ media.titre }}</h3>
+        </div>
+      </div>
+
+      {% else %}
+      <!-- Cartes carrées (reste) -->
+      {% if forloop.counter == 3 %}<div class="md:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-6">{% endif %}
+
+      <div class="group relative overflow-hidden rounded-xl shadow-md media-card reveal aspect-square cursor-pointer"
+           data-type="{{ media.type }}"
+           {% if media.type == 'photo' %}onclick="openLightbox('{{ media.image.url }}','{{ media.titre }}')"{% endif %}>
+        {% if media.thumbnail %}
+        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+             src="{{ media.thumbnail.url }}" alt="{{ media.titre }}" />
+        {% else %}
+        <div class="w-full h-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+          <span class="material-symbols-outlined text-5xl text-primary/20">image</span>
+        </div>
+        {% endif %}
+        {% if media.type == 'video' %}
+        <div class="absolute inset-0 flex items-center justify-center z-10">
+          <a href="{{ media.video_url }}" target="_blank" rel="noopener"
+             class="w-12 h-12 rounded-full bg-secondary/90 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+            <span class="material-symbols-outlined text-xl text-on-secondary" style="font-variation-settings:'FILL' 1;">play_arrow</span>
+          </a>
+        </div>
+        {% endif %}
+        <div class="media-overlay absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-primary/90 to-transparent">
+          {% if media.categorie %}<p class="text-secondary font-label-sm text-xs uppercase mb-0.5">{{ media.get_categorie_display }}</p>{% endif %}
+          <h3 class="text-white font-bold text-sm leading-snug">{{ media.titre }}</h3>
+        </div>
+      </div>
+
+      {% if forloop.last %}</div>{% endif %}
+      {% endif %}
+
+      {% empty %}
+      {% endfor %}
+
+    </div>
+
+    {% else %}
+    <div class="text-center py-24 reveal">
+      <span class="material-symbols-outlined text-6xl text-outline mb-4 block">perm_media</span>
+      <p class="text-on-surface-variant dark:text-[#8da892] text-lg">Aucun média disponible pour ce filtre.</p>
+      <a href="{% url 'medias:medias_list' %}" class="mt-6 inline-block text-secondary hover:underline font-bold">
+        Voir tous les médias
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- ============================================================
+     VIDÉO EN VEDETTE
+     ============================================================ -->
+{% if en_vedette %}
+<section class="py-section-padding bg-primary dark:bg-[#071109] overflow-hidden">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Texte -->
+      <div class="space-y-6 reveal">
+        <span class="inline-block px-4 py-1 bg-secondary text-on-secondary font-bold text-label-sm rounded-full uppercase">
+          En Vedette
+        </span>
+        <h2 class="text-white font-headline-md text-headline-md">{{ en_vedette.titre }}</h2>
+        {% if en_vedette.description %}
+        <p class="text-white/70 text-body-lg">{{ en_vedette.description }}</p>
+        {% endif %}
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+            <h4 class="font-bold text-secondary mb-1">Innovation</h4>
+            <p class="text-sm text-white/60">Nos solutions en mouvement.</p>
+          </div>
+          <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+            <h4 class="font-bold text-secondary mb-1">Communauté</h4>
+            <p class="text-sm text-white/60">L'impact humain sur le terrain.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vignette vidéo -->
+      <div class="relative group rounded-2xl overflow-hidden shadow-2xl reveal">
+        {% if en_vedette.thumbnail %}
+        <img class="w-full aspect-video object-cover" src="{{ en_vedette.thumbnail.url }}" alt="{{ en_vedette.titre }}" />
+        {% else %}
+        <div class="w-full aspect-video bg-primary/50 flex items-center justify-center">
+          <span class="material-symbols-outlined text-8xl text-white/20">videocam</span>
+        </div>
+        {% endif %}
+
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors flex items-center justify-center">
+          {% if en_vedette.video_url %}
+          <a href="{{ en_vedette.video_url }}" target="_blank" rel="noopener"
+             class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center hover:scale-110 transition-transform shadow-xl">
+            <span class="material-symbols-outlined text-4xl text-white" style="font-variation-settings:'FILL' 1;">play_arrow</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ============================================================
+     CTA LINKEDIN
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-low dark:bg-[#111814]">
+  <div class="max-w-3xl mx-auto px-margin-mobile text-center space-y-8 reveal">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20">
+      <span class="material-symbols-outlined text-3xl text-primary dark:text-[#a0d3a6]">rss_feed</span>
+    </div>
+    <h2 class="font-headline-md text-headline-md text-primary dark:text-[#a0d3a6]">Restez Connectés</h2>
+    <p class="text-body-lg text-on-surface-variant dark:text-[#8da892]">
+      Suivez nos dernières actualités, innovations et moments forts sur nos réseaux professionnels.
+    </p>
+    <div class="flex justify-center">
+      <a href="https://linkedin.com" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-3 px-10 py-4 border-2 border-primary dark:border-[#a0d3a6] text-primary dark:text-[#a0d3a6] font-bold rounded-full hover:bg-primary hover:text-white dark:hover:bg-[#a0d3a6] dark:hover:text-primary transition-all">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+        Suivre sur LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LIGHTBOX PHOTO
+     ============================================================ -->
+<div id="lightbox"
+     class="fixed inset-0 z-[200] bg-black/90 backdrop-blur-sm items-center justify-center p-4"
+     onclick="closeLightbox()">
+  <button onclick="closeLightbox()"
+          class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <img id="lightbox-img" src="" alt=""
+       class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain"
+       onclick="event.stopPropagation()" />
+  <p id="lightbox-caption" class="text-white/70 text-center mt-4 text-sm"></p>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function openLightbox(url, titre) {
+    document.getElementById('lightbox-img').src = url;
+    document.getElementById('lightbox-caption').textContent = titre;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+{% endblock %}

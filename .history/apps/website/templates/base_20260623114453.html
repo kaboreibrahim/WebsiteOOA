@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>{% block title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-fixed-dim": "#a0d3a6",
+            "surface-container-low": "#f6f3f2",
+            "surface-bright": "#fcf9f8",
+            "on-secondary-container": "#1b1c1c",
+            "primary": "#023616",
+            "on-primary-fixed": "#00210b",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-highest": "#e4e2e1",
+            "on-tertiary-fixed-variant": "#484742",
+            "on-background": "#1b1c1c",
+            "surface-dim": "#dcd9d9",
+            "tertiary-fixed": "#e6e2db",
+            "background": "#fcf9f8",
+            "on-surface": "#1b1c1c",
+            "inverse-surface": "#303030",
+            "on-tertiary-fixed": "#1c1c18",
+            "error": "#ba1a1a",
+            "inverse-on-surface": "#f3f0f0",
+            "tertiary-container": "#45443f",
+            "secondary-fixed": "#ffdea6",
+            "on-secondary-fixed-variant": "#5d4200",
+            "primary-fixed": "#bbefc1",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#fdb813",
+            "surface-tint": "#396844",
+            "surface-container-high": "#eae7e7",
+            "inverse-primary": "#a0d3a6",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#8bbd92",
+            "secondary-fixed-dim": "#f3be54",
+            "secondary": "#fdb813",
+            "on-secondary": "#1b1c1c",
+            "on-error": "#ffffff",
+            "outline-variant": "#c1c9be",
+            "error-container": "#ffdad6",
+            "on-primary-fixed-variant": "#21502e",
+            "on-secondary-fixed": "#271900",
+            "surface-container": "#f0eded",
+            "primary-container": "#1e4d2b",
+            "on-surface-variant": "#414941",
+            "tertiary": "#2f2e29",
+            "on-error-container": "#93000a",
+            "tertiary-fixed-dim": "#c9c6c0",
+            "outline": "#717970",
+            "surface": "#fcf9f8",
+            "surface-variant": "#e4e2e1",
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "9999px",
+          },
+          spacing: {
+            "margin-mobile": "20px",
+            "stack-lg": "32px",
+            "section-padding": "120px",
+            "stack-md": "16px",
+            "stack-sm": "8px",
+            "container-max": "1280px",
+            "gutter": "32px",
+          },
+          fontFamily: {
+            "headline-md": ["Playfair Display"],
+            "body-md": ["Inter"],
+            "display-lg-mobile": ["Playfair Display"],
+            "body-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "display-lg": ["Playfair Display"],
+          },
+          fontSize: {
+            "headline-md": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "display-lg-mobile": ["40px", { lineHeight: "48px", fontWeight: "700" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "label-sm": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "display-lg": ["64px", { lineHeight: "72px", letterSpacing: "-0.02em", fontWeight: "700" }],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .ease-out-expo {
+      transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shimmer::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0.4) 50%,
+        rgba(255,255,255,0) 60%,
+        rgba(255,255,255,0) 100%
+      );
+      transform: rotate(45deg);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { transform: translateX(-150%) rotate(45deg); }
+      100% { transform: translateX(150%) rotate(45deg); }
+    }
+
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: #fdb813;
+      z-index: 100;
+      transition: width 0.1s;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a, button, .card-hover {
+      transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .header-compact {
+      height: 4rem !important;
+      margin-top: -0.5rem !important;
+    }
+
+    /* Dark mode smooth transition */
+    html {
+      color-scheme: light;
+    }
+    html.dark {
+      color-scheme: dark;
+    }
+
+    /* Dark mode overrides for custom colors not handled by Tailwind dark: */
+    .dark .dark-surface     { background-color: #111814; }
+    .dark .dark-card        { background-color: #1a2219; }
+    .dark .dark-border      { border-color: #2d3d30; }
+    .dark .dark-text        { color: #e2ede4; }
+    .dark .dark-text-muted  { color: #8da892; }
+  </style>
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-surface dark:bg-[#0e1710] font-body-md text-on-surface dark:text-[#e2ede4] overflow-x-hidden transition-colors duration-300">
+
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress"></div>
+
+  <!-- ==============================
+       FLOATING HEADER / NAV
+       ============================== -->
+  <div class="fixed top-6 left-0 w-full z-50 px-margin-mobile transition-all duration-500 ease-out-expo" id="main-header-container">
+    <header class="max-w-container-max mx-auto bg-primary/80 dark:bg-primary/90 backdrop-blur-md rounded-full border border-white/10 shadow-2xl h-16 md:h-20 transition-all duration-500 ease-out-expo" id="main-header">
+      <nav class="flex justify-between items-center w-full px-6 md:px-8 h-full">
+
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <img alt="Oils of Africa Logo"
+               class="h-8 md:h-10 w-auto rounded-full bg-white p-1 transition-transform duration-500"
+               src="{% block logo_src %}https://lh3.googleusercontent.com/aida-public/AB6AXuAtQt4JJVElB6HGPkJck7jnAZTZkXyN5yeiMaOzTgh75L5ItrdTlpZIc5KdFQ8GWpr7zgogX1YCVNf7rhSbvxFDeiNTRpksEdTXYbfnxZP4k8JneUhq8lVDOHNQMLRntFsk-xWlH0_DesPiuvIV2Nv84mzWxZ4ChFbeVw_tXL0fr3nX3NfC5C_GsL5Bv1uvEpCIEu2x-8cmZVZZBma_lhNujVi4FOyzZvyOyZXk6pguuLuek3AO7cmOxx5--b4ewYA7yXLfRSTGV21x{% endblock %}"/>
+          <span class="text-lg md:text-xl font-headline-md font-bold text-white">
+            Oils of <span class="text-secondary">Africa</span>
+          </span>
+        </div>
+
+        <!-- Desktop Links -->
+        <div class="hidden lg:flex items-center gap-6">
+          <a class="text-secondary font-bold text-label-sm font-label-sm border-b-2 border-secondary hover:text-secondary-fixed transition-colors" href="{% url 'website:accueil' %}">Accueil</a>
+          <a class="text-white/80 font-medium hover:text-secondary transition-colors duration-200 text-label-sm font-label-sm" href="#about">À propos</a>
+          <a class="text-white/80 font-medium hover:text-secondary transition-colors duration-200 text-label-sm font-label-sm" href="#sourcing">Sourcing</a>
+          <a class="text-white/80 font-medium hover:text-secondary transition-colors duration-200 text-label-sm font-label-sm" href="#logistics">Logistique</a>
+          <a class="text-white/80 font-medium hover:text-secondary transition-colors duration-200 text-label-sm font-label-sm" href="#products">Produits</a>
+        </div>
+
+        <!-- Right Controls -->
+        <div class="flex items-center gap-3">
+          <!-- Language toggle -->
+          <button class="hidden sm:flex items-center gap-1 text-white/80 hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-sm">language</span>
+            <span class="text-label-sm font-label-sm uppercase">FR</span>
+          </button>
+
+          <!-- Dark mode toggle -->
+          <button id="dark-toggle"
+                  class="flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/80 hover:text-secondary hover:border-secondary transition-all"
+                  aria-label="Basculer le mode sombre">
+            <span class="material-symbols-outlined text-lg dark-icon-moon">dark_mode</span>
+            <span class="material-symbols-outlined text-lg dark-icon-sun hidden">light_mode</span>
+          </button>
+
+          <!-- Mobile menu toggle -->
+          <button id="mobile-menu-toggle"
+                  class="lg:hidden flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/80 hover:text-secondary transition-all"
+                  aria-label="Menu">
+            <span class="material-symbols-outlined text-lg" id="hamburger-icon">menu</span>
+          </button>
+
+          <!-- CTA -->
+          <a class="hidden sm:inline-flex bg-secondary text-on-secondary px-6 py-2 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-lg shimmer" href="#contact">
+            Contact
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+         class="hidden mt-2 max-w-container-max mx-auto bg-primary/95 dark:bg-[#071109]/95 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+      <nav class="flex flex-col p-6 gap-4">
+        <a class="text-secondary font-bold text-label-sm border-b border-white/10 pb-4" href="{% url 'accueil' %}">Accueil</a>
+        <a class="text-white/80 font-medium hover:text-secondary transition-colors text-label-sm" href="#about">À propos</a>
+        <a class="text-white/80 font-medium hover:text-secondary transition-colors text-label-sm" href="#sourcing">Sourcing</a>
+        <a class="text-white/80 font-medium hover:text-secondary transition-colors text-label-sm" href="#logistics">Logistique</a>
+        <a class="text-white/80 font-medium hover:text-secondary transition-colors text-label-sm" href="#products">Produits</a>
+        <a class="mt-2 bg-secondary text-on-secondary px-6 py-3 rounded-full font-bold text-label-sm text-center hover:brightness-110 transition-all shimmer" href="#contact">
+          Contact
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==============================
+       MAIN CONTENT
+       ============================== -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ==============================
+       FOOTER
+       ============================== -->
+  <footer class="bg-primary dark:bg-[#071109] text-white w-full py-section-padding reveal">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-2 mb-6">
+          <img alt="Logo" class="h-8 w-auto rounded-full bg-white p-0.5"
+               src="{% block footer_logo_src %}https://lh3.googleusercontent.com/aida-public/AB6AXuAtQt4JJVElB6HGPkJck7jnAZTZkXyN5yeiMaOzTgh75L5ItrdTlpZIc5KdFQ8GWpr7zgogX1YCVNf7rhSbvxFDeiNTRpksEdTXYbfnxZP4k8JneUhq8lVDOHNQMLRntFsk-xWlH0_DesPiuvIV2Nv84mzWxZ4ChFbeVw_tXL0fr3nX3NfC5C_GsL5Bv1uvEpCIEu2x-8cmZVZZBma_lhNujVi4FOyzZvyOyZXk6pguuLuek3AO7cmOxx5--b4ewYA7yXLfRSTGV21x{% endblock %}"/>
+          <span class="text-2xl font-headline-md font-bold">Oils of Africa</span>
+        </div>
+        <p class="text-body-md opacity-80 mb-6">L'excellence au service de l'industrie des huiles végétales en Afrique de l'Ouest.</p>
+        <div class="flex gap-4">
+          <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-secondary hover:border-secondary hover:scale-110 transition-all" href="#">
+            <span class="material-symbols-outlined text-sm">share</span>
+          </a>
+          <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-secondary hover:border-secondary hover:scale-110 transition-all" href="#">
+            <span class="material-symbols-outlined text-sm">public</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h4 class="font-bold text-secondary mb-6 uppercase tracking-widest text-sm">Navigation</h4>
+        <ul class="space-y-4">
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="{% url 'accueil' %}">Accueil</a></li>
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#about">À propos</a></li>
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#sourcing">Sourcing</a></li>
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#products">Nos Produits</a></li>
+        </ul>
+      </div>
+
+      <!-- Logistics -->
+      <div>
+        <h4 class="font-bold text-secondary mb-6 uppercase tracking-widest text-sm">Logistique</h4>
+        <ul class="space-y-4">
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#">Flexitanks</a></li>
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#">Iso Tanks</a></li>
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#">Traçabilité</a></li>
+          <li><a class="opacity-80 hover:text-secondary hover:opacity-100 transition-all hover:translate-x-2 inline-block" href="#">Flotte Logistique</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="font-bold text-secondary mb-6 uppercase tracking-widest text-sm">Newsletter</h4>
+        <p class="text-sm opacity-80 mb-4">Restez informé des actualités du marché des huiles en Afrique.</p>
+        <div class="flex">
+          <input class="bg-white/10 border-none rounded-l-full p-3 w-full focus:ring-0 text-white placeholder-white/50"
+                 placeholder="Votre email" type="email"/>
+          <button class="bg-secondary text-on-secondary px-6 rounded-r-full font-bold hover:brightness-110 hover:scale-105 active:scale-95 transition-all">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter mt-16 pt-8 border-t border-white/10 text-center">
+      <p class="text-label-sm opacity-60">
+        © 2024 Oils of Africa. All rights reserved. |
+        <a class="hover:underline hover:text-secondary" href="#">Mentions Légales</a> |
+        <a class="hover:underline hover:text-secondary" href="#">Confidentialité</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ==============================
+       SCRIPTS
+       ============================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // ── Dark Mode ──────────────────────────────────────────────
+      const html        = document.documentElement;
+      const toggleBtn   = document.getElementById('dark-toggle');
+      const iconMoon    = toggleBtn.querySelector('.dark-icon-moon');
+      const iconSun     = toggleBtn.querySelector('.dark-icon-sun');
+
+      function applyTheme(dark) {
+        if (dark) {
+          html.classList.add('dark');
+          iconMoon.classList.add('hidden');
+          iconSun.classList.remove('hidden');
+        } else {
+          html.classList.remove('dark');
+          iconSun.classList.add('hidden');
+          iconMoon.classList.remove('hidden');
+        }
+      }
+
+      const savedTheme = localStorage.getItem('ooa-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+
+      toggleBtn.addEventListener('click', function () {
+        const isDark = html.classList.contains('dark');
+        applyTheme(!isDark);
+        localStorage.setItem('ooa-theme', isDark ? 'light' : 'dark');
+      });
+
+      // ── Mobile Menu ────────────────────────────────────────────
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu       = document.getElementById('mobile-menu');
+      const hamburgerIcon    = document.getElementById('hamburger-icon');
+
+      mobileMenuToggle.addEventListener('click', function () {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', isOpen);
+        hamburgerIcon.textContent = isOpen ? 'menu' : 'close';
+      });
+
+      // Close mobile menu on link click
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function () {
+          mobileMenu.classList.add('hidden');
+          hamburgerIcon.textContent = 'menu';
+        });
+      });
+
+      // ── Scroll Progress Indicator ──────────────────────────────
+      const scrollProgress = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', function () {
+        const height  = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / height) * 100;
+        scrollProgress.style.width = scrolled + '%';
+      });
+
+      // ── Floating Header Shrink ─────────────────────────────────
+      const header = document.getElementById('main-header');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 100) {
+          header.classList.add('header-compact', 'bg-primary/95');
+          header.classList.remove('md:h-20');
+        } else {
+          header.classList.remove('header-compact', 'bg-primary/95');
+          header.classList.add('md:h-20');
+        }
+      });
+
+      // ── Scroll Reveal (Intersection Observer) ─────────────────
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            if (entry.target.id === 'stats-container' ||
+                entry.target.contains(document.querySelector('.stat-counter'))) {
+              startCounterAnimation();
+            }
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        revealObserver.observe(el);
+      });
+
+      // ── Animated Stats Counter ─────────────────────────────────
+      let startedCount = false;
+      function startCounterAnimation() {
+        if (startedCount) return;
+        startedCount = true;
+        document.querySelectorAll('.stat-counter').forEach(function (counter) {
+          const target    = +counter.getAttribute('data-target');
+          const increment = target / (2000 / 16);
+          (function updateCount() {
+            const count = +counter.innerText;
+            if (count < target) {
+              counter.innerText = Math.ceil(count + increment);
+              setTimeout(updateCount, 16);
+            } else {
+              counter.innerText = target;
+            }
+          })();
+        });
+      }
+
+      // ── Ease-out-expo on interactive elements ──────────────────
+      document.querySelectorAll('a, button, [class*="card-hover"]').forEach(function (el) {
+        el.classList.add('ease-out-expo');
+      });
+
+      // ── Hero Parallax (if hero section exists) ─────────────────
+      const heroBg = document.getElementById('hero-bg');
+      if (heroBg) {
+        window.addEventListener('scroll', function () {
+          const scroll = window.pageYOffset;
+          if (scroll < window.innerHeight) {
+            heroBg.style.transform = 'scale(1.1) translateY(' + (scroll * 0.3) + 'px)';
+          }
+        });
+      }
+
+    });
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog & Actualités | Oils of Africa{% endblock %}
+
+{% block extra_head %}
+<style>
+  .card-hover { transition: transform 0.35s cubic-bezier(0.19,1,0.22,1); }
+  .card-hover:hover { transform: translateY(-6px); }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO — ARTICLE À LA UNE
+     ============================================================ -->
+{% if en_une %}
+<section class="relative h-[600px] md:h-[700px] flex items-end overflow-hidden group pt-28">
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/50 to-transparent z-10"></div>
+    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+         src="{{ en_une.image_hero.url }}" alt="{{ en_une.titre }}" />
+  </div>
+
+  <div class="relative z-20 w-full max-w-container-max mx-auto px-margin-mobile md:px-gutter pb-16">
+    <div class="max-w-3xl">
+      <span class="inline-block px-4 py-1 bg-secondary text-on-secondary font-bold text-label-sm rounded-full mb-6 uppercase">
+        À la une
+      </span>
+      {% if en_une.categorie %}
+      <span class="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm text-white text-label-sm rounded-full mb-4 ml-2">
+        {{ en_une.categorie.nom }}
+      </span>
+      {% endif %}
+      <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-white mb-6 leading-tight">
+        {{ en_une.titre }}
+      </h1>
+      <p class="text-body-lg text-white/80 mb-8 max-w-2xl line-clamp-3">
+        {{ en_une.extrait }}
+      </p>
+      <div class="flex flex-wrap items-center gap-6">
+        <a href="{% url 'blog:blog_detail' en_une.slug %}"
+           class="inline-flex items-center gap-2 bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-lg shimmer">
+          Lire l'article
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+        <span class="text-white/60 text-label-sm">
+          {{ en_une.date_publication|date:"d F Y" }} &bull; {{ en_une.temps_lecture }} min de lecture
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+{% else %}
+<div class="h-28 bg-primary"></div>
+{% endif %}
+
+<!-- ============================================================
+     FILTRES & RECHERCHE
+     ============================================================ -->
+<section class="sticky top-0 z-40 py-4 bg-surface dark:bg-[#0e1710] border-b border-outline-variant dark:border-[#2d3d30] shadow-sm">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter flex flex-wrap justify-between items-center gap-4">
+
+    <!-- Catégories -->
+    <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+      <a href="{% url 'blog:blog_list' %}{% if q %}?q={{ q }}{% endif %}"
+         class="whitespace-nowrap px-5 py-2 rounded-full font-label-sm text-label-sm transition-all
+                {% if not cat_slug %}bg-primary text-white{% else %}bg-surface-container-low dark:bg-[#1a2219] text-on-surface-variant dark:text-[#8da892] border border-outline-variant dark:border-[#2d3d30] hover:border-secondary{% endif %}">
+        Tout
+      </a>
+      {% for cat in categories %}
+      <a href="?categorie={{ cat.slug }}{% if q %}&q={{ q }}{% endif %}"
+         class="whitespace-nowrap px-5 py-2 rounded-full font-label-sm text-label-sm transition-all
+                {% if cat_slug == cat.slug %}bg-primary text-white{% else %}bg-surface-container-low dark:bg-[#1a2219] text-on-surface-variant dark:text-[#8da892] border border-outline-variant dark:border-[#2d3d30] hover:border-secondary{% endif %}">
+        {{ cat.nom }}
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Recherche -->
+    <form method="get" class="relative w-full md:w-64 shrink-0">
+      {% if cat_slug %}<input type="hidden" name="categorie" value="{{ cat_slug }}">{% endif %}
+      <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline dark:text-[#8da892] text-base">search</span>
+      <input name="q" value="{{ q }}"
+             class="w-full pl-9 pr-4 py-2 bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-secondary dark:text-[#e2ede4]"
+             placeholder="Rechercher…" type="text" />
+    </form>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     GRILLE ARTICLES
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710]">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+
+    <div class="flex justify-between items-end mb-12 reveal">
+      <div>
+        <h2 class="text-headline-md font-headline-md text-primary dark:text-[#a0d3a6]">
+          {% if q %}Résultats pour « {{ q }} »
+          {% elif cat_slug %}{{ cat_slug|capfirst }}
+          {% else %}Dernières Actualités{% endif %}
+        </h2>
+        <p class="text-on-surface-variant dark:text-[#8da892] mt-2">
+          {{ articles|length }} article{{ articles|length|pluralize }} trouvé{{ articles|length|pluralize }}
+        </p>
+      </div>
+    </div>
+
+    {% if articles %}
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+
+      <!-- Grille principale -->
+      <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+        {% for article in articles %}
+        <article class="flex flex-col group card-hover bg-surface dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl overflow-hidden shadow-sm hover:shadow-lg reveal">
+          <a href="{% url 'blog:blog_detail' article.slug %}" class="aspect-[16/10] overflow-hidden block">
+            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                 src="{{ article.image_hero.url }}" alt="{{ article.titre }}" />
+          </a>
+          <div class="flex-1 p-6 flex flex-col">
+            {% if article.categorie %}
+            <span class="text-label-sm text-secondary font-bold mb-2 uppercase">{{ article.categorie.nom }}</span>
+            {% endif %}
+            <h3 class="font-headline-md text-lg text-primary dark:text-[#a0d3a6] group-hover:text-secondary transition-colors mb-3 leading-snug line-clamp-2">
+              <a href="{% url 'blog:blog_detail' article.slug %}">{{ article.titre }}</a>
+            </h3>
+            <p class="text-on-surface-variant dark:text-[#8da892] text-sm mb-4 flex-1 line-clamp-3">{{ article.extrait }}</p>
+            <div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant dark:border-[#2d3d30]">
+              <span class="text-xs text-on-surface-variant dark:text-[#8da892]">
+                {{ article.date_publication|date:"d M Y" }} &bull; {{ article.temps_lecture }} min
+              </span>
+              <a href="{% url 'blog:blog_detail' article.slug %}"
+                 class="inline-flex items-center gap-1 text-primary dark:text-[#a0d3a6] font-bold text-sm hover:text-secondary transition-colors">
+                Lire <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="md:col-span-4">
+        <div class="sticky top-24 space-y-8">
+
+          <!-- Communiqués récents -->
+          <div class="bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl p-6 reveal">
+            <h4 class="font-bold text-primary dark:text-[#a0d3a6] border-b border-secondary pb-3 mb-6 uppercase tracking-widest text-sm">
+              Communiqués récents
+            </h4>
+            <div class="space-y-6">
+              {% for r in recents %}
+              <a href="{% url 'blog:blog_detail' r.slug %}" class="group block">
+                <p class="text-label-sm text-on-surface-variant dark:text-[#8da892] mb-1">{{ r.date_publication|date:"d M Y" }}</p>
+                <h5 class="font-headline-md text-base leading-snug text-on-surface dark:text-[#e2ede4] group-hover:text-secondary transition-colors line-clamp-2">
+                  {{ r.titre }}
+                </h5>
+              </a>
+              {% empty %}
+              <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Aucun communiqué.</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Catégories -->
+          <div class="bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-[#2d3d30] rounded-xl p-6 reveal">
+            <h4 class="font-bold text-primary dark:text-[#a0d3a6] border-b border-secondary pb-3 mb-6 uppercase tracking-widest text-sm">
+              Catégories
+            </h4>
+            <div class="space-y-2">
+              {% for cat in categories %}
+              <a href="?categorie={{ cat.slug }}"
+                 class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container dark:hover:bg-[#0e1710] transition-colors group">
+                <span class="text-on-surface dark:text-[#e2ede4] group-hover:text-secondary transition-colors text-sm font-medium">{{ cat.nom }}</span>
+                <span class="text-xs text-on-surface-variant dark:text-[#8da892] bg-surface-container dark:bg-[#0e1710] px-2 py-0.5 rounded-full">
+                  {{ cat.articles.count }}
+                </span>
+              </a>
+              {% empty %}
+              <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Aucune catégorie.</p>
+              {% endfor %}
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+
+    {% else %}
+    <div class="text-center py-24 reveal">
+      <span class="material-symbols-outlined text-6xl text-outline mb-4 block">article</span>
+      <p class="text-on-surface-variant dark:text-[#8da892] text-lg">Aucun article trouvé.</p>
+      <a href="{% url 'blog:blog_list' %}" class="mt-6 inline-block text-secondary hover:underline font-bold">
+        Voir tous les articles
+      </a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<!-- ============================================================
+     NEWSLETTER
+     ============================================================ -->
+<section class="py-section-padding bg-primary dark:bg-[#071109]">
+  <div class="max-w-2xl mx-auto px-margin-mobile text-center">
+    <h2 class="text-headline-md font-headline-md text-white mb-4">Restez informé</h2>
+    <p class="text-white/70 mb-8 text-body-lg">
+      Recevez nos analyses exclusives sur le marché des huiles végétales en Afrique.
+    </p>
+    <form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+      {% csrf_token %}
+      <input type="email" placeholder="Votre adresse e-mail"
+             class="flex-1 px-6 py-4 rounded-full border-none focus:outline-none focus:ring-2 focus:ring-secondary text-on-surface dark:text-[#e2ede4] bg-white dark:bg-[#1a2219]" />
+      <button type="submit"
+              class="bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold hover:brightness-110 hover:scale-105 active:scale-95 transition-all shimmer">
+        S'inscrire
+      </button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

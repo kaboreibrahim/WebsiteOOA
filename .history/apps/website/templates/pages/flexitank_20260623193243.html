@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Flexitanks — Oils of Africa{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* ── Variables mode-aware alignées sur base.html ──────────────────── */
+  :root {
+    --terra:         #fdb813;              /* secondary */
+    --terra-dim:     rgba(253,184,19,.12);
+    /* light mode – sections */
+    --ft-bg1:        #fdf8f0;             /* surface-cream */
+    --ft-bg2:        #fcf9f8;             /* surface-bright */
+    --ft-card:       #f6f3f2;             /* surface-container-low */
+    --ft-text:       #1b1c1c;             /* on-surface */
+    --ft-text-soft:  #414941;             /* on-surface-variant */
+    --ft-text-dim:   #717970;             /* outline */
+    --ft-heading:    #00712a;             /* primary vert */
+    --ft-rule:       rgba(0,0,0,.10);
+    --ft-rule-s:     rgba(0,0,0,.18);
+    --ft-border:     #c1c9be;             /* outline-variant */
+    /* hero toujours sombre */
+    --ft-ink:        #015712;
+    --ft-bone:       #f0ede8;
+    --ft-bone-s:     rgba(240,237,232,.60);
+    --ft-bone-d:     rgba(240,237,232,.45);
+    --ft-rule-dk:    rgba(255,255,255,.10);
+    --ft-rule-dk-s:  rgba(255,255,255,.20);
+  }
+  html.dark {
+    --ft-bg1:        #071109;
+    --ft-bg2:        #111814;
+    --ft-card:       #1a2219;
+    --ft-text:       #e2ede4;
+    --ft-text-soft:  #9fd3a5;
+    --ft-text-dim:   #8da892;
+    --ft-heading:    #a0d3a6;             /* inverse-primary */
+    --ft-rule:       rgba(255,255,255,.10);
+    --ft-rule-s:     rgba(255,255,255,.20);
+    --ft-border:     rgba(255,255,255,.12);
+  }
+
+  .ft-sec1 { background: var(--ft-bg1); }
+  .ft-sec2 { background: var(--ft-bg2); }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px,5vw,48px); }
+  .sec  { padding: clamp(60px,8vw,120px) 0; }
+
+  .eyebrow { font-family:"Lato",sans-serif; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--terra); display:block; margin-bottom:16px; }
+  .h1 { font-family:"Lora",Georgia,serif; font-size:clamp(40px,6vw,72px); line-height:1.1; font-weight:700; margin:0 0 24px; color:var(--ft-bone); }
+  .h1 em { color:var(--terra); }
+  .h2 { font-family:"Lora",Georgia,serif; font-size:clamp(28px,4vw,42px); line-height:1.2; font-weight:600; margin:0 0 24px; color:var(--ft-heading); }
+  .lead-hero { font-size:clamp(16px,2vw,19px); line-height:1.7; color:var(--ft-bone-s); margin:0 0 32px; }
+  .lead-sec  { font-size:clamp(16px,2vw,19px); line-height:1.7; color:var(--ft-text-soft); margin:0 0 32px; }
+  .body-txt  { font-size:16px; line-height:1.75; color:var(--ft-text-dim); }
+
+  /* ── Hero ── */
+  .ft-hero { background: var(--ft-ink); }
+  .page-hero { padding: clamp(140px,15vw,200px) 0 clamp(60px,8vw,100px); }
+  .hero-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:60px; align-items:center; }
+  .hero-visual {
+    aspect-ratio: 4/3;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(0,113,42,.6) 0%, rgba(0,50,20,.9) 100%);
+    border: 1px solid var(--ft-rule-dk);
+    display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+  }
+  .hero-visual-icon { font-size: 64px; color: var(--terra); opacity: .8; }
+  .hero-visual-label { font-family:"Lato",sans-serif; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--ft-bone-s); }
+
+  /* ── Boutons ── */
+  .btn-terra { display:inline-flex; align-items:center; gap:10px; background:var(--terra); color:#1b1c1c; font-weight:700; font-size:14px; font-family:"Lato",sans-serif; padding:14px 28px; border-radius:999px; text-decoration:none; transition:filter .25s; white-space:nowrap; }
+  .btn-terra:hover { filter:brightness(1.1); }
+  .btn-ghost-hero { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ft-rule-dk-s); color:var(--ft-bone); padding:14px 24px; border-radius:999px; font-size:14px; font-weight:600; font-family:"Lato",sans-serif; text-decoration:none; transition:border-color .25s; }
+  .btn-ghost-hero:hover { border-color:var(--terra); }
+
+  /* ── Schema ── */
+  .schema-box { background:var(--ft-card); border:1px solid var(--ft-border); border-radius:1.25rem; padding:clamp(32px,5vw,72px); display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:center; }
+  .layer-list { list-style:none; padding:0; margin:0; }
+  .layer-list li { display:flex; gap:14px; align-items:center; padding:12px 0; border-bottom:1px solid var(--ft-rule); color:var(--ft-text); }
+  .layer-list li:last-child { border-bottom:none; }
+  .layer-num { width:26px; height:26px; border-radius:50%; background:var(--terra); color:#1b1c1c; display:grid; place-items:center; font-size:11px; font-weight:700; flex-shrink:0; font-family:"Lato",sans-serif; }
+
+  /* ── Specs ── */
+  .specs { display:grid; grid-template-columns:repeat(2,1fr); border-top:1px solid var(--ft-rule-s); }
+  .spec-row { display:grid; grid-template-columns:180px 1fr; gap:16px; padding:20px 0; border-bottom:1px solid var(--ft-rule); align-items:baseline; }
+  .spec-k { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ft-text-soft); font-family:"Lato",sans-serif; }
+  .spec-v { font-family:"Lora",Georgia,serif; font-size:19px; color:var(--ft-text); }
+  .spec-v small { font-family:"Lato",sans-serif; font-size:12px; color:var(--ft-text-dim); display:block; margin-top:3px; }
+
+  /* ── Caps ── */
+  .caps { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .cap  { padding:28px; border:1px solid var(--ft-border); border-radius:.75rem; background:var(--ft-card); transition: border-color .3s, transform .3s; }
+  .cap:hover { border-color:var(--terra); transform:translateY(-3px); }
+  .cap-ic { width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:var(--terra-dim); color:var(--terra); margin-bottom:20px; }
+  .cap h4 { font-family:"Lora",Georgia,serif; font-size:19px; margin:0 0 10px; color:var(--ft-heading); }
+  .cap p  { margin:0; color:var(--ft-text-dim); font-size:14px; line-height:1.65; }
+
+  /* ── Process ── */
+  .process { display:grid; grid-template-columns:repeat(5,1fr); gap:24px; counter-reset:step; }
+  .step { padding-top:24px; border-top:2px solid var(--terra); counter-increment:step; }
+  .step::before { content:counter(step,decimal-leading-zero); font-family:"Lora",Georgia,serif; font-size:30px; color:var(--terra); display:block; margin-bottom:12px; }
+  .step h4 { font-size:15px; font-family:"Lora",Georgia,serif; margin:0 0 8px; color:var(--ft-heading); }
+  .step p  { margin:0; color:var(--ft-text-dim); font-size:13px; line-height:1.55; }
+
+  /* ── Compat ── */
+  .compat { display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:start; }
+  .compat-list { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:0 24px; }
+  .compat-list li { padding:12px 0; border-bottom:1px solid var(--ft-rule); display:flex; align-items:center; gap:10px; color:var(--ft-text-dim); font-size:15px; }
+  .compat-list li::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--terra); flex-shrink:0; }
+
+  /* ── CTA ── */
+  .cta-box { border:1px solid var(--ft-border); border-radius:1.25rem; padding:clamp(40px,5vw,72px); background:var(--ft-card); display:grid; grid-template-columns:1.4fr auto; gap:60px; align-items:center; }
+
+  /* ── Reveal ── */
+  .ros { opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.19,1,.22,1), transform .8s cubic-bezier(.19,1,.22,1); }
+  .ros.active { opacity:1; transform:translateY(0); }
+
+  @media(max-width:1020px){
+    .hero-grid,.schema-box,.compat { grid-template-columns:1fr; gap:32px; }
+    .specs { grid-template-columns:1fr; }
+    .caps  { grid-template-columns:1fr; }
+    .process { grid-template-columns:1fr 1fr; }
+    .compat-list { grid-template-columns:1fr; }
+    .cta-box { grid-template-columns:1fr; gap:32px; }
+  }
+  @media(max-width:600px){
+    .process { grid-template-columns:1fr; }
+    .spec-row { grid-template-columns:1fr; gap:4px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ─── HERO (toujours sombre, overlay vert comme apropos) ──────────────── #}
+<div class="ft-hero">
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="ros" style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ft-bone-s);margin-bottom:20px;">
+      <a href="{% url 'website:accueil' %}" style="color:var(--ft-bone-s);text-decoration:none;">Accueil</a>
+      &nbsp;/&nbsp; Logistique &nbsp;/&nbsp;
+      <span style="color:var(--ft-bone);">Flexitanks</span>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow ros">Solutions de transport vrac</span>
+        <h1 class="h1 ros">Le vrac liquide,<br>
+          <em>souple et sûr.</em>
+        </h1>
+        <p class="lead-hero ros">
+          Nos flexitanks transforment un conteneur 20' DC standard en citerne de
+          16 000 à 24 000 litres. Une solution économique, hygiénique, à usage unique,
+          pour le transport intercontinental de produits liquides non-dangereux.
+        </p>
+        <div class="ros" style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="{% url 'website:contact' %}" class="btn-terra">
+            Demander un devis
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+          </a>
+          <a href="#specs" class="btn-ghost-hero">Spécifications techniques</a>
+        </div>
+      </div>
+      <div class="hero-visual ros">
+        <span class="material-symbols-outlined hero-visual-icon">water</span>
+        <span class="hero-visual-label">Flexitank 20' DC</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+{# ─── ARCHITECTURE ─────────────────────────────────────────────────────── #}
+<div class="ft-sec1">
+<section class="sec">
+  <div class="wrap">
+    <div class="schema-box ros">
+      <div>
+        <span class="eyebrow">Architecture produit</span>
+        <h2 class="h2">Multi-couches, sans soudure.</h2>
+        <p class="body-txt" style="margin-bottom:28px;">
+          Combinaison de 4 à 5 couches de polyéthylène food-grade et d'un film barrière,
+          assemblés sans soudure. Vannes en partie haute pour limiter tout risque de contamination.
+        </p>
+        <ul class="layer-list">
+          <li><span class="layer-num">1</span>Membrane interne PE food-grade</li>
+          <li><span class="layer-num">2</span>Couches barrière (3 strates polymères)</li>
+          <li><span class="layer-num">3</span>Coque tissée polypropylène extérieure</li>
+          <li><span class="layer-num">4</span>Bulkhead anti-éclatement</li>
+          <li><span class="layer-num">5</span>Vanne ball valve 3" haut/bas, raccord camlock</li>
+        </ul>
+      </div>
+      <div style="aspect-ratio:16/10;">
+        <svg viewBox="0 0 600 380" aria-hidden="true" style="width:100%;height:100%;color:var(--ft-text);">
+          <defs>
+            <linearGradient id="lq" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#fdb813" stop-opacity=".5"/>
+              <stop offset="100%" stop-color="#a07000" stop-opacity=".75"/>
+            </linearGradient>
+          </defs>
+          <rect x="40" y="60" width="520" height="260" rx="6" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="1.5"/>
+          <g stroke="currentColor" stroke-opacity=".10" stroke-width=".8">
+            <line x1="100" y1="60" x2="100" y2="320"/><line x1="180" y1="60" x2="180" y2="320"/>
+            <line x1="260" y1="60" x2="260" y2="320"/><line x1="340" y1="60" x2="340" y2="320"/>
+            <line x1="420" y1="60" x2="420" y2="320"/><line x1="500" y1="60" x2="500" y2="320"/>
+          </g>
+          <text x="50" y="50" fill="currentColor" fill-opacity=".4" font-family="Lato,sans-serif" font-size="10" letter-spacing="2">CONTENEUR 20' DC</text>
+          <path d="M 70 280 Q 70 110 200 110 L 400 110 Q 530 110 530 280 Q 530 305 510 305 L 90 305 Q 70 305 70 280 Z" fill="url(#lq)" opacity=".85"/>
+          <path d="M 70 280 Q 70 110 200 110 L 400 110 Q 530 110 530 280" fill="none" stroke="#fdb813" stroke-width="1.5" opacity=".6"/>
+          <line x1="60" y1="60" x2="60" y2="320" stroke="currentColor" stroke-opacity=".55" stroke-width="3" stroke-dasharray="2 3"/>
+          <text x="20" y="200" fill="currentColor" fill-opacity=".4" font-family="Lato,sans-serif" font-size="9" letter-spacing="2" transform="rotate(-90 30 200)">BULKHEAD</text>
+          <g transform="translate(150 110)">
+            <rect x="-6" y="-22" width="12" height="22" fill="currentColor" fill-opacity=".7"/>
+            <circle r="10" fill="currentColor" fill-opacity=".7"/>
+            <circle r="4" fill="var(--ft-bg1)"/>
+          </g>
+          <text x="156" y="98" fill="currentColor" fill-opacity=".6" font-family="Lato,sans-serif" font-size="10">VANNE 3"</text>
+          <g stroke="currentColor" stroke-opacity=".3" stroke-width=".6" fill="currentColor" fill-opacity=".4" font-family="Lato,sans-serif" font-size="9" letter-spacing="1.5">
+            <line x1="40" y1="345" x2="560" y2="345"/>
+            <line x1="40" y1="340" x2="40" y2="350"/><line x1="560" y1="340" x2="560" y2="350"/>
+            <text x="300" y="362" text-anchor="middle">5 900 MM — Ø 24 000 L</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+{# ─── SPECS ──────────────────────────────────────────────────────────────── #}
+<div class="ft-sec2" id="specs">
+<section class="sec">
+  <div class="wrap">
+    <div style="margin-bottom:48px;" class="ros">
+      <span class="eyebrow">Spécifications</span>
+      <h2 class="h2">Données techniques.</h2>
+    </div>
+    <div class="specs ros">
+      <div class="spec-row"><div class="spec-k">Capacité</div><div class="spec-v">16 000 — 24 000 L<small>Selon densité produit &amp; règlementation route</small></div></div>
+      <div class="spec-row"><div class="spec-k">Conteneur</div><div class="spec-v">20' DC standard<small>Compatible ISO 1496</small></div></div>
+      <div class="spec-row"><div class="spec-k">Couches</div><div class="spec-v">4 à 5 plis<small>Polyéthylène food-grade multicouches</small></div></div>
+      <div class="spec-row"><div class="spec-k">Vanne</div><div class="spec-v">Ball valve 3"<small>Acier inox 316L, raccord camlock standard</small></div></div>
+      <div class="spec-row"><div class="spec-k">Température opér.</div><div class="spec-v">−10 °C → +60 °C<small>Hors produits à viscosité spécifique</small></div></div>
+      <div class="spec-row"><div class="spec-k">Certifications</div><div class="spec-v">FDA, EU 10/2011<small>Food-grade attesté par essais migration</small></div></div>
+      <div class="spec-row"><div class="spec-k">Test pression</div><div class="spec-v">0,8 bar<small>Avant chaque livraison, certificat individuel</small></div></div>
+      <div class="spec-row"><div class="spec-k">Cycle de vie</div><div class="spec-v">Usage unique<small>Recyclage matière en filière dédiée</small></div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+{# ─── AVANTAGES ──────────────────────────────────────────────────────────── #}
+<div class="ft-sec1">
+<section class="sec">
+  <div class="wrap">
+    <div style="margin-bottom:48px;" class="ros">
+      <span class="eyebrow">Avantages</span>
+      <h2 class="h2">Pourquoi un flexitank.</h2>
+    </div>
+    <div class="caps">
+      <div class="cap ros">
+        <div class="cap-ic"><span class="material-symbols-outlined">trending_up</span></div>
+        <h4>30 % de capacité en plus</h4>
+        <p>Comparé à un fûtage 1 000 L palettisé : moins de conteneurs, moins d'émissions par tonne.kilomètre.</p>
+      </div>
+      <div class="cap ros">
+        <div class="cap-ic"><span class="material-symbols-outlined">verified_user</span></div>
+        <h4>Hygiène garantie</h4>
+        <p>Usage unique. Aucun risque de contamination croisée. Membrane interne neuve à chaque expédition.</p>
+      </div>
+      <div class="cap ros">
+        <div class="cap-ic"><span class="material-symbols-outlined">timer</span></div>
+        <h4>Mise en œuvre rapide</h4>
+        <p>Installation et chargement complet en moins de 90 minutes par notre équipe certifiée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+{# ─── PROCESS ────────────────────────────────────────────────────────────── #}
+<div class="ft-sec2">
+<section class="sec">
+  <div class="wrap">
+    <div style="margin-bottom:48px;" class="ros">
+      <span class="eyebrow">Process</span>
+      <h2 class="h2">De la commande au port.</h2>
+    </div>
+    <div class="process">
+      <div class="step ros"><h4>Brief produit</h4><p>Spécifications produit, viscosité, port et délais cibles. Cotation sous 48h.</p></div>
+      <div class="step ros"><h4>Inspection conteneur</h4><p>Audit conteneur 20' DC : état parois, étanchéité, propreté. Refus si non-conforme.</p></div>
+      <div class="step ros"><h4>Installation flexitank</h4><p>Pose membrane + bulkhead par équipe certifiée. Mise en pression test.</p></div>
+      <div class="step ros"><h4>Chargement</h4><p>Remplissage gravitaire ou pompage selon produit. Pesée certifiée, scellage.</p></div>
+      <div class="step ros"><h4>Expédition</h4><p>Dossier documentaire complet (CoA, BL, certificat origine). Suivi jusqu'à destination.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+{# ─── COMPATIBILITÉ ──────────────────────────────────────────────────────── #}
+<div class="ft-sec1">
+<section class="sec">
+  <div class="wrap">
+    <div class="compat">
+      <div class="ros">
+        <span class="eyebrow">Produits compatibles</span>
+        <h2 class="h2">Liquides non-dangereux uniquement.</h2>
+        <p class="body-txt">Nos flexitanks sont conçus pour le transport de produits liquides non-dangereux food-grade ou industriels. Aucun produit classé matière dangereuse (IMDG, ADR) ne peut être chargé.</p>
+      </div>
+      <ul class="compat-list ros">
+        <li>Huile de palme brute (CPO)</li><li>Oléine de palme</li>
+        <li>Stéarine de palme</li><li>Huile de palmiste (PKO)</li>
+        <li>Huile de coco</li><li>Glycérine pharmaceutique</li>
+        <li>Mélasses alimentaires</li><li>Concentrés de jus</li>
+        <li>Huiles minérales blanches</li><li>Latex non-stabilisé</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div>
+
+{# ─── CTA ────────────────────────────────────────────────────────────────── #}
+<div class="ft-sec2">
+<section class="sec">
+  <div class="wrap">
+    <div class="cta-box ros">
+      <div>
+        <h2 class="h2">Demandez votre cotation flexitank.</h2>
+        <p class="lead-sec" style="margin:0;">Indiquez-nous le produit, le volume, le port d'embarquement et le port de destination. Réponse sous 48 heures ouvrées.</p>
+      </div>
+      <a href="{% url 'website:contact' %}" class="btn-terra">
+        Demander un devis
+        <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+</section>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i % 4 * 90) + 'ms';
+        e.target.classList.add('active');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.ros').forEach(el => io.observe(el));
+</script>
+{% endblock %}

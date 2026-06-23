@@ -1,0 +1,74 @@
+{% if messages %}
+<div id="toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-3 max-w-sm w-full">
+  {% for message in messages %}
+  <div
+    role="alert"
+    data-toast
+    class="toast-item flex items-start gap-3 rounded-xl px-4 py-3 shadow-lg border
+      {% if message.tags == 'success' %}bg-green-50 border-green-200 text-green-800 dark:bg-green-900/30 dark:border-green-700 dark:text-green-300
+      {% elif message.tags == 'error' %}bg-red-50 border-red-200 text-red-800 dark:bg-red-900/30 dark:border-red-700 dark:text-red-300
+      {% elif message.tags == 'warning' %}bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/30 dark:border-amber-700 dark:text-amber-300
+      {% elif message.tags == 'info' %}bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-300
+      {% else %}bg-surface-container border-outline-variant text-on-surface{% endif %}"
+    style="animation: toastIn 0.35s ease-out both;"
+  >
+    <!-- Icône -->
+    <span class="material-symbols-outlined text-[22px] mt-0.5 shrink-0
+      {% if message.tags == 'success' %}text-green-600 dark:text-green-400
+      {% elif message.tags == 'error' %}text-red-600 dark:text-red-400
+      {% elif message.tags == 'warning' %}text-amber-600 dark:text-amber-400
+      {% elif message.tags == 'info' %}text-blue-600 dark:text-blue-400
+      {% else %}text-on-surface-variant{% endif %}">
+      {% if message.tags == 'success' %}check_circle
+      {% elif message.tags == 'error' %}cancel
+      {% elif message.tags == 'warning' %}warning
+      {% elif message.tags == 'info' %}info
+      {% else %}notifications{% endif %}
+    </span>
+
+    <!-- Texte -->
+    <p class="flex-1 text-sm font-medium leading-snug">{{ message }}</p>
+
+    <!-- Bouton fermeture -->
+    <button
+      type="button"
+      onclick="closeToast(this)"
+      class="shrink-0 ml-1 opacity-50 hover:opacity-100 transition-opacity"
+      aria-label="Fermer"
+    >
+      <span class="material-symbols-outlined text-[18px]">close</span>
+    </button>
+  </div>
+  {% endfor %}
+</div>
+
+<style>
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(60px); }
+    to   { opacity: 1; transform: translateX(0);    }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateX(0);    max-height: 120px; margin-bottom: 0; }
+    to   { opacity: 0; transform: translateX(60px); max-height: 0;     margin-bottom: -12px; }
+  }
+  .toast-leaving {
+    animation: toastOut 0.3s ease-in forwards !important;
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  function closeToast(btn) {
+    const toast = btn.closest('[data-toast]');
+    toast.classList.add('toast-leaving');
+    toast.addEventListener('animationend', () => toast.remove(), { once: true });
+  }
+
+  /* Auto-dismiss après 5 secondes */
+  document.querySelectorAll('[data-toast]').forEach((toast, i) => {
+    setTimeout(() => {
+      if (toast.isConnected) closeToast(toast.querySelector('button'));
+    }, 5000 + i * 300);
+  });
+</script>
+{% endif %}

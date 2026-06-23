@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Galerie | Oils of Africa{% endblock %}
+
+{% block content %}
+<section class="py-section-padding bg-surface dark:bg-[#0e1710] min-h-screen">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto text-center mb-16">
+    <h1 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Galerie & Vidéos</h1>
+    <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] max-w-2xl mx-auto">
+      Immersion dans nos opérations et installations.
+    </p>
+  </div>
+
+  {% if photos %}
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto mb-16">
+    <h2 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-8">Photos</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for photo in photos %}
+      <div class="rounded-3xl overflow-hidden border-2 border-white dark:border-[#1a2219] shadow-xl group h-64">
+        <img alt="{{ photo.titre }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="{{ photo.image.url }}"/>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if videos %}
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto mb-16">
+    <h2 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-8">Vidéos</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for video in videos %}
+      <div class="rounded-3xl overflow-hidden shadow-xl aspect-video">
+        <iframe class="w-full h-full"
+                src="{{ video.video_url }}"
+                title="{{ video.titre }}"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if not photos and not videos %}
+  <p class="text-center text-on-surface-variant dark:text-[#8da892]">Aucun média disponible pour le moment.</p>
+  {% endif %}
+
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto text-center mt-8">
+    <a class="inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary dark:text-[#9fd3a5] dark:border-[#9fd3a5] font-bold hover:bg-primary hover:text-on-primary dark:hover:bg-[#9fd3a5] dark:hover:text-[#0b140d] transition-all duration-300"
+       href="{% url 'website:accueil' %}">
+      <span class="material-symbols-outlined text-sm">arrow_back</span> Retour à l'accueil
+    </a>
+  </div>
+</section>
+{% endblock %}

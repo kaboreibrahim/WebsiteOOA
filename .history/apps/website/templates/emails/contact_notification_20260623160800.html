@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nouveau message de contact — Oils of Africa</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f0eded;font-family:'Lato',Arial,sans-serif;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0eded;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" border="0"
+               style="max-width:600px;width:100%;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+
+          <!-- ── EN-TÊTE ── -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#00712a 0%,#005a22 100%);padding:36px 40px;text-align:center;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding-bottom:16px;">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtQt4JJVElB6HGPkJck7jnAZTZkXyN5yeiMaOzTgh75L5ItrdTlpZIc5KdFQ8GWpr7zgogX1YCVNf7rhSbvxFDeiNTRpksEdTXYbfnxZP4k8JneUhq8lVDOHNQMLRntFsk-xWlH0_DesPiuvIV2Nv84mzWxZ4ChFbeVw_tXL0fr3nX3NfC5C_GsL5Bv1uvEpCIEu2x-8cmZVZZBma_lhNujVi4FOyzZvyOyZXk6pguuLuek3AO7cmOxx5--b4ewYA7yXLfRSTGV21x"
+                         alt="Oils of Africa"
+                         width="60" height="60"
+                         style="border-radius:50%;background:#ffffff;padding:6px;display:block;"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <span style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">
+                      Oils of <span style="color:#fdb813;">Africa</span>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" style="padding-top:8px;">
+                    <span style="font-size:13px;color:rgba(255,255,255,0.7);letter-spacing:2px;text-transform:uppercase;">
+                      Nouveau message de contact
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── BADGE SUJET ── -->
+          <tr>
+            <td style="padding:32px 40px 0;text-align:center;">
+              <span style="display:inline-block;background:#fdb81320;color:#a07000;border:1px solid #fdb813;border-radius:9999px;padding:6px 20px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">
+                {{ sujet_label }}
+              </span>
+            </td>
+          </tr>
+
+          <!-- ── INFOS EXPÉDITEUR ── -->
+          <tr>
+            <td style="padding:28px 40px 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background:#f6f3f2;border-radius:14px;overflow:hidden;">
+                <tr>
+                  <td style="padding:24px 28px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-bottom:14px;border-bottom:1px solid #e4e2e1;">
+                          <span style="font-size:11px;color:#717970;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">Expéditeur</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-top:16px;">
+                          <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="padding-bottom:10px;">
+                                <span style="font-size:13px;color:#717970;width:80px;display:inline-block;">Nom</span>
+                                <span style="font-size:14px;color:#1b1c1c;font-weight:700;">{{ nom }}</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span style="font-size:13px;color:#717970;width:80px;display:inline-block;">Email</span>
+                                <a href="mailto:{{ email }}"
+                                   style="font-size:14px;color:#00712a;font-weight:700;text-decoration:none;">{{ email }}</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── MESSAGE ── -->
+          <tr>
+            <td style="padding:24px 40px 0;">
+              <p style="margin:0 0 12px;font-size:11px;color:#717970;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">Message</p>
+              <div style="background:#f6f3f2;border-left:4px solid #fdb813;border-radius:0 12px 12px 0;padding:20px 24px;">
+                <p style="margin:0;font-size:15px;color:#1b1c1c;line-height:1.7;white-space:pre-wrap;">{{ message }}</p>
+              </div>
+            </td>
+          </tr>
+
+          <!-- ── CTA RÉPONDRE ── -->
+          <tr>
+            <td style="padding:32px 40px;text-align:center;">
+              <a href="mailto:{{ email }}?subject=Re: {{ sujet_label }}"
+                 style="display:inline-block;background:linear-gradient(135deg,#00712a,#005a22);color:#ffffff;font-weight:700;font-size:14px;text-decoration:none;padding:14px 36px;border-radius:9999px;letter-spacing:0.5px;">
+                Répondre à {{ nom }}
+              </a>
+            </td>
+          </tr>
+
+          <!-- ── PIED DE PAGE ── -->
+          <tr>
+            <td style="background:#f6f3f2;padding:24px 40px;border-top:1px solid #e4e2e1;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="text-align:center;">
+                    <p style="margin:0 0 6px;font-size:12px;color:#717970;">
+                      Ce message a été reçu depuis le formulaire de contact du site
+                    </p>
+                    <p style="margin:0;font-size:12px;color:#717970;">
+                      © 2026 <strong style="color:#00712a;">Oils of Africa</strong> — Grand-Bassam, Cité Italia 2
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
