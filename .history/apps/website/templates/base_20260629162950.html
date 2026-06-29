@@ -5,48 +5,6 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>{% block title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}</title>
-
-  <!-- ── SEO ──────────────────────────────────────────────────── -->
-  <meta name="description" content="{% block meta_description %}Oils of Africa — négoce international d'huiles végétales et solutions logistiques en Afrique de l'Ouest. Flexitanks, Iso Tanks, sourcing direct.{% endblock %}"/>
-  <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}"/>
-  <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
-
-  <!-- ── Open Graph ────────────────────────────────────────────── -->
-  <meta property="og:type" content="{% block og_type %}website{% endblock %}"/>
-  <meta property="og:site_name" content="Oils of Africa"/>
-  <meta property="og:title" content="{% block og_title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}"/>
-  <meta property="og:description" content="{% block og_description %}Oils of Africa — négoce international d'huiles végétales et solutions logistiques en Afrique de l'Ouest.{% endblock %}"/>
-  <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
-  <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}{% endblock %}"/>
-  <meta property="og:locale" content="fr_CI"/>
-
-  <!-- ── Twitter Card ──────────────────────────────────────────── -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="{% block twitter_title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}"/>
-  <meta name="twitter:description" content="{% block twitter_description %}Oils of Africa — négoce international d'huiles végétales et solutions logistiques en Afrique de l'Ouest.{% endblock %}"/>
-  <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}{% endblock %}"/>
-
-  <!-- ── Données structurées (JSON-LD) ─────────────────────────── -->
-  {% block structured_data %}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Oils of Africa",
-    "url": "{{ request.scheme }}://{{ request.get_host }}",
-    "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}",
-    "email": "info@oils-of-africa.com",
-    "telephone": "+2250749353415",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Cité Italia 2, Immeuble 6A",
-      "addressLocality": "Grand-Bassam",
-      "addressCountry": "CI"
-    }
-  }
-  </script>
-  {% endblock %}
-
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>

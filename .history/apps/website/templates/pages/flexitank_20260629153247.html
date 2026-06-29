@@ -1,34 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Flexitanks — Transport Vrac Liquide 24 000 L | Oils of Africa{% endblock %}
-
-{% block meta_description %}Solutions Flexitank pour le transport d'huiles végétales en vrac : capacité 16 000 à 24 000 litres, usage unique pour une hygiène garantie, réduction des coûts logistiques de 30%. Experts en Afrique de l'Ouest.{% endblock %}
-
-{% block og_title %}Flexitanks — Transport Vrac Liquide | Oils of Africa{% endblock %}
-{% block og_description %}Flexitanks 24 000 L pour le transport d'huiles en vrac. Usage unique, hygiène garantie, -30% sur les coûts logistiques.{% endblock %}
-{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'image/flexitankooa.png' %}{% endblock %}
-
-{% block twitter_title %}Flexitanks — Transport d'Huiles en Vrac | Oils of Africa{% endblock %}
-{% block twitter_description %}Flexitanks 24 000 L, usage unique, hygiène garantie et réduction de 30% des coûts logistiques.{% endblock %}
-{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'image/flexitankooa.png' %}{% endblock %}
-
-{% block structured_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Flexitanks — Transport de liquides en vrac",
-  "description": "Solutions Flexitank de 16 000 à 24 000 litres pour le transport d'huiles végétales en vrac. Usage unique, hygiène garantie, réduction des coûts de 30%.",
-  "url": "{{ request.build_absolute_uri }}",
-  "provider": {
-    "@type": "Organization",
-    "name": "Oils of Africa"
-  },
-  "serviceType": "Transport de liquides en vrac — Flexitank"
-}
-</script>
-{% endblock %}
+{% block title %}Flexitanks — Oils of Africa{% endblock %}
 
 {% block extra_head %}
 <style>

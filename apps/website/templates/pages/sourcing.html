@@ -1,0 +1,574 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sourcing d'Huiles Végétales en Afrique | Oils of Africa{% endblock %}
+
+{% block meta_description %}Sourcing direct d'huiles végétales auprès des meilleurs producteurs d'Afrique de l'Ouest : approvisionnement traçable, contrôle qualité certifié, pratiques durables et partenariats coopératifs exclusifs.{% endblock %}
+
+{% block og_title %}Sourcing d'Huiles Végétales | Oils of Africa{% endblock %}
+{% block og_description %}Approvisionnement direct, traçabilité totale et contrôle qualité certifié auprès des producteurs locaux d'Afrique de l'Ouest.{% endblock %}
+
+{% block twitter_title %}Sourcing d'Huiles Végétales | Oils of Africa{% endblock %}
+{% block twitter_description %}Approvisionnement direct et traçable auprès des producteurs locaux d'Afrique de l'Ouest.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Sourcing d'Huiles Végétales",
+  "description": "Approvisionnement direct auprès des producteurs d'Afrique de l'Ouest avec traçabilité complète et contrôle qualité certifié.",
+  "url": "{{ request.build_absolute_uri }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "Oils of Africa"
+  },
+  "areaServed": ["CI","GH","BJ","CM","GN","NG","LR","MR","SN","BF"],
+  "serviceType": "Sourcing d'huiles végétales"
+}
+</script>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+  .hero-sourcing {
+    background: linear-gradient(135deg, rgba(0, 113, 42, 0.92) 0%, rgba(0, 60, 20, 0.75) 60%, transparent 100%);
+  }
+  .innov-card {
+    background: linear-gradient(135deg, #00712ab4 0%, #004d1a 100%);
+  }
+  .step-line::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 2rem;
+    background: linear-gradient(to bottom, #fdb813, transparent);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="relative min-h-[70vh] flex items-center overflow-hidden">
+  <!-- Fond -->
+  <div class="absolute inset-0 z-0 bg-cover bg-center"
+       style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA8nu40HdYAB7uC48GQ3Va9sGVTstPBdKdAhiHmTjJecXypVEQPIbSrg0gcSJqN-KHKBpypqfL_XORKC80QUHaK3LbfvCKx0t0VGP_vLnbzSleToLlWD4XPCJnrbabYubR8L2rp793uQbAty4h7UYyvl-IG-EZzaSR_xRzlDmGgoUCu4etdY-SF2OL2Qbme_5QwvDPnZTWKcKud5Fgy5nC0pLBzruBbm9BOH4qy7yiEs9He8jNpu2DNo3ekpbqdJDPwDA46mko0zvbX'); transform: scale(1.03);"></div>
+  <div class="absolute inset-0 z-10 hero-sourcing"></div>
+
+  <div class="relative z-20 w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto py-24">
+    <div class="max-w-2xl">
+      <span class="inline-block bg-secondary/20 text-secondary border border-secondary/40 text-sm font-bold tracking-widest uppercase px-4 py-1 rounded-full mb-6">
+        Approvisionnement responsable
+      </span>
+      <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-6 leading-tight">
+        Notre Sourcing,<br/>Notre Force
+      </h1>
+      <p class="text-body-lg text-white/85 mb-10 max-w-xl leading-relaxed">
+        Oils of Africa a bâti un réseau d'approvisionnement unique en Afrique de l'Ouest, directement auprès des producteurs locaux. Découvrez notre philosophie et la plateforme digitale <strong class="text-secondary">innov-sourcing.com</strong> qui révolutionne le négoce d'huiles végétales.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#innov-sourcing"
+           class="inline-flex items-center justify-center bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-xl">
+          Découvrir innov-sourcing.com
+        </a>
+        <a href="#processus"
+           class="inline-flex items-center justify-center border-2 border-white/50 text-white px-8 py-4 rounded-full font-bold text-label-sm hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all backdrop-blur-sm">
+          Notre processus
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/50 animate-bounce">
+    <span class="material-symbols-outlined text-2xl">keyboard_arrow_down</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     INTRO SOURCING
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710] reveal">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+      <div>
+        <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Pourquoi le sourcing est notre cœur de métier</span>
+        <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-6">
+          La matière première juste, au bon endroit
+        </h2>
+        <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-6 leading-relaxed">
+          Chez Oils of Africa, le sourcing ne se résume pas à trouver un fournisseur. C'est une démarche exigeante qui associe sélection rigoureuse des producteurs, contrôle qualité en amont et traçabilité totale de chaque lot d'huile végétale.
+        </p>
+        <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-8 leading-relaxed">
+          Nous travaillons en relation directe avec des coopératives et plantations certifiées réparties dans plus de 10 pays d'Afrique subsaharienne. Cette proximité nous permet de garantir des prix compétitifs, une qualité constante et une chaîne d'approvisionnement transparente pour nos clients à l'international.
+        </p>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex items-start gap-4 group">
+            <span class="material-symbols-outlined text-secondary text-3xl mt-1 group-hover:scale-110 transition-transform flex-shrink-0">handshake</span>
+            <div>
+              <h4 class="font-bold text-primary dark:text-[#9fd3a5] mb-1">Partenariats directs producteurs</h4>
+              <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Relations de confiance établies sur le long terme avec des coopératives locales sélectionnées pour leur savoir-faire.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 group">
+            <span class="material-symbols-outlined text-secondary text-3xl mt-1 group-hover:scale-110 transition-transform flex-shrink-0">verified</span>
+            <div>
+              <h4 class="font-bold text-primary dark:text-[#9fd3a5] mb-1">Contrôle qualité sur site</h4>
+              <p class="text-sm text-on-surface-variant dark:text-[#8da892]">Inspections régulières et analyses en laboratoire certifié avant chaque expédition.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 group">
+            <span class="material-symbols-outlined text-secondary text-3xl mt-1 group-hover:scale-110 transition-transform flex-shrink-0">track_changes</span>
+            <div>
+              <h4 class="font-bold text-primary dark:text-[#9fd3a5] mb-1">Traçabilité complète</h4>
+              <p class="text-sm text-on-surface-variant dark:text-[#8da892]">De la plantation à l'embarquement, chaque lot est documenté et suivi en temps réel.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image / visuel -->
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-[#1a2219] group h-[500px]">
+        <img alt="Sourcing huile de palme Afrique"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8nu40HdYAB7uC48GQ3Va9sGVTstPBdKdAhiHmTjJecXypVEQPIbSrg0gcSJqN-KHKBpypqfL_XORKC80QUHaK3LbfvCKx0t0VGP_vLnbzSleToLlWD4XPCJnrbabYubR8L2rp793uQbAty4h7UYyvl-IG-EZzaSR_xRzlDmGgoUCu4etdY-SF2OL2Qbme_5QwvDPnZTWKcKud5Fgy5nC0pLBzruBbm9BOH4qy7yiEs9He8jNpu2DNo3ekpbqdJDPwDA46mko0zvbX"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent pointer-events-none"></div>
+        <!-- Badge -->
+        <div class="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-[#1a2219]/90 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4">
+          <span class="material-symbols-outlined text-secondary text-4xl">eco</span>
+          <div>
+            <p class="font-bold text-primary dark:text-[#9fd3a5] text-sm">Approvisionnement durable</p>
+            <p class="text-xs text-on-surface-variant dark:text-[#8da892]">Respect des écosystèmes & des communautés locales</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CHIFFRES CLÉS
+     ============================================================ -->
+<section class="py-section-padding bg-primary dark:bg-[#071109] text-white reveal">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Notre réseau en chiffres</span>
+      <h2 class="font-headline-md text-headline-md text-white mb-4">Un sourcing à la mesure de vos ambitions</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div class="p-6 border border-white/10 rounded-2xl hover:border-secondary/50 hover:-translate-y-2 transition-all duration-500 group">
+        <div class="text-5xl font-bold text-secondary mb-2 group-hover:scale-110 transition-transform">
+          <span class="stat-counter" data-target="25">0</span>+
+        </div>
+        <p class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Producteurs partenaires</p>
+      </div>
+      <div class="p-6 border border-white/10 rounded-2xl hover:border-secondary/50 hover:-translate-y-2 transition-all duration-500 group">
+        <div class="text-5xl font-bold text-secondary mb-2 group-hover:scale-110 transition-transform">
+          <span class="stat-counter" data-target="25">0</span>k+
+        </div>
+        <p class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Tonnes sourcées / an</p>
+      </div>
+      <div class="p-6 border border-white/10 rounded-2xl hover:border-secondary/50 hover:-translate-y-2 transition-all duration-500 group">
+        <div class="text-5xl font-bold text-secondary mb-2 group-hover:scale-110 transition-transform">
+          <span class="stat-counter" data-target="10">0</span>
+        </div>
+        <p class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Pays couverts en Afrique</p>
+      </div>
+      <div class="p-6 border border-white/10 rounded-2xl hover:border-secondary/50 hover:-translate-y-2 transition-all duration-500 group">
+        <div class="text-5xl font-bold text-secondary mb-2 group-hover:scale-110 transition-transform">
+          <span class="stat-counter" data-target="100">0</span>%
+        </div>
+        <p class="text-label-sm uppercase tracking-widest opacity-80 font-bold">Lots tracés & certifiés</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESSUS DE SOURCING
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-lowest dark:bg-[#0b140d] reveal" id="processus">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">De la plantation au port</span>
+      <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Notre processus en 5 étapes</h2>
+      <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] max-w-2xl mx-auto">
+        Une chaîne d'approvisionnement parfaitement orchestrée pour garantir la qualité à chaque maillon.
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- Ligne verticale centrale (desktop) -->
+      <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-secondary via-primary/30 to-transparent -translate-x-1/2"></div>
+
+      <div class="space-y-12 lg:space-y-0">
+
+        <!-- Étape 1 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center lg:mb-16">
+          <div class="lg:text-right order-2 lg:order-1">
+            <span class="inline-block text-secondary font-bold text-sm tracking-widest uppercase mb-2">Étape 01</span>
+            <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Identification & sélection des producteurs</h3>
+            <p class="text-on-surface-variant dark:text-[#8da892]">
+              Nos équipes terrain sillonnent les régions productrices d'Afrique de l'Ouest pour identifier les coopératives et plantations répondant à nos critères stricts de qualité, durabilité et capacité de production.
+            </p>
+          </div>
+          <div class="order-1 lg:order-2 flex lg:justify-start justify-center">
+            <div class="relative">
+              <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center shadow-xl z-10 relative">
+                <span class="material-symbols-outlined text-on-secondary text-3xl">search</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center lg:mb-16">
+          <div class="flex lg:justify-end justify-center">
+            <div class="w-16 h-16 rounded-full bg-primary dark:bg-[#1e4d2b] flex items-center justify-center shadow-xl">
+              <span class="material-symbols-outlined text-white text-3xl">science</span>
+            </div>
+          </div>
+          <div>
+            <span class="inline-block text-secondary font-bold text-sm tracking-widest uppercase mb-2">Étape 02</span>
+            <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Audit qualité & analyses laboratoire</h3>
+            <p class="text-on-surface-variant dark:text-[#8da892]">
+              Chaque producteur sélectionné est soumis à un audit qualité complet. Des échantillons sont analysés en laboratoire certifié pour vérifier la conformité aux normes internationales (teneur en acides gras libres, humidité, impuretés…).
+            </p>
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center lg:mb-16">
+          <div class="lg:text-right order-2 lg:order-1">
+            <span class="inline-block text-secondary font-bold text-sm tracking-widest uppercase mb-2">Étape 03</span>
+            <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Négociation & cotation via innov-sourcing.com</h3>
+            <p class="text-on-surface-variant dark:text-[#8da892]">
+              Une fois le producteur validé, la cotation et la négociation s'effectuent via notre plateforme digitale <strong class="text-secondary">innov-sourcing.com</strong>. Acheteurs et vendeurs peuvent soumettre, suivre et accepter des offres en toute transparence.
+            </p>
+          </div>
+          <div class="order-1 lg:order-2 flex lg:justify-start justify-center">
+            <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center shadow-xl">
+              <span class="material-symbols-outlined text-on-secondary text-3xl">request_quote</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center lg:mb-16">
+          <div class="flex lg:justify-end justify-center">
+            <div class="w-16 h-16 rounded-full bg-primary dark:bg-[#1e4d2b] flex items-center justify-center shadow-xl">
+              <span class="material-symbols-outlined text-white text-3xl">inventory_2</span>
+            </div>
+          </div>
+          <div>
+            <span class="inline-block text-secondary font-bold text-sm tracking-widest uppercase mb-2">Étape 04</span>
+            <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Conditionnement & préparation à l'export</h3>
+            <p class="text-on-surface-variant dark:text-[#8da892]">
+              Les huiles sont chargées en Flexitanks ou Iso Tanks selon les spécifications du client. Chaque lot est scellé, étiqueté et accompagné des certificats d'analyse et des documents douaniers requis.
+            </p>
+          </div>
+        </div>
+
+        <!-- Étape 5 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div class="lg:text-right order-2 lg:order-1">
+            <span class="inline-block text-secondary font-bold text-sm tracking-widest uppercase mb-2">Étape 05</span>
+            <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Expédition & suivi jusqu'à destination</h3>
+            <p class="text-on-surface-variant dark:text-[#8da892]">
+              La marchandise est embarquée et suivie en temps réel jusqu'à destination. Notre équipe reste disponible jusqu'à la livraison finale pour assurer une expérience d'achat sans faille.
+            </p>
+          </div>
+          <div class="order-1 lg:order-2 flex lg:justify-start justify-center">
+            <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center shadow-xl">
+              <span class="material-symbols-outlined text-on-secondary text-3xl">local_shipping</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INNOV-SOURCING.COM — Mise en avant plateforme
+     ============================================================ -->
+<section class="py-section-padding bg-surface dark:bg-[#0e1710] reveal" id="innov-sourcing">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+
+    <!-- Header section -->
+    <div class="text-center mb-16">
+      <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">La plateforme digitale d'Oils of Africa</span>
+      <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">
+        innov-sourcing.com
+      </h2>
+      <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] max-w-3xl mx-auto">
+        Oils of Africa a créé <strong class="text-primary dark:text-[#9fd3a5]">innov-sourcing.com</strong>, une plateforme B2B dédiée au négoce de matières premières agricoles en Afrique. Elle connecte acheteurs internationaux et producteurs locaux en un seul espace numérique, sécurisé et transparent.
+      </p>
+    </div>
+
+    <!-- Carte principale innov-sourcing -->
+    <div class="innov-card rounded-3xl p-10 md:p-16 text-white shadow-2xl mb-16 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10"
+           style="background-image: url('{% static "image/champ.png" %}'); background-size: cover; background-position: center;"></div>
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-6">
+            <span class="material-symbols-outlined text-secondary">language</span>
+            <span class="font-bold text-sm tracking-wide">innov-sourcing.com</span>
+          </div>
+          <h3 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+            La marketplace des huiles végétales africaines
+          </h3>
+          <p class="text-white/85 text-lg mb-8 leading-relaxed">
+            Créée et opérée par Oils of Africa, cette plateforme permet à tout acheteur de demander une cotation en ligne, de comparer les offres disponibles et de finaliser ses achats en toute sécurité. Les vendeurs peuvent y lister leurs produits, gérer leurs stocks et accéder à de nouveaux marchés à l'international.
+          </p>
+          <a href="https://innov-sourcing.com"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center gap-3 bg-secondary text-on-secondary px-8 py-4 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-xl">
+            <span class="material-symbols-outlined">open_in_new</span>
+            Visiter innov-sourcing.com
+          </a>
+        </div>
+
+        <!-- Features de la plateforme -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:bg-white/15 transition-colors">
+            <span class="material-symbols-outlined text-secondary text-3xl mb-3 block">manage_search</span>
+            <h4 class="font-bold mb-2">Cotations en ligne</h4>
+            <p class="text-white/75 text-sm">Demandez et recevez des offres en quelques clics depuis n'importe où dans le monde.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:bg-white/15 transition-colors">
+            <span class="material-symbols-outlined text-secondary text-3xl mb-3 block">verified_user</span>
+            <h4 class="font-bold mb-2">Vendeurs vérifiés</h4>
+            <p class="text-white/75 text-sm">Tous les fournisseurs sont audités et certifiés par les équipes Oils of Africa.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:bg-white/15 transition-colors">
+            <span class="material-symbols-outlined text-secondary text-3xl mb-3 block">price_check</span>
+            <h4 class="font-bold mb-2">Prix transparents</h4>
+            <p class="text-white/75 text-sm">Accédez aux cours du marché en temps réel et négociez en toute connaissance de cause.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:bg-white/15 transition-colors">
+            <span class="material-symbols-outlined text-secondary text-3xl mb-3 block">support_agent</span>
+            <h4 class="font-bold mb-2">Support dédié</h4>
+            <p class="text-white/75 text-sm">Une équipe de spécialistes vous accompagne à chaque étape de votre achat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Qui peut utiliser la plateforme -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Acheteurs -->
+      <div class="bg-surface-container-low dark:bg-[#1a2219] rounded-3xl p-8 border border-outline-variant dark:border-[#2d3d30] hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-2xl bg-secondary/15 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-secondary text-3xl">shopping_cart</span>
+        </div>
+        <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Vous êtes acheteur ?</h3>
+        <p class="text-on-surface-variant dark:text-[#8da892] mb-6 leading-relaxed">
+          Accédez à un catalogue d'huiles végétales (palme, palmiste, karité, coprah…) directement sourcées en Afrique. Déposez votre demande de cotation, comparez les offres et finalisez votre commande en ligne.
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm text-on-surface-variant dark:text-[#8da892]">
+            <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+            Cotations gratuites et sans engagement
+          </li>
+          <li class="flex items-center gap-2 text-sm text-on-surface-variant dark:text-[#8da892]">
+            <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+            Livraison dans plus de 50 pays
+          </li>
+          <li class="flex items-center gap-2 text-sm text-on-surface-variant dark:text-[#8da892]">
+            <span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+            Documents certifiés fournis
+          </li>
+        </ul>
+        <a href="https://innov-sourcing.com/fr/cotation/creer/"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-secondary text-on-secondary font-bold text-sm hover:brightness-110 hover:scale-105 transition-all">
+          Demander une cotation
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Vendeurs -->
+      <div class="bg-surface-container-low dark:bg-[#1a2219] rounded-3xl p-8 border border-outline-variant dark:border-[#2d3d30] hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-2xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-3xl">store</span>
+        </div>
+        <h3 class="font-bold text-xl text-primary dark:text-[#9fd3a5] mb-3">Vous êtes producteur / vendeur ?</h3>
+        <p class="text-on-surface-variant dark:text-[#8da892] mb-6 leading-relaxed">
+          Rejoignez le réseau innov-sourcing.com et accédez à une clientèle internationale qualifiée. Listez vos produits, gérez vos stocks et recevez des demandes d'achat directement depuis la plateforme.
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm text-on-surface-variant dark:text-[#8da892]">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-base">check_circle</span>
+            Inscription gratuite & rapide
+          </li>
+          <li class="flex items-center gap-2 text-sm text-on-surface-variant dark:text-[#8da892]">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-base">check_circle</span>
+            Accès à des acheteurs internationaux
+          </li>
+          <li class="flex items-center gap-2 text-sm text-on-surface-variant dark:text-[#8da892]">
+            <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-base">check_circle</span>
+            Accompagnement logistique inclus
+          </li>
+        </ul>
+        <a href="https://innov-sourcing.com"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary dark:bg-[#1e4d2b] text-white font-bold text-sm hover:brightness-110 hover:scale-105 transition-all">
+          Rejoindre la plateforme
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     ZONES DE SOURCING — Marquee
+     ============================================================ -->
+<div class="marquee bg-surface-container-low dark:bg-[#111814] py-4" aria-hidden="true">
+  <div class="marquee-track">
+    <span><span class="fi fi-ci"></span> Côte d'Ivoire</span><span class="dot"></span>
+    <span><span class="fi fi-gh"></span> Ghana</span><span class="dot"></span>
+    <span><span class="fi fi-bj"></span> Bénin</span><span class="dot"></span>
+    <span><span class="fi fi-cm"></span> Cameroun</span><span class="dot"></span>
+    <span><span class="fi fi-gn"></span> Guinée</span><span class="dot"></span>
+    <span><span class="fi fi-ng"></span> Nigeria</span><span class="dot"></span>
+    <span><span class="fi fi-lr"></span> Liberia</span><span class="dot"></span>
+    <span><span class="fi fi-mr"></span> Mauritanie</span><span class="dot"></span>
+    <span><span class="fi fi-sn"></span> Sénégal</span><span class="dot"></span>
+    <span><span class="fi fi-bf"></span> Burkina Faso</span><span class="dot"></span>
+    <span>Huile de palme &amp; dérivés</span><span class="dot"></span>
+    <span>Huile de palmiste</span><span class="dot"></span>
+    <span>Huile de karité</span><span class="dot"></span>
+    <span>Coprah</span><span class="dot"></span>
+    <span><span class="fi fi-ci"></span> Côte d'Ivoire</span><span class="dot"></span>
+    <span><span class="fi fi-gh"></span> Ghana</span><span class="dot"></span>
+    <span><span class="fi fi-bj"></span> Bénin</span><span class="dot"></span>
+    <span><span class="fi fi-cm"></span> Cameroun</span><span class="dot"></span>
+    <span><span class="fi fi-gn"></span> Guinée</span><span class="dot"></span>
+    <span><span class="fi fi-ng"></span> Nigeria</span><span class="dot"></span>
+    <span><span class="fi fi-lr"></span> Liberia</span><span class="dot"></span>
+    <span><span class="fi fi-sn"></span> Sénégal</span><span class="dot"></span>
+    <span><span class="fi fi-bf"></span> Burkina Faso</span><span class="dot"></span>
+    <span>innov-sourcing.com</span><span class="dot"></span>
+  </div>
+</div>
+
+<!-- ============================================================
+     ENGAGEMENTS DURABILITÉ
+     ============================================================ -->
+<section class="py-section-padding bg-surface-container-lowest dark:bg-[#0b140d] reveal">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-secondary font-bold text-sm tracking-widest uppercase mb-4 block">Responsabilité & Impact</span>
+      <h2 class="font-headline-md text-headline-md text-primary dark:text-[#9fd3a5] mb-4">Un sourcing qui respecte les hommes et la nature</h2>
+      <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] max-w-2xl mx-auto">
+        Notre engagement va au-delà du commerce. Nous investissons dans le développement durable des communautés productrices et la préservation des ressources naturelles.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="p-8 bg-surface dark:bg-[#1a2219] rounded-3xl border-l-4 border-secondary hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-4xl mb-4 group-hover:scale-110 transition-transform block">park</span>
+        <h3 class="font-bold text-lg mb-3 dark:text-[#e2ede4]">Agriculture durable</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] leading-relaxed">Nous encourageons les pratiques agricoles respectueuses de la biodiversité et sans déforestation illégale.</p>
+      </div>
+      <div class="p-8 bg-surface dark:bg-[#1a2219] rounded-3xl border-l-4 border-secondary hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-4xl mb-4 group-hover:scale-110 transition-transform block">groups</span>
+        <h3 class="font-bold text-lg mb-3 dark:text-[#e2ede4]">Impact communautaire</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] leading-relaxed">Nos partenariats avec des coopératives locales créent des revenus stables pour des milliers de familles d'agriculteurs.</p>
+      </div>
+      <div class="p-8 bg-surface dark:bg-[#1a2219] rounded-3xl border-l-4 border-secondary hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-4xl mb-4 group-hover:scale-110 transition-transform block">workspace_premium</span>
+        <h3 class="font-bold text-lg mb-3 dark:text-[#e2ede4]">Certifications qualité</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] leading-relaxed">Conformité aux standards internationaux RSPO, ISO et aux exigences spécifiques de chaque marché acheteur.</p>
+      </div>
+      <div class="p-8 bg-surface dark:bg-[#1a2219] rounded-3xl border-l-4 border-secondary hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-4xl mb-4 group-hover:scale-110 transition-transform block">water_drop</span>
+        <h3 class="font-bold text-lg mb-3 dark:text-[#e2ede4]">Gestion de l'eau</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] leading-relaxed">Promotion des techniques d'irrigation raisonnée pour préserver les ressources en eau des zones productrices.</p>
+      </div>
+      <div class="p-8 bg-surface dark:bg-[#1a2219] rounded-3xl border-l-4 border-secondary hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-4xl mb-4 group-hover:scale-110 transition-transform block">school</span>
+        <h3 class="font-bold text-lg mb-3 dark:text-[#e2ede4]">Formation des producteurs</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] leading-relaxed">Programmes de renforcement des capacités pour améliorer les rendements et la qualité des huiles produites localement.</p>
+      </div>
+      <div class="p-8 bg-surface dark:bg-[#1a2219] rounded-3xl border-l-4 border-secondary hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary dark:text-[#9fd3a5] text-4xl mb-4 group-hover:scale-110 transition-transform block">co2</span>
+        <h3 class="font-bold text-lg mb-3 dark:text-[#e2ede4]">Bilan carbone maîtrisé</h3>
+        <p class="text-sm text-on-surface-variant dark:text-[#8da892] leading-relaxed">Optimisation des routes logistiques pour réduire l'empreinte carbone de nos opérations d'exportation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA FINAL
+     ============================================================ -->
+<section class="py-section-padding bg-primary dark:bg-[#071109] reveal">
+  <div class="px-margin-mobile md:px-gutter max-w-container-max mx-auto text-center">
+    <h2 class="font-headline-md text-headline-md text-white mb-4">
+      Prêt à sourcer vos huiles en Afrique ?
+    </h2>
+    <p class="text-white/80 text-body-lg mb-10 max-w-2xl mx-auto">
+      Que vous soyez importateur, industriel ou distributeur, Oils of Africa et sa plateforme <strong class="text-secondary">innov-sourcing.com</strong> vous offrent un accès privilégié aux meilleures huiles végétales d'Afrique de l'Ouest.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://innov-sourcing.com/fr/cotation/creer/"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="inline-flex items-center justify-center gap-2 bg-secondary text-on-secondary px-10 py-4 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-xl">
+        <span class="material-symbols-outlined">request_quote</span>
+        Demander une cotation
+      </a>
+      <a href="accueil/#contact"
+         class="inline-flex items-center justify-center gap-2 border-2 border-white/50 text-white px-10 py-4 rounded-full font-bold text-label-sm hover:bg-white hover:text-primary hover:scale-105 active:scale-95 transition-all backdrop-blur-sm">
+        <span class="material-symbols-outlined">mail</span>
+        Nous contacter
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  /* ── Compteurs statistiques ────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', function () {
+    const counters = document.querySelectorAll('.stat-counter');
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const el     = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        let   current = 0;
+        const step    = Math.max(1, Math.ceil(target / 60));
+        const timer   = setInterval(function () {
+          current = Math.min(current + step, target);
+          el.textContent = current;
+          if (current >= target) clearInterval(timer);
+        }, 20);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (c) { observer.observe(c); });
+  });
+</script>
+{% endblock %}

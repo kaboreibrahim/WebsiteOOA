@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p9eg@4tvom)88i)bag#w)&s9=ebl@ogtd)qnja^dj0%^9_y1_9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -104,19 +104,19 @@ DATABASES = {
 
 #Database production
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME":'c2508341c_WebSiteV2',
-#         "USER":'c2508341c_adminV2',
-#         "PASSWORD": "YoYRO5)Vmvi%16NI",  # mettre le vrai mot de passe
-#         "HOST": os.environ.get("MYSQL_HOST", "127.0.0.1"),   # ou l’host fourni par ton hébergeur
-#         "PORT": os.environ.get("MYSQL_PORT", "3306"),
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#         },
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME":'c2508341c_WebSiteV2',
+        "USER":'c2508341c_adminV2',
+        "PASSWORD": "!-v&zd^&u(ZHGT-@",  # mettre le vrai mot de passe
+        "HOST": os.environ.get("MYSQL_HOST", "127.0.0.1"),   # ou l’host fourni par ton hébergeur
+        "PORT": os.environ.get("MYSQL_PORT", "3306"),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        },
+    }
+}
 
 
 

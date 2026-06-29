@@ -1,7 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Nos Produits – Oils of Africa{% endblock %}
+{% block title %}Nos Produits — Huiles Végétales Premium | Oils of Africa{% endblock %}
+
+{% block meta_description %}Découvrez la gamme d'huiles végétales premium d'Oils of Africa : huile de palme, huile de palmiste et dérivés. Qualité certifiée pour l'industrie agroalimentaire et cosmétique en Afrique de l'Ouest.{% endblock %}
+
+{% block og_title %}Nos Produits — Huiles Végétales Premium | Oils of Africa{% endblock %}
+{% block og_description %}Huile de palme, huile de palmiste et dérivés de qualité certifiée pour l'industrie agroalimentaire et cosmétique. Sourcing direct Afrique de l'Ouest.{% endblock %}
+
+{% block twitter_title %}Nos Produits — Huiles Végétales | Oils of Africa{% endblock %}
+{% block twitter_description %}Huiles végétales premium : palme, palmiste et dérivés. Qualité certifiée, sourcing direct Afrique de l'Ouest.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Catalogue d'huiles végétales — Oils of Africa",
+  "description": "Gamme d'huiles végétales premium pour l'industrie agroalimentaire et cosmétique, sourcées directement en Afrique de l'Ouest.",
+  "url": "{{ request.build_absolute_uri }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Oils of Africa"
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>

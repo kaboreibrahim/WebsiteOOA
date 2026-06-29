@@ -1,39 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Oils of Africa | Négoce & Logistique d'Huiles Végétales en Afrique de l'Ouest{% endblock %}
-
-{% block meta_description %}Oils of Africa — votre partenaire de négoce international en huiles végétales d'Afrique de l'Ouest. Sourcing direct auprès des producteurs locaux, flexitanks 24 000 L, iso tanks certifiés et export vers les marchés mondiaux.{% endblock %}
-
-{% block og_title %}Oils of Africa | Négoce & Logistique d'Huiles Végétales{% endblock %}
-{% block og_description %}Partenaire de confiance pour l'export d'huiles végétales depuis l'Afrique de l'Ouest. Sourcing direct, flexitanks, iso tanks, traçabilité et qualité certifiée.{% endblock %}
-
-{% block twitter_title %}Oils of Africa | Négoce & Logistique d'Huiles Végétales{% endblock %}
-{% block twitter_description %}Partenaire de confiance pour l'export d'huiles végétales depuis l'Afrique de l'Ouest. Sourcing, flexitanks, iso tanks, traçabilité.{% endblock %}
-
-{% block structured_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Oils of Africa",
-  "description": "Négoce international et solutions logistiques d'huiles végétales en Afrique de l'Ouest.",
-  "url": "{{ request.scheme }}://{{ request.get_host }}",
-  "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}",
-  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}",
-  "email": "info@oils-of-africa.com",
-  "telephone": "+2250749353415",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Cité Italia 2, Immeuble 6A",
-    "addressLocality": "Grand-Bassam",
-    "addressCountry": "CI"
-  },
-  "areaServed": ["CI","GH","BJ","CM","GN","NG","LR","MR","SN","BF"],
-  "knowsAbout": ["huile de palme","huile végétale","négoce international","flexitank","iso tank","export Afrique de l'Ouest"]
-}
-</script>
-{% endblock %}
+{% block title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}
 
 {% block content %}
 
@@ -194,7 +162,7 @@
         <div class="flex flex-col gap-4 group cursor-default">
           <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">verified</span>
           <h4 class="font-bold text-lg text-primary dark:text-[#9fd3a5]">Contrôle qualité</h4>
-          "<p class="text-on-surface-variant dark:text-[#8da892]">Laboratoires certifiés vérifiant la conformité aux standards internationaux.</p>
+          <p class="text-on-surface-variant dark:text-[#8da892]">Laboratoires certifiés vérifiant la conformité aux standards internationaux.</p>
         </div>
         <div class="flex flex-col gap-4 group cursor-default">
           <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">eco</span>

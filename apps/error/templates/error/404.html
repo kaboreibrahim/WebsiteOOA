@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}404 — Page introuvable | Oils of Africa{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center px-margin-mobile pt-32 pb-24 bg-surface dark:bg-[#0e1710]">
+  <div class="max-w-2xl mx-auto text-center">
+
+    <!-- Code d'erreur -->
+    <div class="relative mb-8 select-none">
+      <span class="text-[9rem] md:text-[12rem] font-display-lg font-bold text-primary/10 dark:text-primary/20 leading-none">
+        404
+      </span>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span class="material-symbols-outlined text-6xl md:text-8xl text-secondary">search_off</span>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <h1 class="font-headline-md text-3xl md:text-4xl font-bold text-on-surface dark:text-[#e2ede4] mb-4">
+      Page introuvable
+    </h1>
+    <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-10 max-w-md mx-auto">
+      La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou retournez à l'accueil.
+    </p>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'website:accueil' %}"
+         class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-lg shimmer">
+        <span class="material-symbols-outlined text-sm">home</span>
+        Retour à l'accueil
+      </a>
+      <a href="javascript:history.back()"
+         class="inline-flex items-center gap-2 border border-outline text-on-surface dark:text-[#e2ede4] px-8 py-3 rounded-full font-bold text-label-sm hover:border-primary hover:text-primary transition-all">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        Page précédente
+      </a>
+    </div>
+
+    <!-- Liens utiles -->
+    <div class="mt-16 pt-8 border-t border-outline-variant dark:border-[#2d3d30]">
+      <p class="text-label-sm text-on-surface-variant dark:text-[#8da892] mb-6 uppercase tracking-widest">Pages populaires</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="{% url 'website:produit_list' %}"
+           class="text-label-sm text-primary hover:text-secondary border border-primary/30 hover:border-secondary px-4 py-2 rounded-full transition-all">
+          Nos Produits
+        </a>
+        <a href="{% url 'website:sourcing' %}"
+           class="text-label-sm text-primary hover:text-secondary border border-primary/30 hover:border-secondary px-4 py-2 rounded-full transition-all">
+          Sourcing
+        </a>
+        <a href="{% url 'website:flexitank' %}"
+           class="text-label-sm text-primary hover:text-secondary border border-primary/30 hover:border-secondary px-4 py-2 rounded-full transition-all">
+          Flexitank
+        </a>
+        <a href="{% url 'website:apropos' %}"
+           class="text-label-sm text-primary hover:text-secondary border border-primary/30 hover:border-secondary px-4 py-2 rounded-full transition-all">
+          À propos
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,7 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}À Propos | Oils of Africa{% endblock %}
+{% block title %}À Propos — Notre Mission & Notre Équipe | Oils of Africa{% endblock %}
+
+{% block meta_description %}Découvrez Oils of Africa, spécialiste du négoce international d'huiles végétales en Afrique de l'Ouest. Notre mission : valoriser les richesses naturelles africaines avec excellence, traçabilité et intégrité.{% endblock %}
+
+{% block og_title %}À Propos | Oils of Africa{% endblock %}
+{% block og_description %}Oils of Africa — spécialiste du négoce d'huiles végétales en Afrique de l'Ouest. Découvrez notre mission, notre équipe et nos engagements.{% endblock %}
+
+{% block twitter_title %}À Propos | Oils of Africa{% endblock %}
+{% block twitter_description %}Spécialiste du négoce d'huiles végétales en Afrique de l'Ouest. Mission, équipe et engagements.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "À Propos — Oils of Africa",
+  "description": "Spécialiste du négoce international d'huiles végétales en Afrique de l'Ouest.",
+  "url": "{{ request.build_absolute_uri }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Oils of Africa",
+    "url": "{{ request.scheme }}://{{ request.get_host }}"
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>

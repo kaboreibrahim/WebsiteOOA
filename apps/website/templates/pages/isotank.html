@@ -1,7 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Iso Tanks — Oils of Africa{% endblock %}
+{% block title %}Iso Tanks — Transport Sécurisé d'Huiles Végétales | Oils of Africa{% endblock %}
+
+{% block meta_description %}Iso Tanks certifiés grade alimentaire et chimique pour le transport sécurisé d'huiles végétales. Système de chauffage intégré, stabilité thermique maximale et suivi rigoureux de chaque lot.{% endblock %}
+
+{% block og_title %}Iso Tanks — Transport Sécurisé d'Huiles | Oils of Africa{% endblock %}
+{% block og_description %}Iso Tanks certifiés grade alimentaire pour le transport d'huiles végétales sensibles. Sécurité absolue, chauffage intégré, traçabilité totale.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'image/iso.png' %}{% endblock %}
+
+{% block twitter_title %}Iso Tanks — Transport Sécurisé | Oils of Africa{% endblock %}
+{% block twitter_description %}Iso Tanks grade alimentaire certifié, chauffage intégré et traçabilité totale pour vos huiles végétales sensibles.{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'image/iso.png' %}{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Iso Tanks — Transport sécurisé de liquides",
+  "description": "Conteneurs Iso Tank certifiés grade alimentaire et chimique pour le transport d'huiles végétales sensibles avec chauffage intégré et suivi rigoureux.",
+  "url": "{{ request.build_absolute_uri }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "Oils of Africa"
+  },
+  "serviceType": "Transport de liquides — Iso Tank"
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>

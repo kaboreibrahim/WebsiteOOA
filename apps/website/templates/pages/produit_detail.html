@@ -1,7 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}{{ produit.nom }} – Oils of Africa{% endblock %}
+{% block title %}{{ produit.nom }} – Huile Végétale Premium | Oils of Africa{% endblock %}
+
+{% block meta_description %}{{ produit.description|truncatechars:160 }}{% endblock %}
+
+{% block og_title %}{{ produit.nom }} | Oils of Africa{% endblock %}
+{% block og_description %}{{ produit.description|truncatechars:200 }}{% endblock %}
+{% if produit.image %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ produit.image.url }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ produit.image.url }}{% endblock %}
+{% endif %}
+
+{% block twitter_title %}{{ produit.nom }} | Oils of Africa{% endblock %}
+{% block twitter_description %}{{ produit.description|truncatechars:160 }}{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ produit.nom }}",
+  "description": "{{ produit.description|escapejs }}",
+  {% if produit.image %}"image": "{{ request.scheme }}://{{ request.get_host }}{{ produit.image.url }}",{% endif %}
+  {% if produit.origine %}"countryOfOrigin": "{{ produit.origine }}",{% endif %}
+  "brand": {
+    "@type": "Brand",
+    "name": "Oils of Africa"
+  },
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "USD",
+    "seller": {
+      "@type": "Organization",
+      "name": "Oils of Africa"
+    }
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>

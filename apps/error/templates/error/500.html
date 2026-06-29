@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}500 — Erreur serveur | Oils of Africa{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<section class="min-h-screen flex items-center justify-center px-margin-mobile pt-32 pb-24 bg-surface dark:bg-[#0e1710]">
+  <div class="max-w-2xl mx-auto text-center">
+
+    <!-- Code d'erreur -->
+    <div class="relative mb-8 select-none">
+      <span class="text-[9rem] md:text-[12rem] font-display-lg font-bold text-primary/10 dark:text-primary/20 leading-none">
+        500
+      </span>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span class="material-symbols-outlined text-6xl md:text-8xl text-error">error</span>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <h1 class="font-headline-md text-3xl md:text-4xl font-bold text-on-surface dark:text-[#e2ede4] mb-4">
+      Erreur interne du serveur
+    </h1>
+    <p class="text-body-lg text-on-surface-variant dark:text-[#8da892] mb-10 max-w-md mx-auto">
+      Une erreur inattendue s'est produite sur nos serveurs. Notre équipe a été notifiée. Veuillez réessayer dans quelques instants.
+    </p>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="{% url 'website:accueil' %}"
+         class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-bold text-label-sm hover:brightness-110 hover:scale-105 active:scale-95 transition-all shadow-lg shimmer">
+        <span class="material-symbols-outlined text-sm">home</span>
+        Retour à l'accueil
+      </a>
+      <button onclick="window.location.reload()"
+              class="inline-flex items-center gap-2 border border-outline text-on-surface dark:text-[#e2ede4] px-8 py-3 rounded-full font-bold text-label-sm hover:border-primary hover:text-primary transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-sm">refresh</span>
+        Réessayer
+      </button>
+    </div>
+
+    <!-- Contact -->
+    <div class="mt-16 pt-8 border-t border-outline-variant dark:border-[#2d3d30]">
+      <p class="text-body-md text-on-surface-variant dark:text-[#8da892]">
+        Si le problème persiste, contactez-nous à
+        <a href="mailto:info@oils-of-africa.com"
+           class="text-primary hover:text-secondary font-semibold transition-colors">
+          info@oils-of-africa.com
+        </a>
+      </p>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,7 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Blog & Actualités | Oils of Africa{% endblock %}
+{% block title %}Blog & Actualités — Marché des Huiles Végétales | Oils of Africa{% endblock %}
+
+{% block meta_description %}Analyses, actualités et tendances du marché des huiles végétales en Afrique de l'Ouest. Articles d'experts d'Oils of Africa sur le négoce, la logistique et les filières oléagineuses.{% endblock %}
+
+{% block og_title %}Blog & Actualités | Oils of Africa{% endblock %}
+{% block og_description %}Analyses et tendances du marché des huiles végétales en Afrique de l'Ouest par les experts d'Oils of Africa.{% endblock %}
+
+{% block twitter_title %}Blog & Actualités | Oils of Africa{% endblock %}
+{% block twitter_description %}Analyses et tendances du marché des huiles végétales en Afrique de l'Ouest.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Oils of Africa",
+  "description": "Actualités et analyses du marché des huiles végétales en Afrique de l'Ouest.",
+  "url": "{{ request.build_absolute_uri }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Oils of Africa"
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>

@@ -5,4 +5,4 @@ from .contact import contact
 from .apropos import apropos
 from .flexitank import flexitank
 from .isotank import isotank
-from .sourcing import sourcing
+from .sourcing import *

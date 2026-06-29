@@ -1,7 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ article.titre }} | Oils of Africa{% endblock %}
+{% block title %}{{ article.titre }} | Blog Oils of Africa{% endblock %}
+
+{% block meta_description %}{{ article.extrait|truncatechars:160 }}{% endblock %}
+
+{% block og_title %}{{ article.titre }} | Oils of Africa{% endblock %}
+{% block og_description %}{{ article.extrait|truncatechars:200 }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ article.image_hero.url }}{% endblock %}
+
+{% block twitter_title %}{{ article.titre }} | Oils of Africa{% endblock %}
+{% block twitter_description %}{{ article.extrait|truncatechars:160 }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ article.image_hero.url }}{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "{{ article.titre|escapejs }}",
+  "description": "{{ article.extrait|escapejs }}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ article.image_hero.url }}",
+  "datePublished": "{{ article.date_publication|date:'c' }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ article.auteur }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Oils of Africa",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+{% endblock %}
 
 {% block extra_head %}
 <style>

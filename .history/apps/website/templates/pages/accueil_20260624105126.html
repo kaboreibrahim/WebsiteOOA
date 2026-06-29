@@ -1,39 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Oils of Africa | Négoce & Logistique d'Huiles Végétales en Afrique de l'Ouest{% endblock %}
-
-{% block meta_description %}Oils of Africa — votre partenaire de négoce international en huiles végétales d'Afrique de l'Ouest. Sourcing direct auprès des producteurs locaux, flexitanks 24 000 L, iso tanks certifiés et export vers les marchés mondiaux.{% endblock %}
-
-{% block og_title %}Oils of Africa | Négoce & Logistique d'Huiles Végétales{% endblock %}
-{% block og_description %}Partenaire de confiance pour l'export d'huiles végétales depuis l'Afrique de l'Ouest. Sourcing direct, flexitanks, iso tanks, traçabilité et qualité certifiée.{% endblock %}
-
-{% block twitter_title %}Oils of Africa | Négoce & Logistique d'Huiles Végétales{% endblock %}
-{% block twitter_description %}Partenaire de confiance pour l'export d'huiles végétales depuis l'Afrique de l'Ouest. Sourcing, flexitanks, iso tanks, traçabilité.{% endblock %}
-
-{% block structured_data %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Oils of Africa",
-  "description": "Négoce international et solutions logistiques d'huiles végétales en Afrique de l'Ouest.",
-  "url": "{{ request.scheme }}://{{ request.get_host }}",
-  "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}",
-  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'image/logo.png' %}",
-  "email": "info@oils-of-africa.com",
-  "telephone": "+2250749353415",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Cité Italia 2, Immeuble 6A",
-    "addressLocality": "Grand-Bassam",
-    "addressCountry": "CI"
-  },
-  "areaServed": ["CI","GH","BJ","CM","GN","NG","LR","MR","SN","BF"],
-  "knowsAbout": ["huile de palme","huile végétale","négoce international","flexitank","iso tank","export Afrique de l'Ouest"]
-}
-</script>
-{% endblock %}
+{% block title %}Oils of Africa | Le partenaire de confiance pour vos huiles{% endblock %}
 
 {% block content %}
 
@@ -194,7 +162,7 @@
         <div class="flex flex-col gap-4 group cursor-default">
           <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">verified</span>
           <h4 class="font-bold text-lg text-primary dark:text-[#9fd3a5]">Contrôle qualité</h4>
-          "<p class="text-on-surface-variant dark:text-[#8da892]">Laboratoires certifiés vérifiant la conformité aux standards internationaux.</p>
+          <p class="text-on-surface-variant dark:text-[#8da892]">Laboratoires certifiés vérifiant la conformité aux standards internationaux.</p>
         </div>
         <div class="flex flex-col gap-4 group cursor-default">
           <span class="material-symbols-outlined text-secondary text-4xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">eco</span>
@@ -296,10 +264,9 @@
             <span class="dark:text-[#e2ede4]">Réduction des coûts logistiques de 30%</span>
           </li>
         </ul>
-        <a href="{% url 'website:flexitank' %}"
-           class="inline-block bg-primary dark:bg-[#1e4d2b] text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container hover:scale-105 active:scale-95 transition-all shadow-md shimmer">
+        <button class="bg-primary dark:bg-[#1e4d2b] text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container hover:scale-105 active:scale-95 transition-all shadow-md shimmer">
           Voir détails
-        </a>
+        </button>
       </div>
     </div>
 
@@ -327,13 +294,12 @@
           </li>
           <li class="flex items-center gap-3 group/li">
             <span class="material-symbols-outlined text-secondary group-hover/li:scale-125 transition-transform">check_circle</span>
-            <span class="dark:text-[#e2ede4]">Suivi rigoureux de chaque lot, de la plantation jusqu'à l'embarquement final.</span>
+            <span class="dark:text-[#e2ede4]">Traçabilité GPS en temps réel</span>
           </li>
         </ul>
-        <a href="{% url 'website:isotank' %}"
-           class="inline-block bg-primary dark:bg-[#1e4d2b] text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container hover:scale-105 active:scale-95 transition-all shadow-md shimmer">
+        <button class="bg-primary dark:bg-[#1e4d2b] text-white px-8 py-3 rounded-full font-bold hover:bg-primary-container hover:scale-105 active:scale-95 transition-all shadow-md shimmer">
           Voir détails
-        </a>
+        </button>
       </div>
     </div>
 
@@ -522,16 +488,11 @@
       </div>
 
       <!-- Carte -->
-      <div class="rounded-3xl overflow-hidden h-full min-h-[400px] border-4 border-white dark:border-[#1a2219] shadow-xl relative">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15892.859078798376!2d-3.8273024!3d5.2289234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1f70020173019%3A0x93a22def0370ad99!2sOils%20of%20Africa!5e0!3m2!1sen!2sci!4v1782750738288!5m2!1sen!2sci"
-          class="w-full h-full min-h-[400px]"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          title="Localisation Oils of Africa — Grand-Bassam">
-        </iframe>
+      <div class="rounded-3xl overflow-hidden h-full min-h-[400px] border-4 border-white dark:border-[#1a2219] shadow-xl relative group">
+        <img alt="Carte Grand-Bassam"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcJv1MeZDAWiEaym2r5Lr3e06pbsx6Bo_3dk456pkALCmaV0uqAmtW2kEF-Is-u0R5TYc-Nh22942WNy1skmFSDcABOdrT3EUpIpwQxk8yV9vGz7P6xMb1T_FwNSo8a2S1g_-wKltBhK7E8Y-GV54Thzea8BQWKmq0-vmfauiGaaf7tpr1HqVZNOMoXihl3LMDKroCnOZ7d6K-4M3_LyMWXavBAN5CNIRB23JpsxjjRDv0HOgY0wDY4eD9TkYNSnPgRM6bYIqP-4Hl"/>
+        <div class="absolute inset-0 bg-primary/10 dark:bg-primary/30 pointer-events-none group-hover:bg-primary/0 transition-colors"></div>
       </div>
 
     </div>
