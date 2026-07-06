@@ -1,0 +1,94 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Médias{% endblock %}
+
+{% block breadcrumb %}
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <span class="text-gray-700 dark:text-gray-200 font-medium">Médias</span>
+{% endblock %}
+
+{% block main %}
+<div class="px-5 py-6">
+
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-serif font-bold text-gray-900 dark:text-white">Médias</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ medias|length }} média{% if medias|length != 1 %}s{% endif %}</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <form method="get" class="flex items-center gap-2">
+        <select name="type" onchange="this.form.submit()"
+                class="text-sm rounded-xl border border-gray-200 dark:border-[#2d3d30] bg-white dark:bg-[#111814] text-gray-700 dark:text-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#004d1e]">
+          <option value="">Photos & Vidéos</option>
+          <option value="photo" {% if type_filter == 'photo' %}selected{% endif %}>Photos</option>
+          <option value="video" {% if type_filter == 'video' %}selected{% endif %}>Vidéos</option>
+        </select>
+      </form>
+      <a href="{% url 'dashboard:medias_add' %}"
+         class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#004d1e] hover:bg-[#003d17] text-white text-sm font-semibold shadow-sm transition-all active:scale-95">
+        <span class="material-symbols-outlined text-base">add</span>Ajouter
+      </a>
+    </div>
+  </div>
+
+  <!-- Grid view -->
+  {% if medias %}
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+    {% for media in medias %}
+    <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden group">
+      <!-- Thumbnail -->
+      <div class="relative aspect-video bg-gray-100 dark:bg-[#2d3d30] overflow-hidden">
+        {% with thumb=media.thumbnail %}
+        {% if thumb %}
+        <img src="{{ thumb.url }}" alt="{{ media.titre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+        {% else %}
+        <div class="w-full h-full flex items-center justify-center">
+          <span class="material-symbols-outlined text-gray-400 text-3xl">{% if media.type == 'video' %}play_circle{% else %}image{% endif %}</span>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <!-- Type badge -->
+        <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-xs font-bold
+          {% if media.type == 'video' %}bg-red-500 text-white{% else %}bg-blue-500 text-white{% endif %}">
+          {{ media.get_type_display }}
+        </span>
+        {% if not media.actif %}
+        <span class="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <span class="text-white text-xs font-bold bg-black/60 px-2 py-1 rounded">Inactif</span>
+        </span>
+        {% endif %}
+      </div>
+      <!-- Info -->
+      <div class="p-3">
+        <p class="font-semibold text-gray-900 dark:text-white text-sm truncate">{{ media.titre }}</p>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ media.get_categorie_display|default:"Sans catégorie" }}</p>
+        <div class="flex items-center gap-2 mt-3">
+          <a href="{% url 'dashboard:medias_edit' media.pk %}"
+             class="flex-1 flex items-center justify-center gap-1 py-1.5 rounded-lg border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:text-[#004d1e] dark:hover:text-green-400 hover:border-[#004d1e] text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-sm">edit</span>
+          </a>
+          <form action="{% url 'dashboard:medias_delete' media.pk %}" method="post" class="flex-1"
+                onsubmit="return confirm('Supprimer ce média ?')">
+            {% csrf_token %}
+            <button type="submit"
+                    class="w-full flex items-center justify-center gap-1 py-1.5 rounded-lg border border-gray-200 dark:border-[#2d3d30] text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 text-xs font-medium transition-all">
+              <span class="material-symbols-outlined text-sm">delete</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm">
+    <div class="flex flex-col items-center justify-center py-16 text-center">
+      <span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-5xl mb-3">photo_library</span>
+      <p class="font-semibold text-gray-500 dark:text-gray-400">Aucun média</p>
+      <a href="{% url 'dashboard:medias_add' %}" class="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-[#004d1e] hover:bg-[#003d17] text-white text-sm font-semibold transition-all">
+        <span class="material-symbols-outlined text-base">add</span>Ajouter un média
+      </a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

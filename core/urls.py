@@ -45,6 +45,7 @@ urlpatterns += i18n_patterns(
     path('', include('apps.blog.urls')),
     path('', include('apps.medias.urls')),
     path('', include('apps.error.urls')),
+    path('', include('apps.dashboard.urls')),
     prefix_default_language=False,
 )
 

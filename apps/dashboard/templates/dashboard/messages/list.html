@@ -1,0 +1,80 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Messages{% endblock %}
+
+{% block breadcrumb %}
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <span class="text-gray-700 dark:text-gray-200 font-medium">Messages</span>
+{% endblock %}
+
+{% block main %}
+<div class="px-5 py-6">
+
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+    <div>
+      <h1 class="text-xl font-serif font-bold text-gray-900 dark:text-white">Messages de contact</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+        {{ messages_list|length }} message{% if messages_list|length != 1 %}s{% endif %}
+        {% if non_lus > 0 %} · <span class="text-red-500 font-semibold">{{ non_lus }} non lu{% if non_lus > 1 %}s{% endif %}</span>{% endif %}
+      </p>
+    </div>
+    <form method="get">
+      <div class="flex items-center gap-2">
+        <a href="{% url 'dashboard:messages_list' %}" class="px-3 py-2 rounded-xl text-sm font-medium transition-all {% if lu_filter == '' %}bg-[#004d1e] text-white{% else %}border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5{% endif %}">Tous</a>
+        <a href="?lu=0" class="px-3 py-2 rounded-xl text-sm font-medium transition-all {% if lu_filter == '0' %}bg-red-500 text-white{% else %}border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5{% endif %}">Non lus {% if non_lus > 0 %}<span class="ml-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">{{ non_lus }}</span>{% endif %}</a>
+        <a href="?lu=1" class="px-3 py-2 rounded-xl text-sm font-medium transition-all {% if lu_filter == '1' %}bg-gray-700 text-white{% else %}border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5{% endif %}">Lus</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+    {% if messages_list %}
+    <div class="divide-y divide-gray-50 dark:divide-[#2d3d30]">
+      {% for msg in messages_list %}
+      <div class="flex items-start gap-4 px-5 py-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors {% if not msg.lu %}bg-amber-50/50 dark:bg-amber-900/5{% endif %}">
+        <!-- Avatar -->
+        <div class="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-sm
+          {% if not msg.lu %}bg-[#004d1e] text-white{% else %}bg-gray-100 dark:bg-[#2d3d30] text-gray-500 dark:text-gray-400{% endif %}">
+          {{ msg.nom|first|upper }}
+        </div>
+        <!-- Content -->
+        <a href="{% url 'dashboard:messages_detail' msg.pk %}" class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-0.5">
+            <p class="font-semibold text-gray-900 dark:text-white text-sm truncate">{{ msg.nom }}</p>
+            {% if not msg.lu %}<span class="w-2 h-2 rounded-full bg-red-500 flex-shrink-0"></span>{% endif %}
+            <span class="text-xs text-gray-400 ml-auto flex-shrink-0">{{ msg.date_envoi|date:"d/m/Y H:i" }}</span>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ msg.email }} · <span class="font-medium">{{ msg.get_sujet_display }}</span></p>
+          <p class="text-sm text-gray-600 dark:text-gray-300 truncate">{{ msg.message|truncatechars:100 }}</p>
+        </a>
+        <!-- Actions -->
+        <div class="flex items-center gap-1 flex-shrink-0">
+          <form action="{% url 'dashboard:messages_toggle_lu' msg.pk %}" method="post" class="inline">
+            {% csrf_token %}
+            <button type="submit"
+                    class="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 dark:border-[#2d3d30] text-gray-400 hover:text-[#004d1e] dark:hover:text-green-400 hover:border-[#004d1e] transition-all"
+                    title="{% if msg.lu %}Marquer non lu{% else %}Marquer lu{% endif %}">
+              <span class="material-symbols-outlined text-sm">{% if msg.lu %}mark_email_unread{% else %}mark_email_read{% endif %}</span>
+            </button>
+          </form>
+          <form action="{% url 'dashboard:messages_delete' msg.pk %}" method="post" class="inline"
+                onsubmit="return confirm('Supprimer ce message ?')">
+            {% csrf_token %}
+            <button type="submit"
+                    class="flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 dark:border-[#2d3d30] text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 transition-all" title="Supprimer">
+              <span class="material-symbols-outlined text-sm">delete</span>
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="flex flex-col items-center justify-center py-16 text-center">
+      <span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-5xl mb-3">inbox</span>
+      <p class="font-semibold text-gray-500 dark:text-gray-400">Aucun message</p>
+      <p class="text-sm text-gray-400 dark:text-gray-500 mt-1">Les messages du formulaire de contact apparaîtront ici.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

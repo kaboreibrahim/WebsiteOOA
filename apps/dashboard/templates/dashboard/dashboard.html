@@ -1,0 +1,166 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Tableau de bord{% endblock %}
+
+{% block breadcrumb %}
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <span class="text-gray-700 dark:text-gray-200 font-medium">Tableau de bord</span>
+{% endblock %}
+
+{% block main %}
+<div class="px-5 py-6 space-y-6">
+
+  <!-- Alerte messages non lus -->
+  {% if contacts_non_lus > 0 %}
+  <div class="flex items-center justify-between bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/40 rounded-2xl px-5 py-3">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-amber-500 filled text-lg">mark_email_unread</span>
+      <p class="text-sm font-medium text-amber-800 dark:text-amber-300">
+        <strong>{{ contacts_non_lus }} message{% if contacts_non_lus > 1 %}s{% endif %}</strong> non lu{% if contacts_non_lus > 1 %}s{% endif %} en attente.
+      </p>
+    </div>
+    <a href="{% url 'dashboard:messages_list' %}?lu=0" class="text-xs font-bold text-amber-700 dark:text-amber-400 hover:underline">Voir →</a>
+  </div>
+  {% endif %}
+
+  <!-- Stats grid -->
+  <section>
+    <p class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Statistiques</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+
+      {% include 'dashboard/_stat_card.html' with url='dashboard:produits_list' icon='inventory_2' color='green' label='Produits' total=produits_total badge_val=produits_actifs badge_label='actifs' %}
+      {% include 'dashboard/_stat_card.html' with url='dashboard:articles_list' icon='article' color='blue' label='Articles' total=articles_total badge_val=articles_publies badge_label='publiés' %}
+      {% include 'dashboard/_stat_card.html' with url='dashboard:medias_list' icon='photo_library' color='purple' label='Médias' total=medias_total badge_val=medias_videos badge_label='vidéos' %}
+
+      <a href="{% url 'dashboard:messages_list' %}" class="bg-white dark:bg-[#1a2219] rounded-2xl p-5 border {% if contacts_non_lus > 0 %}border-red-200 dark:border-red-900/40{% else %}border-gray-100 dark:border-[#2d3d30]{% endif %} shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl {% if contacts_non_lus > 0 %}bg-red-100 dark:bg-red-900/30{% else %}bg-orange-100 dark:bg-orange-900/30{% endif %} flex items-center justify-center">
+            <span class="material-symbols-outlined {% if contacts_non_lus > 0 %}text-red-600 dark:text-red-400{% else %}text-orange-600 dark:text-orange-400{% endif %} filled">mail</span>
+          </div>
+          {% if contacts_non_lus > 0 %}
+          <span class="text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded-full">{{ contacts_non_lus }} non lus</span>
+          {% endif %}
+        </div>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ contacts_total }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Messages</p>
+      </a>
+
+      {% include 'dashboard/_stat_card.html' with url='dashboard:personnel_list' icon='group' color='teal' label='Personnel' total=personnel_total badge_val=dirigeants_total badge_label='dirigeants' %}
+      {% include 'dashboard/_stat_card.html' with url='dashboard:partenaires_list' icon='handshake' color='yellow' label='Partenaires' total=partenaires_total badge_val=partenaires_actifs badge_label='actifs' %}
+      {% include 'dashboard/_stat_card.html' with url='dashboard:heroes_list' icon='image' color='indigo' label='Heroes' total=heroes_total badge_val=heroes_actifs badge_label='actifs' %}
+      {% include 'dashboard/_stat_card.html' with url='dashboard:categories_list' icon='label' color='pink' label='Catégories' total=categories_total badge_val=articles_une badge_label='à la une' %}
+
+    </div>
+  </section>
+
+  <!-- Main grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+    <!-- Messages récents -->
+    <div class="lg:col-span-2 bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-[#2d3d30]">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[#004d1e] dark:text-green-400 filled text-lg">inbox</span>
+          <h3 class="font-bold text-gray-900 dark:text-white text-sm">Messages de contact</h3>
+        </div>
+        <a href="{% url 'dashboard:messages_list' %}" class="text-xs font-medium text-[#004d1e] dark:text-green-400 hover:underline">Tout voir →</a>
+      </div>
+      {% if contacts_recents %}
+      <div class="divide-y divide-gray-50 dark:divide-[#2d3d30]">
+        {% for msg in contacts_recents %}
+        <a href="{% url 'dashboard:messages_detail' msg.pk %}" class="flex items-start gap-4 px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+          <div class="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xs
+            {% if not msg.lu %}bg-[#004d1e] text-white{% else %}bg-gray-100 dark:bg-[#2d3d30] text-gray-500{% endif %}">
+            {{ msg.nom|first|upper }}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <p class="font-semibold text-gray-900 dark:text-white text-sm truncate">{{ msg.nom }}</p>
+              {% if not msg.lu %}<span class="w-2 h-2 rounded-full bg-red-500 flex-shrink-0"></span>{% endif %}
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ msg.get_sujet_display }} · {{ msg.date_envoi|date:"d/m/Y H:i" }}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300 truncate mt-0.5">{{ msg.message|truncatechars:70 }}</p>
+          </div>
+          <span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-sm flex-shrink-0 mt-2">chevron_right</span>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="flex flex-col items-center justify-center py-10">
+        <span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-4xl mb-2">inbox</span>
+        <p class="text-sm text-gray-400">Aucun message.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Colonne droite -->
+    <div class="space-y-5">
+
+      <!-- Articles récents -->
+      <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+        <div class="flex items-center justify-between px-5 py-3.5 border-b border-gray-100 dark:border-[#2d3d30]">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-blue-500 filled text-base">article</span>
+            <h3 class="font-bold text-gray-900 dark:text-white text-sm">Articles récents</h3>
+          </div>
+          <a href="{% url 'dashboard:articles_add' %}"
+             class="w-7 h-7 flex items-center justify-center rounded-lg bg-[#004d1e] hover:bg-[#003d17] text-white transition-colors" title="Nouvel article">
+            <span class="material-symbols-outlined text-sm">add</span>
+          </a>
+        </div>
+        {% for art in articles_recents %}
+        <a href="{% url 'dashboard:articles_edit' art.pk %}" class="flex items-center gap-3 px-5 py-3 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors border-b border-gray-50 dark:border-[#2d3d30] last:border-0">
+          <div class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-[#2d3d30]">
+            {% if art.image_hero %}<img src="{{ art.image_hero.url }}" alt="" class="w-full h-full object-cover"/>
+            {% else %}<div class="w-full h-full flex items-center justify-center"><span class="material-symbols-outlined text-gray-400 text-xs">image</span></div>{% endif %}
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ art.titre }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ art.date_publication|date:"d/m/Y" }} {% if art.actif %}<span class="text-green-500">· Publié</span>{% else %}<span class="text-gray-400">· Brouillon</span>{% endif %}</p>
+          </div>
+        </a>
+        {% empty %}
+        <p class="px-5 py-5 text-sm text-gray-400 text-center">Aucun article.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Créer rapidement -->
+      <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-gray-100 dark:border-[#2d3d30]">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary filled text-base">bolt</span>
+            <h3 class="font-bold text-gray-900 dark:text-white text-sm">Créer rapidement</h3>
+          </div>
+        </div>
+        <div class="p-4 grid grid-cols-3 gap-2">
+            <a href="{% url 'dashboard:produits_add' %}" class="flex flex-col items-center gap-1 p-3 rounded-xl border border-gray-100 dark:border-[#2d3d30] hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-900/10 transition-all text-center">
+            <span class="material-symbols-outlined text-green-600 dark:text-green-400 filled">inventory_2</span>
+            <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Produit</span>
+          </a>
+          <a href="{% url 'dashboard:articles_add' %}" class="flex flex-col items-center gap-1 p-3 rounded-xl border border-gray-100 dark:border-[#2d3d30] hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all text-center">
+            <span class="material-symbols-outlined text-blue-500 filled">article</span>
+            <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Article</span>
+          </a>
+          <a href="{% url 'dashboard:medias_add' %}" class="flex flex-col items-center gap-1 p-3 rounded-xl border border-gray-100 dark:border-[#2d3d30] hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/10 transition-all text-center">
+            <span class="material-symbols-outlined text-purple-500 filled">add_photo_alternate</span>
+            <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Média</span>
+          </a>
+          <a href="{% url 'dashboard:personnel_add' %}" class="flex flex-col items-center gap-1 p-3 rounded-xl border border-gray-100 dark:border-[#2d3d30] hover:border-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/10 transition-all text-center">
+            <span class="material-symbols-outlined text-teal-500 filled">person_add</span>
+            <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Personne</span>
+          </a>
+          <a href="{% url 'dashboard:partenaires_add' %}" class="flex flex-col items-center gap-1 p-3 rounded-xl border border-gray-100 dark:border-[#2d3d30] hover:border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/10 transition-all text-center">
+            <span class="material-symbols-outlined text-yellow-500 filled">handshake</span>
+            <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Partenaire</span>
+          </a>
+          <a href="{% url 'dashboard:heroes_add' %}" class="flex flex-col items-center gap-1 p-3 rounded-xl border border-gray-100 dark:border-[#2d3d30] hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/10 transition-all text-center">
+            <span class="material-symbols-outlined text-indigo-500 filled">image</span>
+            <span class="text-xs font-medium text-gray-600 dark:text-gray-400">Banner</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Message de {{ msg.nom }}{% endblock %}
+
+{% block breadcrumb %}
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <a href="{% url 'dashboard:messages_list' %}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">Messages</a>
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <span class="text-gray-700 dark:text-gray-200 font-medium truncate">{{ msg.nom }}</span>
+{% endblock %}
+
+{% block main %}
+<div class="max-w-2xl mx-auto px-5 py-6">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-5">
+    <a href="{% url 'dashboard:messages_list' %}"
+       class="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      Retour aux messages
+    </a>
+    <div class="flex items-center gap-2">
+      <form action="{% url 'dashboard:messages_toggle_lu' msg.pk %}" method="post" class="inline">
+        {% csrf_token %}
+        <button type="submit"
+                class="flex items-center gap-2 px-3 py-2 rounded-xl border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:text-[#004d1e] dark:hover:text-green-400 hover:border-[#004d1e] text-sm font-medium transition-all">
+          <span class="material-symbols-outlined text-base">{% if msg.lu %}mark_email_unread{% else %}mark_email_read{% endif %}</span>
+          {% if msg.lu %}Marquer non lu{% else %}Marquer lu{% endif %}
+        </button>
+      </form>
+      <form action="{% url 'dashboard:messages_delete' msg.pk %}" method="post" class="inline"
+            onsubmit="return confirm('Supprimer définitivement ce message ?')">
+        {% csrf_token %}
+        <button type="submit"
+                class="flex items-center gap-2 px-3 py-2 rounded-xl border border-red-200 dark:border-red-900/40 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/10 text-sm font-medium transition-all">
+          <span class="material-symbols-outlined text-base">delete</span>
+          Supprimer
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Message card -->
+  <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+
+    <!-- Header info -->
+    <div class="px-6 py-5 border-b border-gray-100 dark:border-[#2d3d30]">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-full bg-[#004d1e] text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+          {{ msg.nom|first|upper }}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ msg.nom }}</h2>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
+              {{ msg.get_sujet_display }}
+            </span>
+            <span class="px-2.5 py-1 rounded-full text-xs font-semibold {% if msg.lu %}bg-gray-100 dark:bg-gray-800 text-gray-500{% else %}bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400{% endif %}">
+              {% if msg.lu %}Lu{% else %}Non lu{% endif %}
+            </span>
+          </div>
+          <div class="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <a href="mailto:{{ msg.email }}" class="flex items-center gap-1 hover:text-[#004d1e] dark:hover:text-green-400 transition-colors">
+              <span class="material-symbols-outlined text-base">mail</span>
+              {{ msg.email }}
+            </a>
+            <span class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-base">schedule</span>
+              {{ msg.date_envoi|date:"d/m/Y à H:i" }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message body -->
+    <div class="px-6 py-5">
+      <p class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Message</p>
+      <div class="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{{ msg.message }}</div>
+    </div>
+
+    <!-- Reply button -->
+    <div class="px-6 py-4 bg-gray-50 dark:bg-[#111814] border-t border-gray-100 dark:border-[#2d3d30]">
+      <a href="mailto:{{ msg.email }}?subject=Re: {{ msg.get_sujet_display }}"
+         class="flex items-center gap-2 w-full justify-center px-5 py-2.5 rounded-xl bg-[#004d1e] hover:bg-[#003d17] text-white text-sm font-semibold shadow-sm transition-all active:scale-95">
+        <span class="material-symbols-outlined text-base">reply</span>
+        Répondre par e-mail
+      </a>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

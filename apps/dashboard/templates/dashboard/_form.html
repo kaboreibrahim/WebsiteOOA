@@ -1,0 +1,107 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}{% if obj %}Modifier{% else %}Ajouter{% endif %} — {{ section_title }}{% endblock %}
+
+{% block breadcrumb %}
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <a href="{% url section_url %}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors truncate">{{ section_title }}</a>
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <span class="text-gray-700 dark:text-gray-200 font-medium truncate">{% if obj %}Modifier{% else %}Ajouter{% endif %}</span>
+{% endblock %}
+
+{% block main %}
+<div class="max-w-3xl mx-auto px-5 py-6">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-xl font-serif font-bold text-gray-900 dark:text-white">
+        {% if obj %}Modifier{% else %}Ajouter{% endif %} un{{ item_name|first|lower }}{% if item_name|first|lower in "aeiouh" %}n{% endif %} {{ item_name|lower }}
+      </h1>
+      {% if obj %}
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">ID #{{ obj.pk }}</p>
+      {% endif %}
+    </div>
+    <a href="{% url section_url %}"
+       class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-500 text-sm font-medium transition-all">
+      <span class="material-symbols-outlined text-base">arrow_back</span>
+      Retour
+    </a>
+  </div>
+
+  <!-- Form card -->
+  <form method="post" enctype="multipart/form-data" class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+    {% csrf_token %}
+
+    <div class="p-6">
+      {% if form.non_field_errors %}
+      <div class="mb-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/40 rounded-xl px-4 py-3 text-sm text-red-700 dark:text-red-300">
+        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-5">
+        {% for field in form %}
+        <div class="{% if field.field.widget.attrs.full_width or field.field.widget.attrs.is_file %}md:col-span-2{% endif %}">
+
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="{{ field.id_for_label }}"
+                   class="text-sm font-semibold text-gray-700 dark:text-gray-300 {% if field.field.required %}after:content-['*'] after:text-red-500 after:ml-0.5{% endif %}">
+              {{ field.label }}
+            </label>
+            {% if field.help_text %}
+            <span class="text-xs text-gray-400 dark:text-gray-500">{{ field.help_text }}</span>
+            {% endif %}
+          </div>
+
+          {% if field.field.widget.attrs.is_checkbox %}
+          <!-- Checkbox -->
+          <label class="flex items-center gap-3 cursor-pointer group">
+            {{ field }}
+            <span class="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+              Activer / Cocher
+            </span>
+          </label>
+          {% elif field.field.widget.attrs.is_file %}
+          <!-- File input -->
+          <div>
+            {% if field.value %}
+            <div class="mb-2 flex items-center gap-3 p-3 bg-gray-50 dark:bg-[#111814] rounded-xl border border-gray-200 dark:border-[#2d3d30]">
+              <span class="material-symbols-outlined text-gray-400 text-lg">image</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400 truncate flex-1">Fichier actuel : {{ field.value }}</span>
+              <a href="/media/{{ field.value }}" target="_blank" class="text-xs text-[#004d1e] dark:text-green-400 hover:underline flex-shrink-0">Voir</a>
+            </div>
+            {% endif %}
+            {{ field }}
+            {% if field.errors %}
+            <p class="mt-1 text-xs text-red-500">{{ field.errors|join:", " }}</p>
+            {% endif %}
+          </div>
+          {% else %}
+          <!-- Standard input -->
+          {{ field }}
+          {% if field.errors %}
+          <p class="mt-1 text-xs text-red-500">{{ field.errors|join:", " }}</p>
+          {% endif %}
+          {% endif %}
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Footer actions -->
+    <div class="px-6 py-4 bg-gray-50 dark:bg-[#111814] border-t border-gray-100 dark:border-[#2d3d30] flex items-center justify-between gap-3">
+      <a href="{% url section_url %}"
+         class="px-5 py-2.5 rounded-xl border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 text-sm font-medium transition-all">
+        Annuler
+      </a>
+      <button type="submit"
+              class="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#004d1e] hover:bg-[#003d17] text-white text-sm font-semibold shadow-sm hover:shadow transition-all active:scale-95">
+        <span class="material-symbols-outlined text-base">save</span>
+        {% if obj %}Enregistrer les modifications{% else %}Créer{% endif %}
+      </button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

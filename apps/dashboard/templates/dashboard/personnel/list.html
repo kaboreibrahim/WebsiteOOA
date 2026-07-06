@@ -1,0 +1,108 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Personnel{% endblock %}
+
+{% block breadcrumb %}
+  <span class="text-gray-300 dark:text-gray-600">/</span>
+  <span class="text-gray-700 dark:text-gray-200 font-medium">Personnel</span>
+{% endblock %}
+
+{% block main %}
+<div class="px-5 py-6">
+
+  <div class="flex items-center justify-between mb-5">
+    <div>
+      <h1 class="text-xl font-serif font-bold text-gray-900 dark:text-white">Personnel</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ personnel|length }} personne{% if personnel|length != 1 %}s{% endif %}</p>
+    </div>
+    <a href="{% url 'dashboard:personnel_add' %}"
+       class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#004d1e] hover:bg-[#003d17] text-white text-sm font-semibold shadow-sm transition-all active:scale-95">
+      <span class="material-symbols-outlined text-base">person_add</span>Ajouter
+    </a>
+  </div>
+
+  <div class="bg-white dark:bg-[#1a2219] rounded-2xl border border-gray-100 dark:border-[#2d3d30] shadow-sm overflow-hidden">
+    {% if personnel %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-gray-100 dark:border-[#2d3d30] bg-gray-50 dark:bg-[#111814]">
+          <th class="text-left px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Personne</th>
+          <th class="text-left px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest hidden md:table-cell">Email</th>
+          <th class="text-left px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest hidden lg:table-cell">Rôle</th>
+          <th class="text-left px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest hidden xl:table-cell">Département</th>
+          <th class="text-center px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Ordre</th>
+          <th class="text-center px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Actif</th>
+          <th class="text-right px-5 py-3 text-xs font-bold text-gray-400 uppercase tracking-widest">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50 dark:divide-[#2d3d30]">
+        {% for p in personnel %}
+        <tr class="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+          <td class="px-5 py-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-[#2d3d30]">
+                {% if p.photo %}<img src="{{ p.photo.url }}" alt="" class="w-full h-full object-cover"/>
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center">
+                  <span class="material-symbols-outlined text-gray-400 text-base filled">person</span>
+                </div>{% endif %}
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">{{ p.nom }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ p.profession }}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-5 py-3 text-gray-500 dark:text-gray-400 hidden md:table-cell">
+            <a href="mailto:{{ p.mail }}" class="hover:text-[#004d1e] dark:hover:text-green-400 transition-colors">{{ p.mail }}</a>
+          </td>
+          <td class="px-5 py-3 hidden lg:table-cell">
+            <span class="px-2.5 py-1 rounded-full text-xs font-medium
+              {% if p.role == 'dirigeant' %}bg-[#004d1e]/10 dark:bg-green-900/30 text-[#004d1e] dark:text-green-400{% else %}bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400{% endif %}">
+              {{ p.get_role_display }}
+            </span>
+          </td>
+          <td class="px-5 py-3 text-gray-500 dark:text-gray-400 hidden xl:table-cell">{{ p.get_departement_display|default:"—" }}</td>
+          <td class="px-5 py-3 text-center text-gray-600 dark:text-gray-400 font-mono">{{ p.ordre }}</td>
+          <td class="px-5 py-3 text-center">
+            {% if p.actif %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0"></span>Actif
+            </span>
+            {% else %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0"></span>Inactif
+            </span>
+            {% endif %}
+          </td>
+          <td class="px-5 py-3 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <a href="{% url 'dashboard:personnel_edit' p.pk %}"
+                 class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#2d3d30] text-gray-600 dark:text-gray-400 hover:text-[#004d1e] dark:hover:text-green-400 hover:border-[#004d1e] text-xs font-medium transition-all">
+                <span class="material-symbols-outlined text-sm">edit</span>Modifier
+              </a>
+              <form action="{% url 'dashboard:personnel_delete' p.pk %}" method="post" class="inline"
+                    onsubmit="return confirm('Supprimer {{ p.nom }} ?')">
+                {% csrf_token %}
+                <button type="submit"
+                        class="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#2d3d30] text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 text-xs font-medium transition-all">
+                  <span class="material-symbols-outlined text-sm">delete</span>Supprimer
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="flex flex-col items-center justify-center py-16 text-center">
+      <span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-5xl mb-3">group</span>
+      <p class="font-semibold text-gray-500 dark:text-gray-400">Aucun membre</p>
+      <a href="{% url 'dashboard:personnel_add' %}" class="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-[#004d1e] hover:bg-[#003d17] text-white text-sm font-semibold transition-all">
+        <span class="material-symbols-outlined text-base">person_add</span>Ajouter une personne
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
