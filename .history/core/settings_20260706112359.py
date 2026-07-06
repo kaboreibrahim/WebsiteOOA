@@ -29,13 +29,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'oils-of-africa.com',
-    'www.oils-of-africa.com',
+    'w979rcromryr.share.zrok.io',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://oils-of-africa.com',
-    'https://www.oils-of-africa.com',
+    'https://w979rcromryr.share.zrok.io',
 ]
 
 

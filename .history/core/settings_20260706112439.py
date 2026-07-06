@@ -33,9 +33,9 @@ ALLOWED_HOSTS = [
     'www.oils-of-africa.com',
 ]
 
+
 CSRF_TRUSTED_ORIGINS = [
-    'https://oils-of-africa.com',
-    'https://www.oils-of-africa.com',
+    'https://w979rcromryr.share.zrok.io',
 ]
 
 

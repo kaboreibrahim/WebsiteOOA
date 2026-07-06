@@ -24,18 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p9eg@4tvom)88i)bag#w)&s9=ebl@ogtd)qnja^dj0%^9_y1_9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+DEBUG = tR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'oils-of-africa.com',
-    'www.oils-of-africa.com',
+    'w979rcromryr.share.zrok.io',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://oils-of-africa.com',
-    'https://www.oils-of-africa.com',
+    'https://w979rcromryr.share.zrok.io',
 ]
 
 
