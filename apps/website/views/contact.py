@@ -53,6 +53,7 @@ def contact(request):
             body=texte_notif,
             from_email=settings.EMAIL_HOST_USER,
             to=[settings.EMAIL_HOST_USER],
+            cc=['serge.debetou@oils-of-africa.com'],
         )
         notif.attach_alternative(html_notif, "text/html")
         notif.send(fail_silently=False)

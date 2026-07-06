@@ -31,3 +31,6 @@ msgstr "Blog & Médias"
 
 msgid "Contact"
 msgstr "Contact"
+
+msgid "Langue"
+msgstr "Langue"

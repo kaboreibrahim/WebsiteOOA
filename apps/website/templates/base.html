@@ -494,6 +494,30 @@
             </a>
           </div>
         </div>
+        <!-- Sélecteur de langue mobile -->
+        <div class="pt-2 border-t border-white/10">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-3">{% trans "Langue" %}</p>
+          <form id="lang-switch-form-mobile" action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" id="lang-next-input-mobile" value="/">
+            <input type="hidden" name="language" id="lang-code-input-mobile" value="fr">
+            <div class="flex gap-2">
+              <button type="button" onclick="switchLanguageMobile('fr')"
+                      class="flex items-center gap-2 flex-1 justify-center py-2.5 rounded-full text-label-sm border transition-colors
+                             {% if LANGUAGE_CODE == 'fr' %}border-secondary text-secondary font-bold bg-white/5{% else %}border-white/20 text-white/70 hover:border-secondary hover:text-secondary{% endif %}">
+                <span class="fi fi-fr" style="width:1.2em;height:.9em;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);"></span>
+                Français
+              </button>
+              <button type="button" onclick="switchLanguageMobile('en')"
+                      class="flex items-center gap-2 flex-1 justify-center py-2.5 rounded-full text-label-sm border transition-colors
+                             {% if LANGUAGE_CODE == 'en' %}border-secondary text-secondary font-bold bg-white/5{% else %}border-white/20 text-white/70 hover:border-secondary hover:text-secondary{% endif %}">
+                <span class="fi fi-gb" style="width:1.2em;height:.9em;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);"></span>
+                English
+              </button>
+            </div>
+          </form>
+        </div>
+
         <a class="mt-2 bg-secondary text-on-secondary px-6 py-3 rounded-full font-bold text-label-sm text-center hover:brightness-110 transition-all shimmer"
            href="{% if url_name == 'accueil' %}#contact{% else %}{% url 'website:accueil' %}#contact{% endif %}">
           Contact
@@ -724,6 +748,14 @@
           if (menu) { menu.classList.add('hidden'); chevron.style.transform = ''; }
         }
       });
+      function switchLanguageMobile(lang) {
+        const path = window.location.pathname;
+        const rawPath = path.startsWith('/en/') ? path.slice(3) : (path === '/en' ? '/' : path);
+        const targetPath = lang === 'en' ? '/en' + rawPath : rawPath;
+        document.getElementById('lang-next-input-mobile').value = targetPath || '/';
+        document.getElementById('lang-code-input-mobile').value = lang;
+        document.getElementById('lang-switch-form-mobile').submit();
+      }
       function switchLanguage(lang) {
         const path = window.location.pathname;
         // Retirer le préfixe /en si présent pour obtenir le chemin brut
