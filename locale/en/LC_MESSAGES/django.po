@@ -10,3 +10,24 @@ msgstr "French"
 
 msgid "English"
 msgstr "English"
+
+msgid "Accueil"
+msgstr "Home"
+
+msgid "À propos"
+msgstr "About us"
+
+msgid "Sourcing"
+msgstr "Sourcing"
+
+msgid "Logistique"
+msgstr "Logistics"
+
+msgid "Produits"
+msgstr "Products"
+
+msgid "Blog & Médias"
+msgstr "Blog & Media"
+
+msgid "Contact"
+msgstr "Contact"

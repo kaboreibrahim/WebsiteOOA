@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="fr">
+<html class="scroll-smooth" lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -319,15 +319,15 @@
         <!-- Desktop Links -->
         {% with url_name=request.resolver_match.url_name %}
         <div class="hidden lg:flex items-center gap-6">
-          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'accueil' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:accueil' %}">Accueil</a>
-          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'apropos' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:apropos' %}">À propos</a>
-          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'sourcing' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:sourcing' %}">Sourcing</a>
+          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'accueil' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:accueil' %}">{% trans "Accueil" %}</a>
+          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'apropos' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:apropos' %}">{% trans "À propos" %}</a>
+          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'sourcing' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:sourcing' %}">{% trans "Sourcing" %}</a>
           <!-- Dropdown Logistique -->
           <div class="relative" id="nav-logistique">
             <button onclick="toggleLogistiqueMenu()"
                     class="flex items-center gap-1 text-label-sm font-label-sm focus:outline-none transition-colors duration-200
                            {% if url_name == 'flexitank' or url_name == 'isotank' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}">
-              Logistique
+              {% trans "Logistique" %}
               <span class="material-symbols-outlined text-sm transition-transform duration-200" id="logistique-chevron">expand_more</span>
             </button>
             <div id="logistique-menu"
@@ -348,13 +348,13 @@
               </a>
             </div>
           </div>
-          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'produit_list' or url_name == 'produit_detail' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:produit_list' %}">Produits</a>
+          <a class="text-label-sm font-label-sm transition-colors duration-200 {% if url_name == 'produit_list' or url_name == 'produit_detail' %}text-secondary font-bold border-b-2 border-secondary{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:produit_list' %}">{% trans "Produits" %}</a>
           <!-- Dropdown Blog & Médias -->
           <div class="relative" id="nav-blogmedias">
             <button onclick="toggleBlogMediasMenu()"
                     class="flex items-center gap-1 text-label-sm font-label-sm focus:outline-none transition-colors duration-200
                            {% if url_name == 'blog_list' or url_name == 'blog_detail' or url_name == 'medias_list' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}">
-              Blog & Médias
+              {% trans "Blog & Médias" %}
               <span class="material-symbols-outlined text-sm transition-transform duration-200" id="blogmedias-chevron">expand_more</span>
             </button>
             <div id="blogmedias-menu"
@@ -380,11 +380,41 @@
 
         <!-- Right Controls -->
         <div class="flex items-center gap-3">
-          <!-- Language toggle -->
-          <button class="hidden sm:flex items-center gap-1 text-white/80 hover:text-white transition-colors">
-            <span class="material-symbols-outlined text-sm">language</span>
-            <span class="text-label-sm font-label-sm uppercase">FR</span>
-          </button>
+          <!-- Language switcher -->
+          <div class="relative hidden sm:block" id="lang-switcher-wrapper">
+            <button onclick="toggleLangMenu()"
+                    class="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors px-2 py-1 rounded-full border border-white/10 hover:border-white/30">
+              {% if LANGUAGE_CODE == 'fr' %}
+                <span class="fi fi-fr" style="width:1.2em;height:.9em;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);"></span>
+              {% else %}
+                <span class="fi fi-gb" style="width:1.2em;height:.9em;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);"></span>
+              {% endif %}
+              <span class="text-label-sm font-label-sm uppercase">{{ LANGUAGE_CODE }}</span>
+              <span class="material-symbols-outlined text-xs transition-transform duration-200" id="lang-chevron">expand_more</span>
+            </button>
+            <div id="lang-menu"
+                 class="hidden absolute top-full right-0 mt-2 w-36
+                        bg-primary/95 dark:bg-[#071109]/95 backdrop-blur-md
+                        border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
+              <form id="lang-switch-form" action="{% url 'set_language' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="next" id="lang-next-input" value="/">
+                <input type="hidden" name="language" id="lang-code-input" value="fr">
+                <button type="button" onclick="switchLanguage('fr')"
+                        class="w-full flex items-center gap-2 px-4 py-2.5 text-label-sm transition-colors
+                               {% if LANGUAGE_CODE == 'fr' %}text-secondary font-bold bg-white/5{% else %}text-white/80 hover:text-secondary hover:bg-white/5{% endif %}">
+                  <span class="fi fi-fr" style="width:1.2em;height:.9em;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);"></span>
+                  Français
+                </button>
+                <button type="button" onclick="switchLanguage('en')"
+                        class="w-full flex items-center gap-2 px-4 py-2.5 text-label-sm transition-colors border-t border-white/10
+                               {% if LANGUAGE_CODE == 'en' %}text-secondary font-bold bg-white/5{% else %}text-white/80 hover:text-secondary hover:bg-white/5{% endif %}">
+                  <span class="fi fi-gb" style="width:1.2em;height:.9em;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);"></span>
+                  English
+                </button>
+              </form>
+            </div>
+          </div>
 
           <!-- Dark mode toggle -->
           <button id="dark-toggle"
@@ -415,14 +445,14 @@
          class="hidden mt-2 max-w-container-max mx-auto bg-primary/95 dark:bg-[#071109]/95 backdrop-blur-md rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
       {% with url_name=request.resolver_match.url_name %}
       <nav class="flex flex-col p-6 gap-4">
-        <a class="text-label-sm pb-4 border-b border-white/10 transition-colors {% if url_name == 'accueil' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:accueil' %}">Accueil</a>
-        <a class="text-label-sm transition-colors {% if url_name == 'apropos' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:apropos' %}">À propos</a>
-        <a class="text-label-sm transition-colors {% if url_name == 'sourcing' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:sourcing' %}">Sourcing</a>
+        <a class="text-label-sm pb-4 border-b border-white/10 transition-colors {% if url_name == 'accueil' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:accueil' %}">{% trans "Accueil" %}</a>
+        <a class="text-label-sm transition-colors {% if url_name == 'apropos' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:apropos' %}">{% trans "À propos" %}</a>
+        <a class="text-label-sm transition-colors {% if url_name == 'sourcing' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:sourcing' %}">{% trans "Sourcing" %}</a>
         <!-- Accordéon Logistique mobile -->
         <div>
           <button onclick="toggleMobileLogistique()"
                   class="w-full flex items-center justify-between text-white/80 font-medium hover:text-secondary transition-colors text-label-sm focus:outline-none">
-            Logistique
+            {% trans "Logistique" %}
             <span class="material-symbols-outlined text-sm transition-transform duration-200" id="mobile-logistique-chevron">expand_more</span>
           </button>
           <div id="mobile-logistique-menu" class="hidden mt-2 ml-4 flex-col gap-2 border-l border-white/10 pl-4">
@@ -440,13 +470,13 @@
             </a>
           </div>
         </div>
-        <a class="text-label-sm transition-colors {% if url_name == 'produit_list' or url_name == 'produit_detail' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:produit_list' %}">Produits</a>
+        <a class="text-label-sm transition-colors {% if url_name == 'produit_list' or url_name == 'produit_detail' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}" href="{% url 'website:produit_list' %}">{% trans "Produits" %}</a>
         <!-- Accordéon Blog & Médias mobile -->
         <div>
           <button onclick="toggleMobileBlogMedias()"
                   class="w-full flex items-center justify-between transition-colors text-label-sm focus:outline-none
                          {% if url_name == 'blog_list' or url_name == 'blog_detail' or url_name == 'medias_list' %}text-secondary font-bold{% else %}text-white/80 font-medium hover:text-secondary{% endif %}">
-            Blog & Médias
+            {% trans "Blog & Médias" %}
             <span class="material-symbols-outlined text-sm transition-transform duration-200" id="mobile-blogmedias-chevron">expand_more</span>
           </button>
           <div id="mobile-blogmedias-menu" class="hidden mt-2 ml-4 flex-col gap-2 border-l border-white/10 pl-4">
@@ -677,6 +707,32 @@
       }
 
     });
+
+      // ── Language Switcher ─────────────────────────────────────
+      function toggleLangMenu() {
+        const menu    = document.getElementById('lang-menu');
+        const chevron = document.getElementById('lang-chevron');
+        const isOpen  = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', isOpen);
+        chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+      }
+      document.addEventListener('click', function(e) {
+        const wrapper = document.getElementById('lang-switcher-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+          const menu    = document.getElementById('lang-menu');
+          const chevron = document.getElementById('lang-chevron');
+          if (menu) { menu.classList.add('hidden'); chevron.style.transform = ''; }
+        }
+      });
+      function switchLanguage(lang) {
+        const path = window.location.pathname;
+        // Retirer le préfixe /en si présent pour obtenir le chemin brut
+        const rawPath = path.startsWith('/en/') ? path.slice(3) : (path === '/en' ? '/' : path);
+        const targetPath = lang === 'en' ? '/en' + rawPath : rawPath;
+        document.getElementById('lang-next-input').value  = targetPath || '/';
+        document.getElementById('lang-code-input').value  = lang;
+        document.getElementById('lang-switch-form').submit();
+      }
 
       // ── Dropdown Logistique (desktop) ─────────────────────────
       function toggleLogistiqueMenu() {
