@@ -19,6 +19,10 @@ def _state_ops(model_name):
 
 class Migration(migrations.Migration):
 
+    # Les ALTER TABLE bruts executes dans swap_int_pk_to_uuid() ne peuvent pas
+    # tourner dans une transaction sur MySQL (DDL non transactionnel).
+    atomic = False
+
     dependencies = [
         ('website', '0009_populate_new_id_uuid'),
     ]
