@@ -1,7 +1,11 @@
+import uuid
+
 from django.db import models
 
 
 class Personne(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     class Role(models.TextChoices):
         DIRIGEANT = 'dirigeant', 'Dirigeant principal'
         MEMBRE    = 'membre',    'Autre membre'

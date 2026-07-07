@@ -1,8 +1,11 @@
+import uuid
+
 from django.db import models
 from django.utils.text import slugify
 
 
 class Categorie(models.Model):
+    id   = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nom  = models.CharField(max_length=100, verbose_name="Nom")
     slug = models.SlugField(max_length=100, unique=True, blank=True)
 
@@ -21,6 +24,7 @@ class Categorie(models.Model):
 
 
 class Article(models.Model):
+    id               = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     titre            = models.CharField(max_length=255, verbose_name="Titre")
     slug             = models.SlugField(max_length=255, unique=True, blank=True)
     image_hero       = models.ImageField(upload_to='blog/', verbose_name="Image principale")

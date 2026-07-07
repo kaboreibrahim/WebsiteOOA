@@ -80,20 +80,13 @@
                 box-shadow 0.35s cubic-bezier(0.19,1,0.22,1),
                 border-color 0.35s;
   }
-  /* hover reserve aux pointeurs precis (souris) pour eviter un effet
-     "coince" au toucher sur mobile/tablette */
-  @media (hover: hover) and (pointer: fine) {
-    .card-produit:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px -10px rgba(0,113,42,0.18);
-      border-color: #fdb813 !important;
-    }
-    .dark .card-produit:hover {
-      box-shadow: 0 20px 50px -10px rgba(253,184,19,0.12);
-    }
+  .card-produit:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -10px rgba(0,113,42,0.18);
+    border-color: #fdb813 !important;
   }
-  .card-produit:active {
-    transform: scale(0.98);
+  .dark .card-produit:hover {
+    box-shadow: 0 20px 50px -10px rgba(253,184,19,0.12);
   }
 
   .spec-chip {
@@ -167,14 +160,13 @@
 </div>
 
 {# ─── CARDS GRID ────────────────────────────────────────────────────────── #}
-<section class="py-12 md:py-section-padding px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+<section class="py-section-padding px-margin-mobile md:px-gutter max-w-container-max mx-auto">
 
   {% if produits %}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-gutter">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
     {% for p in produits %}
 
-    <a href="{% url 'website:produit_detail' p.pk %}"
-       class="card-produit group bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-white/10 rounded-xl overflow-hidden flex flex-col reveal-on-scroll">
+    <div class="card-produit group bg-surface-container-low dark:bg-[#1a2219] border border-outline-variant dark:border-white/10 rounded-xl overflow-hidden flex flex-col reveal-on-scroll">
 
       {# accent bar couleur par catégorie #}
       {% if p.categorie == 'palme' %}
@@ -186,9 +178,9 @@
       {% endif %}
 
       {# image ou placeholder #}
-      <div class="relative aspect-[16/11] bg-surface-container dark:bg-[#111814] overflow-hidden">
+      <div class="relative h-44 bg-surface-container dark:bg-[#111814] overflow-hidden">
         {% if p.image %}
-        <img src="{{ p.image.url }}" alt="{{ p.nom }}" loading="lazy"
+        <img src="{{ p.image.url }}" alt="{{ p.nom }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         {% else %}
         <div class="w-full h-full flex items-center justify-center">
@@ -204,21 +196,21 @@
         </span>
       </div>
 
-      <div class="p-5 sm:p-6 flex flex-col flex-1">
+      <div class="p-6 flex flex-col flex-1">
 
         {# nom #}
-        <h2 class="text-xl sm:text-headline-md font-headline-md text-on-surface dark:text-[#e2ede4] leading-snug sm:leading-tight mb-2 sm:mb-3">
+        <h2 class="text-headline-md font-headline-md text-on-surface dark:text-[#e2ede4] leading-tight mb-3">
           {{ p.nom }}
         </h2>
 
         {# description #}
-        <p class="text-body-md font-body-md text-on-surface-variant dark:text-[#8da892] leading-relaxed mb-4 sm:mb-5 line-clamp-2">
+        <p class="text-body-md font-body-md text-on-surface-variant dark:text-[#8da892] leading-relaxed mb-5 line-clamp-2">
           {{ p.description }}
         </p>
 
         {# specs chips #}
-        {% if p.specs %}
-        <div class="grid grid-cols-2 gap-2 mb-4 sm:mb-5">
+        {% comment %} {% if p.specs %}
+        <div class="grid grid-cols-2 gap-2 mb-5">
           {% for key, val in p.specs %}
           <div class="spec-chip rounded-lg px-3 py-2">
             <div class="text-[10px] text-on-surface-variant dark:text-[#8da892] uppercase tracking-wider mb-0.5">{{ key }}</div>
@@ -226,25 +218,26 @@
           </div>
           {% endfor %}
         </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         {# footer de la card #}
-        <div class="mt-auto pt-4 border-t border-outline-variant dark:border-white/10 flex items-center justify-between gap-3">
+        <div class="mt-auto pt-4 border-t border-outline-variant dark:border-white/10 flex items-center justify-between">
           {% if p.lead_time %}
           <div class="flex items-center gap-1.5 text-on-surface-variant dark:text-[#8da892] text-sm">
             <span class="material-symbols-outlined text-sm">schedule</span>
             {{ p.lead_time }}
           </div>
           {% endif %}
-          <span class="ml-auto flex items-center gap-1.5 text-secondary font-label-sm text-label-sm
-                       group-hover:gap-3 transition-all duration-300">
+          <a href="{% url 'website:produit_detail' p.pk %}"
+             class="ml-auto flex items-center gap-1.5 text-secondary font-label-sm text-label-sm
+                    hover:gap-3 transition-all duration-300">
             Voir le détail
             <span class="material-symbols-outlined text-base">arrow_forward</span>
-          </span>
+          </a>
         </div>
 
       </div>
-    </a>
+    </div>
 
     {% endfor %}
   </div>

@@ -1,7 +1,10 @@
+import uuid
+
 from django.db import models
 
 
 class Partenaire(models.Model):
+    id     = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nom    = models.CharField(max_length=200, verbose_name="Nom du partenaire")
     logo   = models.ImageField(upload_to='partenaires/', verbose_name="Logo")
     lien   = models.URLField(blank=True, verbose_name="Site web")

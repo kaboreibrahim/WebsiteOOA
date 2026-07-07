@@ -1,7 +1,11 @@
+import uuid
+
 from django.db import models
 
 
 class Hero(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     titre = models.CharField(max_length=255, verbose_name="Titre (H1)")
     description = models.TextField(verbose_name="Description (paragraphe)")
     image = models.ImageField(upload_to='hero/', verbose_name="Image de fond")
