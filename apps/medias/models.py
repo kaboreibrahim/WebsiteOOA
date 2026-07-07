@@ -11,11 +11,13 @@ class Media(models.Model):
 
     CAT_OPERATIONS  = 'operations'
     CAT_PRODUITS    = 'produits'
+    CAT_DIVERS      = 'divers'
     CAT_SOURCING    = 'sourcing'
     CAT_LOGISTIQUE  = 'logistique'
     CAT_CHOICES = [
         (CAT_OPERATIONS, 'Opérations'),
         (CAT_PRODUITS,   'Produits'),
+        (CAT_DIVERS,     'Divers'),
         (CAT_SOURCING,   'Sourcing'),
         (CAT_LOGISTIQUE, 'Logistique'),
     ]

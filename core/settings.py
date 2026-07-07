@@ -188,6 +188,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+# ── Optimisation automatique des images (Pillow / WebP) ──────
+# Voir core/utils/image_optimizer.py et core/utils/image_signals.py
+IMAGE_OPTIMIZER_MAX_DIMENSION = 1920  # px, plus grand cote de l'image
+IMAGE_OPTIMIZER_QUALITY = 85          # 0-100
+IMAGE_OPTIMIZER_METHOD = 6            # compression WebP : 0 (rapide) a 6 (optimale)
+
+
 # ── Email (SMTP cPanel) ──────────────────────────────────────
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "mail.oils-of-africa.com"
