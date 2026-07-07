@@ -36,10 +36,29 @@ def swap_int_pk_to_uuid(table_name, uuid_column="new_id", id_column="id"):
 
 def _swap_mysql(schema_editor, table, uuid_column, id_column):
     execute = schema_editor.execute
-    execute(f"ALTER TABLE `{table}` MODIFY `{id_column}` BIGINT NOT NULL")
-    execute(f"ALTER TABLE `{table}` DROP PRIMARY KEY")
-    execute(f"ALTER TABLE `{table}` DROP COLUMN `{id_column}`")
-    execute(f"ALTER TABLE `{table}` CHANGE `{uuid_column}` `{id_column}` CHAR(32) NOT NULL")
+    cursor = schema_editor.connection.cursor()
+
+    # MariaDB >= 10.7 a un type colonne "uuid" natif que Django utilise pour
+    # UUIDField ; sur les autres moteurs (MySQL, ou MariaDB plus ancien) le
+    # type reste char(32). Ne JAMAIS forcer char(32) en dur : ca desynchronise
+    # le type reel de la colonne de ce que Django ecrit/lit ensuite.
+    uuid_type = "uuid" if schema_editor.connection.features.has_native_uuid_field else "char(32)"
+
+    # Idempotent : si une tentative precedente a deja supprime l'ancienne
+    # colonne entiere avant d'echouer plus loin, on ne rejoue pas cette partie.
+    cursor.execute(
+        "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS "
+        "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME=%s AND COLUMN_NAME=%s",
+        [table, id_column],
+    )
+    old_id_still_present = cursor.fetchone()[0] > 0
+
+    if old_id_still_present:
+        execute(f"ALTER TABLE `{table}` MODIFY `{id_column}` BIGINT NOT NULL")
+        execute(f"ALTER TABLE `{table}` DROP PRIMARY KEY")
+        execute(f"ALTER TABLE `{table}` DROP COLUMN `{id_column}`")
+
+    execute(f"ALTER TABLE `{table}` CHANGE `{uuid_column}` `{id_column}` {uuid_type} NOT NULL")
     execute(f"ALTER TABLE `{table}` ADD PRIMARY KEY (`{id_column}`)")
 
 
